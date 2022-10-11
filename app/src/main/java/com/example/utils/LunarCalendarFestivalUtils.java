@@ -405,7 +405,8 @@ public class LunarCalendarFestivalUtils {
         try {
             baseDate = chineseDateFormat.parse("1900年1月31日");
             nowaday = solarDateFormat.parse(currentDate);
-            System.out.println("nowaday=== "+nowaday.getTime());
+            System.out.println("nowaday=== "+nowaday);
+            System.out.println("nowadaygetTime=== "+nowaday.getTime());
         } catch (ParseException e) {
             e.printStackTrace();
         }

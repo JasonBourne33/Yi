@@ -67,6 +67,7 @@ public class MyChronology {
         Calendar nowaday = Calendar.getInstance();
         nowaday.set(year, month - 1, day);//原本的代码，-1可能错了
         Date date = nowaday.getTime();
+        System.out.println("getTime  === " + date);
         System.out.println("getTime x2 === " + date.getTime());
 
         int weekYear = nowaday.getWeekYear();
@@ -134,8 +135,12 @@ public class MyChronology {
 //        System.out.println("c=== " + c);
     }
 
+
     public static void main(String[] args) {
         initGanZhi(2017, 7, 19);
 //        initGanZhi(2020, 6, 16);
     }
+//public static void main(String[] args) {
+//
+//}
 }
