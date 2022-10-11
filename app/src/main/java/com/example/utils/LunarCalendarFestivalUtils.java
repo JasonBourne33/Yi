@@ -1,4 +1,4 @@
-package myTools;
+package com.example.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -405,6 +405,7 @@ public class LunarCalendarFestivalUtils {
         try {
             baseDate = chineseDateFormat.parse("1900年1月31日");
             nowaday = solarDateFormat.parse(currentDate);
+            System.out.println("nowaday=== "+nowaday.getTime());
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -548,8 +549,8 @@ public class LunarCalendarFestivalUtils {
             lunarFestival = "清明节";
         }
         this.lunarFestival = lunarFestival;
-    }
 
+    }
     /**
      * 	测试方法
      * @param args
@@ -558,9 +559,17 @@ public class LunarCalendarFestivalUtils {
         LunarCalendarFestivalUtils festival = new LunarCalendarFestivalUtils();
         festival.initLunarCalendarInfo("2017-07-19");
         System.out.println("农历"+festival.getLunarYear()+"年"+festival.getLunarMonth()+"月"+festival.getLunarDay()+"日");
-        System.out.println(festival.getGanZhiYear()+"【"+festival.getAnimal()+"】年");
-        System.out.println(festival.getLunarTerm());
-        System.out.println(festival.getSolarFestival());
-        System.out.println(festival.getLunarFestival());
+
+
+
+
+
+
+
+
+//        System.out.println(festival.getGanZhiYear()+"【"+festival.getAnimal()+"】年");
+//        System.out.println(festival.getLunarTerm());
+//        System.out.println(festival.getSolarFestival());
+//        System.out.println(festival.getLunarFestival());
     }
 }
