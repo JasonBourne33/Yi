@@ -9,8 +9,10 @@ public class Chronology {
     private int year_ganZhi;
     private int month_ganZhi;
     private int day_ganZhi;
+
     /**
      * 关于阴历的相关信息
+     * 农历年里面的月有多少天的信息
      */
     private static int[] lunar_info = {
             0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2,
@@ -40,6 +42,7 @@ public class Chronology {
      * 单例模式
      */
     private static volatile Chronology instance = null;
+
     private Chronology() {
     }
 
@@ -77,6 +80,7 @@ public class Chronology {
 
     /**
      * 初始化年月日对应的天干地支
+     *
      * @param year
      * @param month
      * @param day
@@ -86,28 +90,28 @@ public class Chronology {
         Calendar calendar_now = Calendar.getInstance();
 //        calendar_now.set(year, month - 1, day);//原本的代码，-1可能错了
         calendar_now.set(year, month, day);//这样能正确显示
-        long date_now = calendar_now.getTime().getTime();
+        long date_now = calendar_now.getTime().getTime(); //输入的日期的毫秒
         //获取1900-01-31的时间
         Calendar calendar_ago = Calendar.getInstance();
-        calendar_ago.set(1900, 0 ,31);
+        calendar_ago.set(1900, 0, 31);
         long date_ago = calendar_ago.getTime().getTime();
         //86400000 = 24 * 60 * 60 * 1000    一天的毫秒数
-        long days_distance = (date_now - date_ago) / 86400000L;
-        float remainder = (date_now - date_ago) % 86400000L;
+        long days_distance = (date_now - date_ago) / 86400000L; //输入日期 距离1900年1月31的天数
+        float remainder = (date_now - date_ago) % 86400000L;    //输入日期 距离1900年1月31的余数毫秒
         //余数大于0算一天
         if (remainder > 0) {
             days_distance += 1;
         }
         //都是从甲子开始算起以1900-01-31为起点
-        //1899-12-21是农历1899年腊月甲子日  40：相差1900-01-31有40天
-        day_ganZhi = (int)days_distance + 40;
-//        day_ganZhi = (int)days_distance + 41;
-//        System.out.println("calendar_now=== "+calendar_now);
-        System.out.println("date_now=== "+date_now);
+        //1899-12-22是农历1899年腊月甲子日  40：相差1900-01-31有40天
+        day_ganZhi = (int) days_distance + 40;
+        System.out.println("date_now=== " + date_now);
+        System.out.println("calendar_nowGetTime()=== " + calendar_now.getTime());
 //        System.out.println("calendar_ago=== "+calendar_ago);
-        System.out.println("date_ago=== "+date_ago);
-        System.out.println("remainder=== "+remainder);
-        System.out.println("days_distance=== "+days_distance);
+//        System.out.println("date_ago=== " + date_ago);
+        System.out.println("remainder=== " + remainder);
+        System.out.println("hourFromToday=== " + remainder/60000);
+        System.out.println("days_distance=== " + days_distance);
         //1898-10-01是农历甲子月  14：相差1900-01-31有14个月
         month_ganZhi = 14;
         int daysOfYear = 0;
@@ -158,10 +162,69 @@ public class Chronology {
         if (days_distance < 0) {
             --month_ganZhi;
         }
+
+
+        //我加入的日算法
+        int doubleDigit = year % 100;   //两位数，取2017里的 17
+        int yearConstant = 0;   //年系数
+        if (year >= 2000 && year <= 2099) {
+            yearConstant = (doubleDigit + 7) * 5 + 15 + (doubleDigit + 19) / 4;
+        } else if (year >= 1900 && year <= 1999) {
+            yearConstant = (doubleDigit + 3) * 5 + 55 + (doubleDigit - 1) / 4;
+        }
+
+        yearConstant = yearConstant % 60;
+
+
+        int monthDay = 0; //把前面月份天数加起来
+        int dayJiazi;   //处理后的余数，对照六十甲子表的出干支
+        boolean isLeepYear; //true 就是闰年
+        if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) {
+            System.out.println(year + "是闰年");
+            isLeepYear=true;
+        } else {
+            System.out.println(year + "不是闰年");
+            isLeepYear=false;
+        }
+
+        if (isLeepYear){
+            for (int j = 0; j < month-1; j++) {
+                monthDay += leapMonths[j];
+            }
+            dayJiazi = (yearConstant + monthDay + day) % 60;
+        }else {
+            for (int j = 0; j < month-1; j++) {
+                monthDay += months[j];
+            }
+            dayJiazi = (yearConstant + monthDay + day) % 60;
+        }
+//        dayJiazi 是 27
+        mDayGanZhi= JiaziList[dayJiazi];  //获取日干支
+        System.out.println("dayGanZhi=== "+mDayGanZhi);
+
+
     }
+
+    //阳历天数
+    final static int[] months = new int[]{31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    final static int[] leapMonths = new int[]{31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    /**
+     * 60甲子表
+     */
+    private static String[] JiaziList = {
+            "不想后面-1",
+            "甲子","乙丑","丙寅","丁卯","戊辰","己巳","庚午","辛未","壬申","癸酉",
+            "甲戌","乙亥","丙子","丁丑","戊寅","己卯","庚辰","辛巳","壬午","癸未",
+            "甲申","乙酉","丙戌","丁亥","戊子","己丑","庚寅","辛卯","壬辰","癸巳",
+            "甲午","乙未","丙申","丁酉","戊戌","己亥","庚子","辛丑","壬寅","癸卯",
+            "甲辰","乙巳","丙午","丁未","戊申","己酉","庚戌","辛亥","壬子","癸丑",
+            "甲寅","乙卯","丙辰","丁巳","戊午","己未","庚申","辛酉","壬戌","癸亥",
+    };
+    private String mDayGanZhi; //我自己做的日干支
 
     /**
      * 将年月日转化为天干地支的显示方法
+     *
      * @param index
      * @return
      */
@@ -171,10 +234,13 @@ public class Chronology {
 
     /**
      * 获取天干地支
+     *
      * @return
      */
     public String getGanZhi() {
-        return "农历 " + ganZhi(year_ganZhi) + " 年 , " + ganZhi(month_ganZhi) + " 月 , " + ganZhi(day_ganZhi) + " 日 " +
-                " year_ganZhi=== "+year_ganZhi+" month_ganZhi=== "+month_ganZhi+" day_ganZhi=== "+day_ganZhi;
+//        return "农历 " + ganZhi(year_ganZhi) + " 年 , " + ganZhi(month_ganZhi) + " 月 , " + ganZhi(day_ganZhi) + " 日 " +
+//                " year_ganZhi=== " + year_ganZhi + " month_ganZhi=== " + month_ganZhi + " day_ganZhi=== " + day_ganZhi;
+        return "农历 " + ganZhi(year_ganZhi) + " 年 , " + ganZhi(month_ganZhi) + " 月 , " + mDayGanZhi + " 日 " +
+                " year_ganZhi=== " + year_ganZhi + " month_ganZhi=== " + month_ganZhi + " day_ganZhi=== " + day_ganZhi;
     }
 }

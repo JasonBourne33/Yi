@@ -457,6 +457,8 @@ public class LunarCalendarFestivalUtils {
             offset += daysOfMonth;
             --iMonth;
         }
+        System.out.println("iMonth=== "+iMonth);
+
         // 设置对应的阴历月份
         this.lunarMonth = lunarNumber[iMonth - 1] ;
         if("一".equals(this.lunarMonth)){
@@ -472,7 +474,7 @@ public class LunarCalendarFestivalUtils {
         //设置阴历日
         int iDay = offset + 1;
         this.lunarDay = getLunarDayString(iDay);
-
+        System.out.println("iDay=== "+iDay);
         //设置节气
         int month=Integer.parseInt(splitDate[1]);
         int day=Integer.parseInt(splitDate[2]);
