@@ -16,8 +16,8 @@ public class ExampleUnitTest {
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
 
-        Chronology.getInstance().initGanZhi(2017,9,17);
+//        Chronology.getInstance().initGanZhi(2017,9,17);
 //        Chronology.getInstance().initGanZhi(2017,7,27);
-        System.out.println(Chronology.getInstance().getGanZhi());
+//        System.out.println(Chronology.getInstance().getGanZhi());
     }
 }
