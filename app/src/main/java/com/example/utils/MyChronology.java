@@ -16,6 +16,9 @@ public class MyChronology {
 
     /**
      * 关于阴历的相关信息
+     * 转成二进制后
+     * 17-20：表示闰月的月份
+     * 比如2020年是 0x07954，0111 1001 0101 0100 ，
      */
     private static int[] lunarInfo = {
             0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2,//1900-1909
@@ -168,13 +171,13 @@ public class MyChronology {
 //        initGanZhi(2017, 9, 17);
 //        initGanZhi(2020, 6, 16);
         //丁酉年 己酉月 丁未日 丙午时
-//        Chronology.getInstance().initGanZhi(2017,9,17,12);
+        Chronology.getInstance().initGanZhi(2017,9,17,12);
 
         //庚子年 壬午月 庚寅日 甲申时
 //        Chronology.getInstance().initGanZhi(2020,6,16,16);
 
         //己丑年 壬申月 丁亥日 甲辰时
-        Chronology.getInstance().initGanZhi(2009,8,10,7);
+//        Chronology.getInstance().initGanZhi(2009,8,10,7);
 
 //        Chronology.getInstance().initGanZhi(2022,10,13,15);
         System.out.println(Chronology.getInstance().getGanZhi());
