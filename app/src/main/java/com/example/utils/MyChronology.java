@@ -170,16 +170,16 @@ public class MyChronology {
     public static void main(String[] args) {
 //        initGanZhi(2017, 9, 17);
 //        initGanZhi(2020, 6, 16);
-        //丁酉年 己酉月 丁未日 丙午时
+        //丁酉年 己酉月 丁未日 丙午时   闰六月
         Chronology.getInstance().initGanZhi(2017,9,17,12);
 
-        //庚子年 壬午月 庚寅日 甲申时
+        //庚子年 壬午月 庚寅日 甲申时   闰四月
 //        Chronology.getInstance().initGanZhi(2020,6,16,16);
 
-        //己丑年 壬申月 丁亥日 甲辰时
+        //己丑年 壬申月 丁亥日 甲辰时   闰五月
 //        Chronology.getInstance().initGanZhi(2009,8,10,7);
 
-//        Chronology.getInstance().initGanZhi(2022,10,13,15);
+//        Chronology.getInstance().initGanZhi(2022,10,17,15);
         System.out.println(Chronology.getInstance().getGanZhi());
     }
 }
