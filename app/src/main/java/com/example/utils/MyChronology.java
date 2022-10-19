@@ -171,7 +171,7 @@ public class MyChronology {
 //        initGanZhi(2017, 9, 17);
 //        initGanZhi(2020, 6, 16);
         //丁酉年 己酉月 丁未日 丙午时   闰六月
-        Chronology.getInstance().initGanZhi(2017,9,17,12);
+//        Chronology.getInstance().initGanZhi(2017,9,17,12);
 
         //庚子年 壬午月 庚寅日 甲申时   闰四月
 //        Chronology.getInstance().initGanZhi(2020,6,16,16);
@@ -179,7 +179,11 @@ public class MyChronology {
         //己丑年 壬申月 丁亥日 甲辰时   闰五月
 //        Chronology.getInstance().initGanZhi(2009,8,10,7);
 
-//        Chronology.getInstance().initGanZhi(2022,10,17,15);
+        //8月 Bazi会报错  23时日干支会报错
+//        Chronology.getInstance().initGanZhi(2017,8,9,22);
+
+        //2017年是 闰六月，这里六月和七月的干支相同，都是丁未  正确的应该是六月丙午，七月丁未
+        Chronology.getInstance().initGanZhi(2017,6,9,22);
         System.out.println(Chronology.getInstance().getGanZhi());
     }
 }
