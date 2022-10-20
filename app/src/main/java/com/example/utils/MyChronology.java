@@ -3,6 +3,8 @@ package com.example.utils;
 import java.util.Calendar;
 import java.util.Date;
 
+import object.LiuYao;
+
 public class MyChronology {
 
 
@@ -182,8 +184,20 @@ public class MyChronology {
         //8月 Bazi会报错  23时日干支会报错
 //        Chronology.getInstance().initGanZhi(2017,8,9,22);
 
-        //2017年是 闰六月，这里六月和七月的干支相同，都是丁未  正确的应该是六月丙午，七月丁未
-        Chronology.getInstance().initGanZhi(2017,6,9,22);
-        System.out.println(Chronology.getInstance().getGanZhi());
+        //丁酉 年 , 乙巳 月 , 丙申 日    学魔法50 占病
+//        Chronology.getInstance().initGanZhi(2017,5,9,22);
+//        System.out.println(Chronology.getInstance().getGanZhi());
+
+
+
+        //泰卦    上☷ 下☰   学魔法29
+//        LiuYao.getInstance().initLiuYao(2,2,2,0,0,0); //0少阴 1老阴 2少阳 3老阳
+        //大有卦  上☲ 下☰
+//        LiuYao.getInstance().initLiuYao(2,2,2,2,0,2); //0少阴 1老阴 2少阳 3老阳
+
+        //未济卦  上☲ 下 ☵
+        LiuYao.getInstance().initLiuYao(0,2,0,2,0,2); //0少阴 1老阴 2少阳 3老阳
+
+
     }
 }

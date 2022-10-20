@@ -72,7 +72,7 @@ public class Bazi {
     public void initBazi(String y, String m, String d, String h) {
         initBase();
         String suiYin = y.substring(1, 2);
-        String yuePo = m.substring(1, 2);
+        String yueJian = m.substring(1, 2);
         String riZhi = d.substring(1, 2);
 
         this.suiYin = suiYin;
@@ -82,6 +82,9 @@ public class Bazi {
         this.riZhi = riZhi;
         this.riPo = liuChong.get(riZhi);
 
+        System.out.println("月破=== "+yuePo);
+        System.out.println("日破=== "+riPo);
+
         String riGan = d.substring(0, 1);
 //        Tiangan.getInstance().init(riGan);
 //        System.out.println(Tiangan.getInstance().getInfo());
@@ -89,7 +92,7 @@ public class Bazi {
         // 禄的代码
         // 丁 阴 火 帝旺是第5位  月地支是 午，寅卯辰巳午
         String ganWuXing = wuXingMap.get(riGan);
-        i = wuXingList.indexOf(ganWuXing) + 1; //wuXingList从第0位开始，+1 方便后面判断奇偶
+        i = tianGanList.indexOf(riGan) + 1; //wuXingList从第0位开始，+1 方便后面判断奇偶
         String diWang = diWangMap.get(ganWuXing); //先获取帝旺
         int diWangInt = yueDiZhiList.indexOf(diWang); //再获取帝旺对应的位置
         //根据帝旺的位置寻找其他的十二长生的月地支
@@ -100,10 +103,10 @@ public class Bazi {
 
         if ((i & 1) == 0) { //偶数，阴天干，在帝旺上
             lu=diWang;
-        } else { //阳天干临冠上
+        } else { //阳天干,在临冠上
             lu=linGuan;
         }
-        System.out.println("lu=== "+lu);
+
 
 
         //马 的代码  驿马三合顶头冲
@@ -125,7 +128,12 @@ public class Bazi {
                 break;
         }
         ma=liuChong.get(sanHeDing);
-        System.out.println("ma=== "+ma);
+
+        System.out.println("禄=== "+lu);
+        System.out.println("马=== "+ma);
+        System.out.println("生=== "+sheng);
+        System.out.println("旺=== "+diWang);
+        System.out.println("墓=== "+mu);
 
 
 
@@ -140,6 +148,7 @@ public class Bazi {
     private ArrayList<String> changShengList;   //十二长生
     private ArrayList<String> yueDiZhiList; //月地支 寅卯辰
     private ArrayList<String> sanHeList; //按照三合的来算
+    private ArrayList<String> tianGanList; //按照三合的来算
     private void initBase() {
 
         liuChong = new HashMap<>(); //六冲
@@ -222,6 +231,21 @@ public class Bazi {
         sanHeList.add("亥");
         sanHeList.add("卯");
         sanHeList.add("未");
+
+        tianGanList=new ArrayList<>();
+        tianGanList.add("甲");
+        tianGanList.add("乙");
+        tianGanList.add("丙");
+        tianGanList.add("丁");
+        tianGanList.add("戊");
+        tianGanList.add("己");
+        tianGanList.add("艮");
+        tianGanList.add("辛");
+        tianGanList.add("壬");
+        tianGanList.add("癸");
+
+
+
 
     }
 }
