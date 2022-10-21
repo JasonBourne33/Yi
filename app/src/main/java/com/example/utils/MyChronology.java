@@ -190,13 +190,13 @@ public class MyChronology {
 
 
 
-        //泰卦    上☷ 下☰   学魔法29
+        //泰卦    上☷ 下☰   学魔法29       从下面一爻往上写
 //        LiuYao.getInstance().initLiuYao(2,2,2,0,0,0); //0少阴 1老阴 2少阳 3老阳
         //大有卦  上☲ 下☰
 //        LiuYao.getInstance().initLiuYao(2,2,2,2,0,2); //0少阴 1老阴 2少阳 3老阳
 
-        //未济卦  上☲ 下 ☵
-        LiuYao.getInstance().initLiuYao(0,2,0,2,0,2); //0少阴 1老阴 2少阳 3老阳
+        //未济卦  上☲ 下 ☵   学魔法47 硬币起卦
+        LiuYao.getInstance().initLiuYao(1,2,0,3,1,2); //0少阴 1老阴 2少阳 3老阳
 
 
     }
