@@ -1,8 +1,12 @@
 package object;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class BaGuaInit {
+
+    public static BaGua bengGua=new BaGua(); //本卦
+
     public static BaGua qian=new BaGua();  //乾
     public static BaGua gen =new BaGua();   //艮
     public static BaGua kan =new BaGua();   //坎
@@ -11,24 +15,24 @@ public class BaGuaInit {
     public static BaGua dui =new BaGua();   //兑
     public static BaGua li  =new BaGua();    //离
     public static BaGua xun =new BaGua();   //巽
-    public static ArrayList<BaGua> baGuaList=new ArrayList<>();
+    public static ArrayList<BaGua> baGuaList=new ArrayList<>(); //用的时候拿baGuaList
 
     public static ArrayList<BaGua> getBaGuaList() {
         return baGuaList;
     }
 
-    public static ArrayList<Boolean> qianL;  //乾
-    public static ArrayList<Boolean> genL ;   //艮
-    public static ArrayList<Boolean> kanL ;   //坎
-    public static ArrayList<Boolean> zhenL;  //震
-    public static ArrayList<Boolean> kunL ;   //坤
-    public static ArrayList<Boolean> duiL ;   //兑
-    public static ArrayList<Boolean> liL  ;    //离
-    public static ArrayList<Boolean> xunL ;   //巽
+    public static ArrayList<Boolean> qianL = new ArrayList<>();   //乾 存爻的阴阳
+    public static ArrayList<Boolean> genL = new ArrayList<>();     //艮
+    public static ArrayList<Boolean> kanL = new ArrayList<>();     //坎
+    public static ArrayList<Boolean> zhenL = new ArrayList<>();   //震
+    public static ArrayList<Boolean> kunL = new ArrayList<>();     //坤
+    public static ArrayList<Boolean> duiL = new ArrayList<>();     //兑
+    public static ArrayList<Boolean> liL = new ArrayList<>();       //离
+    public static ArrayList<Boolean> xunL = new ArrayList<>();     //巽
 
 
 
-    public static ArrayList<String> qianGZ=new ArrayList<>();  //乾
+    public static ArrayList<String> qianGZ=new ArrayList<>();  //乾 存爻的干支
     public static ArrayList<String> genGZ=new ArrayList<>();   //艮
     public static ArrayList<String> kanGZ=new ArrayList<>();   //坎
     public static ArrayList<String> zhenGZ=new ArrayList<>();  //震
@@ -37,11 +41,21 @@ public class BaGuaInit {
     public static ArrayList<String> liGZ=new ArrayList<>();    //离
     public static ArrayList<String> xunGZ=new ArrayList<>();   //巽
 
+    public static HashMap<String,String> baguaWuxingMap=new HashMap<>(); //八卦五行 （离卦，属火）
+    public static HashMap<String,String> dizhiWuxingMap=new HashMap<>(); //地支五行 （寅，属木）
+    public static HashMap<String,String> wuxingSheng=new HashMap<>(); //五行的生化
+    public static HashMap<String,String> wuxingKe=new HashMap<>(); //五行的克制
+
+    public static HashMap<String,String> mu=new HashMap<>(); //木 和其他五行的关系（父母，兄弟，子孙，官鬼）
+    public static HashMap<String,String> huo=new HashMap<>(); //火
+    public static HashMap<String,String> jin=new HashMap<>(); //金
+    public static HashMap<String,String> shui=new HashMap<>(); //水
+    public static HashMap<String,String> tu=new HashMap<>(); //土
 
 
 
 
-    public static ArrayList<ArrayList<Boolean>> baGong;    //八宫
+    public static ArrayList<ArrayList<Boolean>> baGong=new ArrayList<>();    //八宫
 
     public static ArrayList<ArrayList<Boolean>> getBaGong() {
         return baGong;
@@ -68,11 +82,13 @@ public class BaGuaInit {
     }
 
     public void initHexagram() {
-        initYao();
+        initYao(); //爻的阴阳
 
-        initName();
+        initName(); //乾艮坎震
 
-        initGanZhi();
+        initGanZhi(); //爻的干支
+
+        initWuxing(); //八卦的五行 和 地支的五行
 
         baGuaList.add(qian);
         baGuaList.add(gen );
@@ -85,6 +101,80 @@ public class BaGuaInit {
 
     }
 
+    private void initWuxing() {
+        baguaWuxingMap.put("坎","水");
+        baguaWuxingMap.put("艮","土");
+        baguaWuxingMap.put("震","木");
+        baguaWuxingMap.put("巽","土");
+        baguaWuxingMap.put("离","火");
+        baguaWuxingMap.put("坤","土");
+        baguaWuxingMap.put("兑","金");
+        baguaWuxingMap.put("乾","土");
+
+        dizhiWuxingMap.put("子","水");
+        dizhiWuxingMap.put("丑","土");
+        dizhiWuxingMap.put("寅","木");
+        dizhiWuxingMap.put("卯","木");
+        dizhiWuxingMap.put("辰","土");
+        dizhiWuxingMap.put("巳","火");
+        dizhiWuxingMap.put("午","火");
+        dizhiWuxingMap.put("未","土");
+        dizhiWuxingMap.put("申","金");
+        dizhiWuxingMap.put("酉","金");
+        dizhiWuxingMap.put("戌","土");
+        dizhiWuxingMap.put("亥","水");
+
+        wuxingSheng.put("金","水");
+        wuxingSheng.put("水","木");
+        wuxingSheng.put("木","火");
+        wuxingSheng.put("火","土");
+        wuxingSheng.put("土","金");
+
+        wuxingKe.put("金","木");
+        wuxingKe.put("木","土");
+        wuxingKe.put("土","水");
+        wuxingKe.put("水","火");
+        wuxingKe.put("火","金");
+
+        mu.put("水","父母");
+        mu.put("火","子孙");
+        mu.put("金","官鬼");
+        mu.put("土","妻财");
+        mu.put("木","兄弟");
+
+        huo.put("木","父母");
+        huo.put("土","子孙");
+        huo.put("水","官鬼");
+        huo.put("金","妻财");
+        huo.put("火","兄弟");
+
+        jin.put("土","父母");
+        jin.put("水","子孙");
+        jin.put("火","官鬼");
+        jin.put("木","妻财");
+        jin.put("金","兄弟");
+
+        shui.put("金","父母");
+        shui.put("木","子孙");
+        shui.put("土","官鬼");
+        shui.put("火","妻财");
+        shui.put("水","兄弟");
+
+        tu.put("火","父母");
+        tu.put("金","子孙");
+        tu.put("木","官鬼");
+        tu.put("水","妻财");
+        tu.put("土","兄弟");
+
+
+
+
+
+
+    }
+
+
+    //爻的干支
     private void initGanZhi() {
         qianGZ.add("甲子");
         qianGZ.add("甲寅");
@@ -156,6 +246,7 @@ public class BaGuaInit {
 
     }
 
+    //乾艮坎震
     private void initName() {
         qian.setName("乾");
         gen .setName("艮");
@@ -168,16 +259,8 @@ public class BaGuaInit {
 
     }
 
+    //爻的阴阳
     private void initYao() {
-        qianL = new ArrayList<>();
-        genL = new ArrayList<>();
-        kanL = new ArrayList<>();
-        zhenL = new ArrayList<>();
-        kunL = new ArrayList<>();
-        duiL = new ArrayList<>();
-        liL = new ArrayList<>();
-        xunL = new ArrayList<>();
-        baGong = new ArrayList<>();
 
         qianL.add(true);
         qianL.add(true);
@@ -227,4 +310,132 @@ public class BaGuaInit {
     }
 
 
+
+
+
+
+
+    public static BaGua getQian() {
+        return qian;
+    }
+
+    public static void setQian(BaGua qian) {
+        BaGuaInit.qian = qian;
+    }
+
+    public static BaGua getGen() {
+        return gen;
+    }
+
+    public static void setGen(BaGua gen) {
+        BaGuaInit.gen = gen;
+    }
+
+    public static BaGua getKan() {
+        return kan;
+    }
+
+    public static void setKan(BaGua kan) {
+        BaGuaInit.kan = kan;
+    }
+
+    public static BaGua getZhen() {
+        return zhen;
+    }
+
+    public static void setZhen(BaGua zhen) {
+        BaGuaInit.zhen = zhen;
+    }
+
+    public static BaGua getKun() {
+        return kun;
+    }
+
+    public static void setKun(BaGua kun) {
+        BaGuaInit.kun = kun;
+    }
+
+    public static BaGua getDui() {
+        return dui;
+    }
+
+    public static void setDui(BaGua dui) {
+        BaGuaInit.dui = dui;
+    }
+
+    public static BaGua getLi() {
+        return li;
+    }
+
+    public static void setLi(BaGua li) {
+        BaGuaInit.li = li;
+    }
+
+    public static BaGua getXun() {
+        return xun;
+    }
+
+    public static void setXun(BaGua xun) {
+        BaGuaInit.xun = xun;
+    }
+
+    public static HashMap<String, String> getBaguaWuxingMap() {
+        return baguaWuxingMap;
+    }
+
+    public static void setBaguaWuxingMap(HashMap<String, String> baguaWuxingMap) {
+        BaGuaInit.baguaWuxingMap = baguaWuxingMap;
+    }
+
+    public static HashMap<String, String> getDizhiWuxingMap() {
+        return dizhiWuxingMap;
+    }
+
+    public static void setDizhiWuxingMap(HashMap<String, String> dizhiWuxingMap) {
+        BaGuaInit.dizhiWuxingMap = dizhiWuxingMap;
+    }
+
+    public static BaGua getBengGua() {
+        return bengGua;
+    }
+
+    public static void setBengGua(BaGua bengGua) {
+        BaGuaInit.bengGua = bengGua;
+    }
+
+    public static HashMap<String, String> getWuxingSheng() {
+        return wuxingSheng;
+    }
+
+    public static void setWuxingSheng(HashMap<String, String> wuxingSheng) {
+        BaGuaInit.wuxingSheng = wuxingSheng;
+    }
+
+    public static HashMap<String, String> getWuxingKe() {
+        return wuxingKe;
+    }
+
+    public static void setWuxingKe(HashMap<String, String> wuxingKe) {
+        BaGuaInit.wuxingKe = wuxingKe;
+    }
+
+    public static HashMap<String, String> getMu() {
+        return mu;
+    }
+
+    public static HashMap<String, String> getHuo() {
+        return huo;
+    }
+
+    public static HashMap<String, String> getJin() {
+        return jin;
+    }
+
+    public static HashMap<String, String> getShui() {
+        return shui;
+    }
+
+    public static HashMap<String, String> getTu() {
+        return tu;
+    }
 }

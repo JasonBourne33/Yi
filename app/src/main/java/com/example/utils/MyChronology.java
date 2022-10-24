@@ -3,6 +3,7 @@ package com.example.utils;
 import java.util.Calendar;
 import java.util.Date;
 
+import object.BaGuaInit;
 import object.LiuYao;
 
 public class MyChronology {
@@ -197,7 +198,7 @@ public class MyChronology {
 
         //未济卦  上☲ 下 ☵   学魔法47 硬币起卦
         LiuYao.getInstance().initLiuYao(1,2,0,3,1,2); //0少阴 1老阴 2少阳 3老阳
-
+        System.out.println("八卦对象=== "+BaGuaInit.getBengGua().toString());
 
     }
 }
