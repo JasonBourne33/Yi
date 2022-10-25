@@ -105,11 +105,11 @@ public class BaGuaInit {
         baguaWuxingMap.put("坎","水");
         baguaWuxingMap.put("艮","土");
         baguaWuxingMap.put("震","木");
-        baguaWuxingMap.put("巽","土");
+        baguaWuxingMap.put("巽","木");
         baguaWuxingMap.put("离","火");
         baguaWuxingMap.put("坤","土");
         baguaWuxingMap.put("兑","金");
-        baguaWuxingMap.put("乾","土");
+        baguaWuxingMap.put("乾","金");
 
         dizhiWuxingMap.put("子","水");
         dizhiWuxingMap.put("丑","土");
@@ -181,7 +181,7 @@ public class BaGuaInit {
         qianGZ.add("甲辰");
         qianGZ.add("壬午");
         qianGZ.add("壬申");
-        qianGZ.add("壬戊");
+        qianGZ.add("壬戌");
 
         kunGZ.add("乙未");
         kunGZ.add("乙巳");

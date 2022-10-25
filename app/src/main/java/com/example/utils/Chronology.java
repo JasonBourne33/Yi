@@ -407,8 +407,9 @@ public class Chronology {
     public String getGanZhi() {
         Bazi.getInstance().initBazi(mYearGanZhi,mMonthGanZhi,mDayGanZhi,mHourGanZhi);
 
-        return "农历 " + mYearGanZhi + " 年 , " + ganZhi(getMonCyl()) + " 月 , "
+        return "农历 " + mYearGanZhi + " 年 , " + mMonthGanZhi + " 月 , "
                        + mDayGanZhi + " 日 ," + mHourGanZhi + " 时 ";
+
 
 //        return "农历 " + mYearGanZhi + " 年 , " + " 0 月 , "
 //                + mDayGanZhi + " 日 ," + mHourGanZhi + " 时 " +

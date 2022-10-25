@@ -72,7 +72,7 @@ public class LiuYao {
         yaoList.add(b5);
         yaoList.add(b6);
 
-        BaGuaInit.getBengGua().setYao(yaoList);
+        BaGuaInit.getBengGua().setYao(yaoList); //设置本卦的爻阴阳
 
 
         baGongGuaBian(); //八宫式卦变 （游魂，归魂）
@@ -103,10 +103,12 @@ public class LiuYao {
         shangJinGua.add(yaoList.get(5));
 
         ArrayList<ArrayList<Boolean>> baGong = BaGuaInit.getBaGong(); //获取八卦
+        ArrayList<String> name64=new ArrayList();
         for (int i = 0; i < baGong.size(); i++) {
             if (baGong.get(i).equals(xiaJinGua)) {
 //                    System.out.println("下卦是=== " + baGong.get(i));
                 System.out.println("下卦是=== " + baGuaString[i]);
+                name64.add(baGuaString[i]);
                 ArrayList<String> ganZhi = BaGuaInit.getBaGuaList().get(i).getGanZhi();
                 for (int j = 0; j < 3; j++) {
                     System.out.println("下卦干支是=== " + ganZhi.get(j));
@@ -122,8 +124,8 @@ public class LiuYao {
         }
         for (int i = 0; i < baGong.size(); i++) { //循环八卦
             if (baGong.get(i).equals(shangJinGua)) {
-//                    System.out.println("上卦是=== " + baGong.get(i));
                 System.out.println("上卦是=== " + baGuaString[i]);
+                name64.add(baGuaString[i]);
                 ArrayList<String> ganZhi = BaGuaInit.getBaGuaList().get(i).getGanZhi();
                 System.out.println("上卦干支是=== "+ganZhi.get(3));
                 System.out.println("上卦干支是=== "+ganZhi.get(4));
@@ -139,6 +141,8 @@ public class LiuYao {
             }
         }
 
+        //以后可以加入上下卦判断64卦的
+        BaGuaInit.getBengGua().setName64(name64);
 
     }
 

@@ -186,8 +186,8 @@ public class MyChronology {
 //        Chronology.getInstance().initGanZhi(2017,8,9,22);
 
         //丁酉 年 , 乙巳 月 , 丙申 日    学魔法50 占病
-//        Chronology.getInstance().initGanZhi(2017,5,9,22);
-//        System.out.println(Chronology.getInstance().getGanZhi());
+        Chronology.getInstance().initGanZhi(2017,5,9,22);
+        System.out.println(Chronology.getInstance().getGanZhi());
 
 
 
@@ -197,8 +197,12 @@ public class MyChronology {
 //        LiuYao.getInstance().initLiuYao(2,2,2,2,0,2); //0少阴 1老阴 2少阳 3老阳
 
         //未济卦  上☲ 下 ☵   学魔法47 硬币起卦
-        LiuYao.getInstance().initLiuYao(1,2,0,3,1,2); //0少阴 1老阴 2少阳 3老阳
-        System.out.println("八卦对象=== "+BaGuaInit.getBengGua().toString());
+//        LiuYao.getInstance().initLiuYao(1,2,0,3,1,2); //0少阴 1老阴 2少阳 3老阳
+//        System.out.println("八卦对象=== "+BaGuaInit.getBengGua().toString());
 
+
+        //姤卦  学魔法50
+        LiuYao.getInstance().initLiuYao(0,2,2,2,2,2);
+        System.out.println("八卦对象=== "+BaGuaInit.getBengGua().toString());
     }
 }
