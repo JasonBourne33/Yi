@@ -3,6 +3,7 @@ package com.example.utils;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+
 import object.Bazi;
 
 public class Chronology {
@@ -12,7 +13,6 @@ public class Chronology {
     private int year_ganZhi;
     private int month_ganZhi;
     private int day_ganZhi;
-
 
 
     /**
@@ -123,27 +123,19 @@ public class Chronology {
         mYearGanZhi = yearGanZhi;
 
 
-        // 月算法 搞不定
-//        int yearTiangan = remainder % 10; //JiaziList的 个位时天干
-//        System.out.println("yearTiangan=== " + yearTiangan);
-//        // -1 因为是 60甲子表里面的从1开始
-//        int monthTianganBegin = monthTianganMap.get(yearTiangan) - 1;
-//        System.out.println("monthTianganBegin=== " + monthTianganBegin);
-//        int monthTiangan = monthTianganBegin + month;
-//        //next  1 闰月是第几个月？ 2 公历怎么转换成农历
-//
-        int leapMonth = getLeapMonth(year);
-        System.out.println("leapMonth 闰月=== " + leapMonth);
-
-//        Date lunarDate = solar2Lunar(year, month, day);
-//        int lunarYear = lunarDate.getYear();
-//        int lunarMonth = lunarDate.getMonth();
-//        int lunarDay = lunarDate.getDay();
-//        System.out.println("lunarYear=== " + lunarYear);
-//        System.out.println("lunarMonth=== " + lunarMonth);
-//        System.out.println("lunarDay=== " + lunarDay);
-
-
+        // 月算法 五虎盾 搞不定
+        int yearTiangan = remainderYear % 10; //JiaziList的 个位时天干
+        System.out.println("yearTiangan=== " + yearTiangan);
+        // -1 因为是 60甲子表里面的从1开始
+        int monthTianganBegin = monthTianganMap.get(yearTiangan) - 1;
+//        System.out.println("monthBegin jiazi=== " + JiaziList[monthTianganBegin]);
+//        System.out.println("getMonth=== "+getMonth());
+//        System.out.println("getMonthNum=== "+getMonthNum());
+        //我自己加了个变量 monthNum存一年中的第几个月
+        int jiaziNum = monthTianganBegin + getMonthNum(); //在甲子中的第几个
+        String monthGanzhi = JiaziList[jiaziNum > 60 ? jiaziNum - 60 : jiaziNum];
+        mMonthGanZhi = monthGanzhi;
+//        System.out.println("monthGanzhi=== "+monthGanzhi);
 
 
         //我加入的 日算法 =========================
@@ -197,12 +189,12 @@ public class Chronology {
         String hourGanzhi = ganInfo[hourTianganInt] + zhiInfo[fHour - 1];//fHour-1 是因为 zhiInfo 从0开始数
         mHourGanZhi = hourGanzhi;
 
-        mMonthGanZhi=ganZhi(getMonCyl());
 
     }
 
     private HashMap<Integer, Integer> hourTianganMap;
     private HashMap<Integer, Integer> monthTianganMap;
+
     private void initBase() {
         //五鼠遁
         hourTianganMap = new HashMap<>();
@@ -220,17 +212,28 @@ public class Chronology {
 
         //五虎遁  没用上，搞不定，月份用了原算法
         monthTianganMap = new HashMap<>();
-        //甲乙丙丁 1234
+        //甲乙丙丁 1234    put（年天干，六十甲子表）
         monthTianganMap.put(1, 3); //年天干 甲己 开头，正月时 丙寅
         monthTianganMap.put(6, 3);
-        monthTianganMap.put(2, 5); //年天干 乙庚 开头，正月时 戊寅
-        monthTianganMap.put(7, 5);
-        monthTianganMap.put(3, 7); //年天干 丙辛 开头，正月时 庚寅
-        monthTianganMap.put(8, 7);
-        monthTianganMap.put(4, 9); //年天干 丁壬 开头，正月时 壬寅
-        monthTianganMap.put(9, 9);
-        monthTianganMap.put(5, 1); //年天干 戊癸 开头，正月时 甲寅
-        monthTianganMap.put(10, 1);
+        monthTianganMap.put(2, 15); //年天干 乙庚 开头，正月时 戊寅
+        monthTianganMap.put(7, 15);
+        monthTianganMap.put(3, 27); //年天干 丙辛 开头，正月时 庚寅
+        monthTianganMap.put(8, 27);
+        monthTianganMap.put(4, 39); //年天干 丁壬 开头，正月时 壬寅
+        monthTianganMap.put(9, 39);
+        monthTianganMap.put(5, 51); //年天干 戊癸 开头，正月时 甲寅
+        monthTianganMap.put(10, 51);
+        //put(年天干，月天干)
+//        monthTianganMap.put(1, 3); //年天干 甲己 开头，正月时 丙寅
+//        monthTianganMap.put(6, 3);
+//        monthTianganMap.put(2, 5); //年天干 乙庚 开头，正月时 戊寅
+//        monthTianganMap.put(7, 5);
+//        monthTianganMap.put(3, 7); //年天干 丙辛 开头，正月时 庚寅
+//        monthTianganMap.put(8, 7);
+//        monthTianganMap.put(4, 9); //年天干 丁壬 开头，正月时 壬寅
+//        monthTianganMap.put(9, 9);
+//        monthTianganMap.put(5, 1); //年天干 戊癸 开头，正月时 甲寅
+//        monthTianganMap.put(10, 1);
     }
 
 
@@ -247,8 +250,10 @@ public class Chronology {
     //公历（阳历）年，月，日
     private static int year;
     private static int month;
+    private static int monthNum;//这一年中的第几个月
     private static int day;
     private static boolean isLeap;
+
     private static void Lunar1(Date objDate) {
         int i, leap = 0, temp = 0;
         Calendar cl = Calendar.getInstance();
@@ -277,6 +282,7 @@ public class Chronology {
         leap = leapMonth(i); //闰哪个月
         isLeap = false;
         for (i = 1; i < 13 && offset > 0; i++) {
+            monthNum = i;
             //闰月
             if (leap > 0 && i == (leap + 1) && isLeap == false) {
                 --i;
@@ -311,6 +317,7 @@ public class Chronology {
         month = i; //农历月份
         day = offset + 1; //农历天份
     }
+
     /**
      * 传回农历 y年的总天数
      *
@@ -326,6 +333,7 @@ public class Chronology {
         }
         return (sum + leapDays(y)); //+闰月的天数
     }
+
     /**
      * 传回农历 y年闰哪个月 1-12 , 没闰传回 0
      *
@@ -335,6 +343,7 @@ public class Chronology {
     private static int leapMonth(int y) {
         return (lunarInfo[y - 1900] & 0xf);
     }
+
     /**
      * 传回农历 y年闰月的天数
      *
@@ -348,6 +357,7 @@ public class Chronology {
             return (0);
         }
     }
+
     /**
      * 传回农历 y年m月的总天数
      *
@@ -358,9 +368,6 @@ public class Chronology {
     private static int monthDays(int y, int m) {
         return ((lunarInfo[y - 1900] & (0x10000 >> m)) == 0 ? 29 : 30);
     }
-
-
-
 
 
     //算 时的地支 的数组
@@ -405,10 +412,10 @@ public class Chronology {
      * @return
      */
     public String getGanZhi() {
-        Bazi.getInstance().initBazi(mYearGanZhi,mMonthGanZhi,mDayGanZhi,mHourGanZhi);
+//        Bazi.getInstance().initBazi(mYearGanZhi,mMonthGanZhi,mDayGanZhi,mHourGanZhi);
 
         return "农历 " + mYearGanZhi + " 年 , " + mMonthGanZhi + " 月 , "
-                       + mDayGanZhi + " 日 ," + mHourGanZhi + " 时 ";
+                + mDayGanZhi + " 日 ," + mHourGanZhi + " 时 ";
 
 
 //        return "农历 " + mYearGanZhi + " 年 , " + " 0 月 , "
@@ -418,6 +425,14 @@ public class Chronology {
 
     private static int getMonCyl() {
         return (monCyl);
+    }
+
+    private static int getMonth() {
+        return (month);
+    }
+
+    private static int getMonthNum() {
+        return (monthNum);
     }
 
 

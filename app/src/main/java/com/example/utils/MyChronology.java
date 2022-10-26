@@ -173,8 +173,8 @@ public class MyChronology {
     public static void main(String[] args) {
 //        initGanZhi(2017, 9, 17);
 //        initGanZhi(2020, 6, 16);
-        //丁酉年 己酉月 丁未日 丙午时   闰六月
-//        Chronology.getInstance().initGanZhi(2017,9,17,12);
+        //丁酉年 己酉月 丁未日 丙午时   闰六月 学魔法47,51
+        Chronology.getInstance().initGanZhi(2017,9,17,12);
 
         //庚子年 壬午月 庚寅日 甲申时   闰四月
 //        Chronology.getInstance().initGanZhi(2020,6,16,16);
@@ -184,9 +184,13 @@ public class MyChronology {
 
         //8月 Bazi会报错  23时日干支会报错
 //        Chronology.getInstance().initGanZhi(2017,8,9,22);
+        //算法里是 丁未 月 ， 实际应该是  戊申月  解决了，我自己加了个变量 monthNum存一年中的第几个月
+//        Chronology.getInstance().initGanZhi(2017,7,9,22);
+//        Chronology.getInstance().initGanZhi(2017,8,9,22);
 
         //丁酉 年 , 乙巳 月 , 丙申 日    学魔法50 占病
-        Chronology.getInstance().initGanZhi(2017,5,9,22);
+//        Chronology.getInstance().initGanZhi(2017,5,9,22);
+
         System.out.println(Chronology.getInstance().getGanZhi());
 
 
@@ -202,7 +206,16 @@ public class MyChronology {
 
 
         //姤卦  学魔法50
-        LiuYao.getInstance().initLiuYao(0,2,2,2,2,2);
-        System.out.println("八卦对象=== "+BaGuaInit.getBengGua().toString());
+//        LiuYao.getInstance().initLiuYao(0,2,2,2,2,2);
+//        System.out.println("八卦对象=== "+BaGuaInit.getBengGua().toString());
+
+        //增删卜易 12页 例一：用神无根
+//        LiuYao.getInstance().initLiuYao(0,2,2,2,3,1);
+        //增删卜易 12页 例二：元神入墓
+//        LiuYao.getInstance().initLiuYao(2,0,2,2,2,2);
+        //离宫
+//        LiuYao.getInstance().initLiuYao(2,0,2,2,0,2);
+        System.out.println("本卦对象=== "+BaGuaInit.getBengGua().toString());
+        System.out.println("变卦对象=== "+BaGuaInit.getBianGua().toString());
     }
 }

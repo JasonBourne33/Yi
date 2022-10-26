@@ -35,6 +35,9 @@ public class LiuYao {
     private int by5;
     private int by6;
 
+    //存变卦阴阳的List
+    private ArrayList<Boolean> bianGuaList;
+
     /***
      * 0少阴 1老阴 2少阳 3老阳
      * @param y1
@@ -72,11 +75,14 @@ public class LiuYao {
         yaoList.add(b5);
         yaoList.add(b6);
 
-        BaGuaInit.getBengGua().setYao(yaoList); //设置本卦的爻阴阳
+        BaGua bengGua = BaGuaInit.getBengGua();
+        BaGua bianGua = BaGuaInit.getBianGua();
+        bengGua.setYao(yaoList); //设置本卦的爻阴阳
 
 
-        baGongGuaBian(); //八宫式卦变 （游魂，归魂）
+        baGongGuaBian(yaoList,bengGua); //本卦 八宫式卦变 （游魂，归魂）
         getBianGua();   //变卦（少阴变老阴）
+        baGongGuaBian(bianGuaList,bianGua); //变卦 八宫式卦变 （游魂，归魂）
 
         initGuaGanZhi(); //给卦纳干支
 
@@ -224,6 +230,15 @@ public class LiuYao {
         Boolean bb2 = yinYangMap.get(by2);
         Boolean bb1 = yinYangMap.get(by1);
 
+
+        bianGuaList = new ArrayList();
+        bianGuaList.add(bb1);
+        bianGuaList.add(bb2);
+        bianGuaList.add(bb3);
+        bianGuaList.add(bb4);
+        bianGuaList.add(bb5);
+        bianGuaList.add(bb6);
+        BaGuaInit.getBianGua().setYao(bianGuaList);
 //        System.out.println(by1+" 一爻 "+bb1);
 //        System.out.println(by2+" 二爻 "+bb2);
 //        System.out.println(by3+" 三爻 "+bb3);
@@ -238,7 +253,7 @@ public class LiuYao {
      */
     private ArrayList<Boolean> gbList;
 
-    private void baGongGuaBian() {
+    private void baGongGuaBian(ArrayList<Boolean> yaoList,BaGua baGua) {
         //八公式卦变
 //        ☰	☰	☰	☰	☴	☶	☲	☲
 //        ☰	☴	☶	☷	☷	☷	☷	☰
@@ -250,6 +265,17 @@ public class LiuYao {
         gbList = new ArrayList<>();
 //        gbList=yaoList; list的赋值用=会直接给对象，要用addAll
         gbList.addAll(yaoList);
+        if (gbList.get(0).equals(gbList.get(3)) &&
+                gbList.get(1).equals(gbList.get(4)) &&
+                gbList.get(2).equals(gbList.get(5))
+        ) { //上经卦 和 下经卦 相同就找出本宫了
+            System.out.println("此卦就是本宫卦");
+            baGua.setBianguaPosition("此卦就是本宫卦");
+            baGua.setShiYao(6);
+            baGua.setYingYao(3);
+
+            flag = false;
+        }
         for (int i = 0; i < gbList.size() - 1; i++) { //一到五变卦
             Boolean iBoolean = gbList.get(i);
             gbList.set(i, !iBoolean);   //从一爻开始变卦
@@ -259,7 +285,13 @@ public class LiuYao {
                     gbList.get(2).equals(gbList.get(5))
             ) { //上经卦 和 下经卦 相同就找出本宫了
                 System.out.println(i + 1 + "变卦 找到本宫");
-                BaGuaInit.getBengGua().setBianguaPosition(i + 1 + "变卦 找到本宫");
+                baGua.setBianguaPosition(i + 1 + "变卦 找到本宫");
+                baGua.setShiYao(i+1);
+                if(i==2){//三变卦的时候是 应爻是6
+                    baGua.setYingYao(6);
+                }else {
+                    baGua.setYingYao((i+4)%6);
+                }
                 flag = false;
                 break;
             }
@@ -273,7 +305,9 @@ public class LiuYao {
                     gbList.get(2).equals(gbList.get(5))
             ) { //上经卦 和 下经卦 相同就找出本宫了
                 System.out.println("游魂卦 找到本宫");
-                BaGuaInit.getBengGua().setBianguaPosition("游魂卦 找到本宫");
+                baGua.setBianguaPosition("游魂卦 找到本宫");
+                baGua.setShiYao(4);
+                baGua.setYingYao(1);
                 flag = false;
             }
         }
@@ -287,7 +321,9 @@ public class LiuYao {
                     gbList.get(2).equals(gbList.get(5))
             ) { //上经卦 和 下经卦 相同就找出本宫了
                 System.out.println("归魂卦 才找到本宫");
-                BaGuaInit.getBengGua().setBianguaPosition("归魂卦 才找到本宫");
+                baGua.setBianguaPosition("归魂卦 才找到本宫");
+                baGua.setShiYao(3);
+                baGua.setYingYao(6);
             }
         }
 
@@ -309,7 +345,7 @@ public class LiuYao {
             if (baGong.get(i).equals(xiaJinGua)) {
 //                    System.out.println("本宫卦是=== " + baGong.get(i));
                 System.out.println("本宫卦是=== " + baGuaString[i]);
-                BaGuaInit.getBengGua().setBenGong(baGuaString[i]);
+                baGua.setBenGong(baGuaString[i]);
                 break;
             }
         }

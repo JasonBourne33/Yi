@@ -6,6 +6,7 @@ import java.util.HashMap;
 public class BaGuaInit {
 
     public static BaGua bengGua=new BaGua(); //本卦
+    public static BaGua bianGua=new BaGua(); //变卦
 
     public static BaGua qian=new BaGua();  //乾
     public static BaGua gen =new BaGua();   //艮
@@ -437,5 +438,13 @@ public class BaGuaInit {
 
     public static HashMap<String, String> getTu() {
         return tu;
+    }
+
+    public static BaGua getBianGua() {
+        return bianGua;
+    }
+
+    public static void setBianGua(BaGua bianGua) {
+        BaGuaInit.bianGua = bianGua;
     }
 }

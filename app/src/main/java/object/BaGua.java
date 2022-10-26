@@ -17,6 +17,8 @@ public class BaGua {
     private String benWuxing; //本宫五行
     private String benGong; //本宫五行 （比如 本宫离，五行火）
     private String bianguaPosition; //在第几变卦找到本宫，可能归魂，游魂、
+    private int shiYao; //世爻的位置，本宫是6，游魂4，归魂是3
+    private int yingYao; //应爻的位置，本宫是3，游魂1，归魂是6
 
 
     public String getBenGong() {
@@ -117,6 +119,23 @@ public class BaGua {
     }
 
 
+    public int getShiYao() {
+        return shiYao;
+    }
+
+    public void setShiYao(int shiYao) {
+        this.shiYao = shiYao;
+    }
+
+
+    public int getYingYao() {
+        return yingYao;
+    }
+
+    public void setYingYao(int yingYao) {
+        this.yingYao = yingYao;
+    }
+
     @Override
     public String toString() {
         return "BaGua{" +
@@ -132,6 +151,8 @@ public class BaGua {
                 ", benWuxing='" + benWuxing + '\'' +
                 ", benGong='" + benGong + '\'' +
                 ", bianguaPosition='" + bianguaPosition + '\'' +
+                ", shiYao=" + shiYao +
+                ", yingYao=" + yingYao +
                 '}';
     }
 }

@@ -324,6 +324,7 @@ public final class LunarCalendarUtil {
         lMDBuffer.append("(");
         lMDBuffer.append(Animals[sy]);
         lMDBuffer.append(")年");
+        lMDBuffer.append(getMonth());
         lMDBuffer.append(monthNong[getMonth()]);
         lMDBuffer.append("月");
         lMDBuffer.append(cDay(getDay()));
@@ -358,7 +359,7 @@ public final class LunarCalendarUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println(getLunarDetails("2017", "6", "9"));
+//        System.out.println(getLunarDetails("2017", "8", "9"));
 
 //        System.out.println(getLunarDetails("1990", "12", "22"));
 //        System.out.println(getLunarDetails("2019", "1", "22"));
@@ -369,6 +370,8 @@ public final class LunarCalendarUtil {
 //        System.out.println(getLunarYearMonthDay("2019", "1", "22"));
 //        System.out.println(getLunarYearMonthDay("2019", "2", "10"));
 //        System.out.println(getLunarYearMonthDay("2020", "03", "03"));
+        System.out.println(getLunarYearMonthDay("2017", "7", "9"));
+        System.out.println(getLunarYearMonthDay("2017", "8", "9"));
 //
 //        System.out.println(getLunarMonthDay("1990", "12", "22"));
 //        System.out.println(getLunarMonthDay("2019", "1", "22"));
