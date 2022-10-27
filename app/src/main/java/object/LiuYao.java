@@ -49,6 +49,69 @@ public class LiuYao {
      */
     private ArrayList<Boolean> yaoList = new ArrayList<>(); //存 六爻阴阳 的List
 
+    /***
+     * 给卦里的爻纳干支
+     */
+    private void initGuaGanZhi(ArrayList<Boolean> yaoList ,BaGua bagua) {
+
+//        for (int i = 0; i < yaoList.size(); i++) {
+//            System.out.println(i+1 +"initGuaGanZhi 爻是=== "+yaoList.get(i));
+//        }
+
+        //参考ArryList的 equels 方法写一个 JinGua的equals
+        ArrayList<Boolean> xiaJinGua = new ArrayList<>(); //下面的经卦
+        xiaJinGua.add(yaoList.get(0));
+        xiaJinGua.add(yaoList.get(1));
+        xiaJinGua.add(yaoList.get(2));
+        ArrayList<Boolean> shangJinGua = new ArrayList<>();
+        shangJinGua.add(yaoList.get(3));
+        shangJinGua.add(yaoList.get(4));
+        shangJinGua.add(yaoList.get(5));
+
+        ArrayList<ArrayList<Boolean>> baGong = BaGuaInit.getBaGong(); //获取八卦
+        ArrayList<String> name64=new ArrayList();
+        for (int i = 0; i < baGong.size(); i++) {
+            if (baGong.get(i).equals(xiaJinGua)) {
+//                    System.out.println("下卦是=== " + baGong.get(i));
+                System.out.println("下卦是=== " + baGuaString[i]);
+                name64.add(baGuaString[i]);
+                ArrayList<String> ganZhi = BaGuaInit.getBaGuaList().get(i).getGanZhi();
+                for (int j = 0; j < 3; j++) {
+                    System.out.println("下卦干支是=== " + ganZhi.get(j));
+                }
+                ArrayList<String> xiaGuaGanzhi=new ArrayList<>();
+                xiaGuaGanzhi.add(ganZhi.get(0));
+                xiaGuaGanzhi.add(ganZhi.get(1));
+                xiaGuaGanzhi.add(ganZhi.get(2));
+                bagua.setGanZhi(xiaGuaGanzhi); //第一次要用set，因为ArrayList还是空
+
+                break;
+            }
+        }
+        for (int i = 0; i < baGong.size(); i++) { //循环八卦
+            if (baGong.get(i).equals(shangJinGua)) {
+                System.out.println("上卦是=== " + baGuaString[i]);
+                name64.add(baGuaString[i]);
+                ArrayList<String> ganZhi = BaGuaInit.getBaGuaList().get(i).getGanZhi();
+                System.out.println("上卦干支是=== "+ganZhi.get(3));
+                System.out.println("上卦干支是=== "+ganZhi.get(4));
+                System.out.println("上卦干支是=== "+ganZhi.get(5));
+                ArrayList<String> shangGuaGanzhi=new ArrayList<>();
+                shangGuaGanzhi.add(ganZhi.get(3));
+                shangGuaGanzhi.add(ganZhi.get(4));
+                shangGuaGanzhi.add(ganZhi.get(5));
+                bagua.getGanZhi().addAll(shangGuaGanzhi); //第二次用addAll
+//                        (BaGuaInit.getBaGuaList().get(i).getGanZhi().get(3));
+
+                break;
+            }
+        }
+
+        //以后可以加入上下卦判断64卦的
+        bagua.setName64(name64);
+
+    }
+
     public void initLiuYao(int y1, int y2, int y3, int y4, int y5, int y6) {
         this.y1 = y1;
         this.y2 = y2;
@@ -84,97 +147,36 @@ public class LiuYao {
         getBianGua();   //变卦（少阴变老阴）
         baGongGuaBian(bianGuaList,bianGua); //变卦 八宫式卦变 （游魂，归魂）
 
-        initGuaGanZhi(); //给卦纳干支
+        initGuaGanZhi(yaoList,bengGua); //给卦纳干支
+        initGuaGanZhi(bianGuaList,bianGua); //给卦纳干支
 
-        initWuxing(); //本卦五行 和 每一爻的五行 和对应关系（父母，子孙，兄弟，官鬼）
-    }
-
-    /***
-     * 给卦里的爻纳干支
-     */
-    private void initGuaGanZhi() {
-
-//        for (int i = 0; i < yaoList.size(); i++) {
-//            System.out.println(i+1 +"initGuaGanZhi 爻是=== "+yaoList.get(i));
-//        }
-
-        //参考ArryList的 equels 方法写一个 JinGua的equals
-        ArrayList<Boolean> xiaJinGua = new ArrayList<>(); //下面的经卦
-        xiaJinGua.add(yaoList.get(0));
-        xiaJinGua.add(yaoList.get(1));
-        xiaJinGua.add(yaoList.get(2));
-        ArrayList<Boolean> shangJinGua = new ArrayList<>();
-        shangJinGua.add(yaoList.get(3));
-        shangJinGua.add(yaoList.get(4));
-        shangJinGua.add(yaoList.get(5));
-
-        ArrayList<ArrayList<Boolean>> baGong = BaGuaInit.getBaGong(); //获取八卦
-        ArrayList<String> name64=new ArrayList();
-        for (int i = 0; i < baGong.size(); i++) {
-            if (baGong.get(i).equals(xiaJinGua)) {
-//                    System.out.println("下卦是=== " + baGong.get(i));
-                System.out.println("下卦是=== " + baGuaString[i]);
-                name64.add(baGuaString[i]);
-                ArrayList<String> ganZhi = BaGuaInit.getBaGuaList().get(i).getGanZhi();
-                for (int j = 0; j < 3; j++) {
-                    System.out.println("下卦干支是=== " + ganZhi.get(j));
-                }
-                ArrayList<String> xiaGuaGanzhi=new ArrayList<>();
-                xiaGuaGanzhi.add(ganZhi.get(0));
-                xiaGuaGanzhi.add(ganZhi.get(1));
-                xiaGuaGanzhi.add(ganZhi.get(2));
-                BaGuaInit.getBengGua().setGanZhi(xiaGuaGanzhi); //第一次要用set，因为ArrayList还是空
-
-                break;
-            }
-        }
-        for (int i = 0; i < baGong.size(); i++) { //循环八卦
-            if (baGong.get(i).equals(shangJinGua)) {
-                System.out.println("上卦是=== " + baGuaString[i]);
-                name64.add(baGuaString[i]);
-                ArrayList<String> ganZhi = BaGuaInit.getBaGuaList().get(i).getGanZhi();
-                System.out.println("上卦干支是=== "+ganZhi.get(3));
-                System.out.println("上卦干支是=== "+ganZhi.get(4));
-                System.out.println("上卦干支是=== "+ganZhi.get(5));
-                ArrayList<String> shangGuaGanzhi=new ArrayList<>();
-                shangGuaGanzhi.add(ganZhi.get(3));
-                shangGuaGanzhi.add(ganZhi.get(4));
-                shangGuaGanzhi.add(ganZhi.get(5));
-                BaGuaInit.getBengGua().getGanZhi().addAll(shangGuaGanzhi); //第二次用addAll
-//                        (BaGuaInit.getBaGuaList().get(i).getGanZhi().get(3));
-
-                break;
-            }
-        }
-
-        //以后可以加入上下卦判断64卦的
-        BaGuaInit.getBengGua().setName64(name64);
-
+        initWuxing(bengGua); //本卦五行 和 每一爻的五行 和对应关系（父母，子孙，兄弟，官鬼）
+        initWuxing(bianGua); //变卦五行
     }
 
 
 
     //本卦五行 和 每一爻的五行 和对应关系（父母，子孙，兄弟，官鬼）
-    private void initWuxing() {
-        String benGong = BaGuaInit.getBengGua().getBenGong(); //本宫 离
+    private void initWuxing(BaGua bagua) {
+        String benGong = bagua.getBenGong(); //本宫 离
         HashMap<String, String> baguaWuxingMap = BaGuaInit.getBaguaWuxingMap(); //八卦对应的五行
         HashMap<String, String> dizhiWuxingMap = BaGuaInit.getDizhiWuxingMap(); //地支对应的五行
 //        BaGuaInit.getBaGuaList(). //获取地支
 
-        BaGuaInit.getBengGua().setBenWuxing(baguaWuxingMap.get(benGong)); //设置本宫的五行
-        String benWuxing = BaGuaInit.getBengGua().getBenWuxing(); //获取本宫五行
+        bagua.setBenWuxing(baguaWuxingMap.get(benGong)); //设置本宫的五行
+        String benWuxing = bagua.getBenWuxing(); //获取本宫五行
 
         ArrayList<String> relation=new ArrayList<>(); //存关系
         ArrayList<String> yaoWuxing=new ArrayList<>();
-        for (int i = 0; i < BaGuaInit.getBengGua().getGanZhi().size(); i++) {
-            String yaoDizhi=BaGuaInit.getBengGua().getGanZhi().get(i).substring(1,2); //截取地支
+        for (int i = 0; i < bagua.getGanZhi().size(); i++) {
+            String yaoDizhi=bagua.getGanZhi().get(i).substring(1,2); //截取地支
             String dizhiWuxing = dizhiWuxingMap.get(yaoDizhi); //地支五行
             yaoWuxing.add(dizhiWuxing);
             relation.add(relation(dizhiWuxing,benWuxing));  //获取 地支和本宫 的关系
 //            System.out.println("relation=== "+relation);
         }
-        BaGuaInit.getBengGua().setYaoWuxing(yaoWuxing);
-        BaGuaInit.getBengGua().setRelation(relation); //存到八卦对象
+        bagua.setYaoWuxing(yaoWuxing);
+        bagua.setRelation(relation); //存到八卦对象
 
     }
 
@@ -259,7 +261,7 @@ public class LiuYao {
 //        ☰	☴	☶	☷	☷	☷	☷	☰
 //        本宫 一变 二变 三变	四  五  游魂	归魂
 
-        Boolean flag = true; //很像的冒泡排序算法里的flag
+        Boolean flag = true; //很像冒泡的排序算法里的flag
         //                gb 卦变
         //卦变这个方法里用的 yaoList
         gbList = new ArrayList<>();
@@ -276,27 +278,28 @@ public class LiuYao {
 
             flag = false;
         }
-        for (int i = 0; i < gbList.size() - 1; i++) { //一到五变卦
-            Boolean iBoolean = gbList.get(i);
-            gbList.set(i, !iBoolean);   //从一爻开始变卦
+        if(flag) {
+            for (int i = 0; i < gbList.size() - 1; i++) { //一到五变卦
+                Boolean iBoolean = gbList.get(i);
+                gbList.set(i, !iBoolean);   //从一爻开始变卦
 
-            if (gbList.get(0).equals(gbList.get(3)) &&
-                    gbList.get(1).equals(gbList.get(4)) &&
-                    gbList.get(2).equals(gbList.get(5))
-            ) { //上经卦 和 下经卦 相同就找出本宫了
-                System.out.println(i + 1 + "变卦 找到本宫");
-                baGua.setBianguaPosition(i + 1 + "变卦 找到本宫");
-                baGua.setShiYao(i+1);
-                if(i==2){//三变卦的时候是 应爻是6
-                    baGua.setYingYao(6);
-                }else {
-                    baGua.setYingYao((i+4)%6);
+                if (gbList.get(0).equals(gbList.get(3)) &&
+                        gbList.get(1).equals(gbList.get(4)) &&
+                        gbList.get(2).equals(gbList.get(5))
+                ) { //上经卦 和 下经卦 相同就找出本宫了
+                    System.out.println(i + 1 + "变卦 找到本宫");
+                    baGua.setBianguaPosition(i + 1 + "变卦 找到本宫");
+                    baGua.setShiYao(i + 1);
+                    if (i == 2) {//三变卦的时候是 应爻是6
+                        baGua.setYingYao(6);
+                    } else {
+                        baGua.setYingYao((i + 4) % 6);
+                    }
+                    flag = false;
+                    break;
                 }
-                flag = false;
-                break;
             }
         }
-
         if (flag) { //五变卦都没有找到本宫
             gbList.set(3, !gbList.get(3));//游魂卦
 
@@ -311,6 +314,7 @@ public class LiuYao {
                 flag = false;
             }
         }
+
         if (flag) { //游魂卦都没有找出本宫
             gbList.set(2, !gbList.get(2));//归魂卦
             gbList.set(1, !gbList.get(1));//归魂卦
@@ -336,6 +340,7 @@ public class LiuYao {
         xiaJinGua.add(gbList.get(0));
         xiaJinGua.add(gbList.get(1));
         xiaJinGua.add(gbList.get(2));
+
         ArrayList<Boolean> shangJinGua = new ArrayList<>();
         shangJinGua.add(gbList.get(3));
         shangJinGua.add(gbList.get(4));

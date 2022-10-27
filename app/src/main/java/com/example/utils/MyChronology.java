@@ -174,7 +174,7 @@ public class MyChronology {
 //        initGanZhi(2017, 9, 17);
 //        initGanZhi(2020, 6, 16);
         //丁酉年 己酉月 丁未日 丙午时   闰六月 学魔法47,51
-        Chronology.getInstance().initGanZhi(2017,9,17,12);
+//        Chronology.getInstance().initGanZhi(2017,9,17,12);
 
         //庚子年 壬午月 庚寅日 甲申时   闰四月
 //        Chronology.getInstance().initGanZhi(2020,6,16,16);
@@ -191,7 +191,7 @@ public class MyChronology {
         //丁酉 年 , 乙巳 月 , 丙申 日    学魔法50 占病
 //        Chronology.getInstance().initGanZhi(2017,5,9,22);
 
-        System.out.println(Chronology.getInstance().getGanZhi());
+
 
 
 
@@ -200,14 +200,12 @@ public class MyChronology {
         //大有卦  上☲ 下☰
 //        LiuYao.getInstance().initLiuYao(2,2,2,2,0,2); //0少阴 1老阴 2少阳 3老阳
 
-        //未济卦  上☲ 下 ☵   学魔法47 硬币起卦
+        //未济卦  上☲ 下 ☵   学魔法47,51  硬币起卦
 //        LiuYao.getInstance().initLiuYao(1,2,0,3,1,2); //0少阴 1老阴 2少阳 3老阳
-//        System.out.println("八卦对象=== "+BaGuaInit.getBengGua().toString());
 
 
         //姤卦  学魔法50
 //        LiuYao.getInstance().initLiuYao(0,2,2,2,2,2);
-//        System.out.println("八卦对象=== "+BaGuaInit.getBengGua().toString());
 
         //增删卜易 12页 例一：用神无根
 //        LiuYao.getInstance().initLiuYao(0,2,2,2,3,1);
@@ -215,6 +213,17 @@ public class MyChronology {
 //        LiuYao.getInstance().initLiuYao(2,0,2,2,2,2);
         //离宫
 //        LiuYao.getInstance().initLiuYao(2,0,2,2,0,2);
+
+        //增删卜易 70页 学魔法51
+//        Chronology.getInstance().initGanZhi(2018,3,13,12);
+//        LiuYao.getInstance().initLiuYao(2,2,2,2,3,0);
+//        LiuYao.getInstance().initLiuYao(0,0,0,0,0,0);
+
+        //增删卜易 70页 学魔法51
+        Chronology.getInstance().initGanZhi(2018,3,13,12);
+        LiuYao.getInstance().initLiuYao(2,2,2,2,3,0);
+
+        System.out.println(Chronology.getInstance().getGanZhi());
         System.out.println("本卦对象=== "+BaGuaInit.getBengGua().toString());
         System.out.println("变卦对象=== "+BaGuaInit.getBianGua().toString());
     }

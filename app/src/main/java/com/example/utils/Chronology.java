@@ -412,7 +412,7 @@ public class Chronology {
      * @return
      */
     public String getGanZhi() {
-//        Bazi.getInstance().initBazi(mYearGanZhi,mMonthGanZhi,mDayGanZhi,mHourGanZhi);
+        Bazi.getInstance().initBazi(mYearGanZhi,mMonthGanZhi,mDayGanZhi,mHourGanZhi);
 
         return "农历 " + mYearGanZhi + " 年 , " + mMonthGanZhi + " 月 , "
                 + mDayGanZhi + " 日 ," + mHourGanZhi + " 时 ";
