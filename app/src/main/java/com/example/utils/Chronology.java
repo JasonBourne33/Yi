@@ -190,6 +190,8 @@ public class Chronology {
         mHourGanZhi = hourGanzhi;
 
 
+        //初始化 八字
+        Bazi.getInstance().initBazi(mYearGanZhi,mMonthGanZhi,mDayGanZhi,mHourGanZhi);
     }
 
     private HashMap<Integer, Integer> hourTianganMap;
@@ -412,7 +414,7 @@ public class Chronology {
      * @return
      */
     public String getGanZhi() {
-        Bazi.getInstance().initBazi(mYearGanZhi,mMonthGanZhi,mDayGanZhi,mHourGanZhi);
+
 
         return "农历 " + mYearGanZhi + " 年 , " + mMonthGanZhi + " 月 , "
                 + mDayGanZhi + " 日 ," + mHourGanZhi + " 时 ";

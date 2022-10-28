@@ -7,6 +7,7 @@ public class BaGuaInit {
 
     public static BaGua bengGua=new BaGua(); //本卦
     public static BaGua bianGua=new BaGua(); //变卦
+    public static BaGua benGongGua=new BaGua(); //本宫卦
 
     public static BaGua qian=new BaGua();  //乾
     public static BaGua gen =new BaGua();   //艮
@@ -446,5 +447,13 @@ public class BaGuaInit {
 
     public static void setBianGua(BaGua bianGua) {
         BaGuaInit.bianGua = bianGua;
+    }
+
+    public static BaGua getBenGongGua() {
+        return benGongGua;
+    }
+
+    public static void setBenGongGua(BaGua benGongGua) {
+        BaGuaInit.benGongGua = benGongGua;
     }
 }

@@ -72,12 +72,11 @@ public class LiuYao {
         ArrayList<String> name64=new ArrayList();
         for (int i = 0; i < baGong.size(); i++) {
             if (baGong.get(i).equals(xiaJinGua)) {
-//                    System.out.println("下卦是=== " + baGong.get(i));
-                System.out.println("下卦是=== " + baGuaString[i]);
+//                System.out.println("下卦是=== " + baGuaString[i]);
                 name64.add(baGuaString[i]);
                 ArrayList<String> ganZhi = BaGuaInit.getBaGuaList().get(i).getGanZhi();
                 for (int j = 0; j < 3; j++) {
-                    System.out.println("下卦干支是=== " + ganZhi.get(j));
+//                    System.out.println("下卦干支是=== " + ganZhi.get(j));
                 }
                 ArrayList<String> xiaGuaGanzhi=new ArrayList<>();
                 xiaGuaGanzhi.add(ganZhi.get(0));
@@ -90,12 +89,12 @@ public class LiuYao {
         }
         for (int i = 0; i < baGong.size(); i++) { //循环八卦
             if (baGong.get(i).equals(shangJinGua)) {
-                System.out.println("上卦是=== " + baGuaString[i]);
+//                System.out.println("上卦是=== " + baGuaString[i]);
                 name64.add(baGuaString[i]);
                 ArrayList<String> ganZhi = BaGuaInit.getBaGuaList().get(i).getGanZhi();
-                System.out.println("上卦干支是=== "+ganZhi.get(3));
-                System.out.println("上卦干支是=== "+ganZhi.get(4));
-                System.out.println("上卦干支是=== "+ganZhi.get(5));
+//                System.out.println("上卦干支是=== "+ganZhi.get(3));
+//                System.out.println("上卦干支是=== "+ganZhi.get(4));
+//                System.out.println("上卦干支是=== "+ganZhi.get(5));
                 ArrayList<String> shangGuaGanzhi=new ArrayList<>();
                 shangGuaGanzhi.add(ganZhi.get(3));
                 shangGuaGanzhi.add(ganZhi.get(4));
@@ -112,6 +111,10 @@ public class LiuYao {
 
     }
 
+
+    private BaGua bengGua;
+    private BaGua bianGua;
+    private BaGua benGongGua;
     public void initLiuYao(int y1, int y2, int y3, int y4, int y5, int y6) {
         this.y1 = y1;
         this.y2 = y2;
@@ -138,22 +141,84 @@ public class LiuYao {
         yaoList.add(b5);
         yaoList.add(b6);
 
-        BaGua bengGua = BaGuaInit.getBengGua();
-        BaGua bianGua = BaGuaInit.getBianGua();
+
+        bengGua = BaGuaInit.getBengGua();
+        bianGua = BaGuaInit.getBianGua();
+        benGongGua = BaGuaInit.getBenGongGua();
         bengGua.setYao(yaoList); //设置本卦的爻阴阳
 
 
         baGongGuaBian(yaoList,bengGua); //本卦 八宫式卦变 （游魂，归魂）
         getBianGua();   //变卦（少阴变老阴）
         baGongGuaBian(bianGuaList,bianGua); //变卦 八宫式卦变 （游魂，归魂）
+        benGongGua.setYao(gbList); //本宫的爻阴阳
+        baGongGuaBian(gbList,benGongGua); //本宫卦
 
         initGuaGanZhi(yaoList,bengGua); //给卦纳干支
         initGuaGanZhi(bianGuaList,bianGua); //给卦纳干支
+        initGuaGanZhi(gbList,benGongGua); //给卦纳干支
 
         initWuxing(bengGua); //本卦五行 和 每一爻的五行 和对应关系（父母，子孙，兄弟，官鬼）
         initWuxing(bianGua); //变卦五行
+        initWuxing(benGongGua); //变卦五行
+
+        duanGua("占病");
     }
 
+    //断卦
+    private void duanGua(String type) {
+        switch (type){
+            case "占病":
+                zhanbing();
+
+                break;
+        }
+    }
+
+    //占病 子孙为用神，父母为忌神
+    private void zhanbing() {
+        String yueJian = bengGua.getSuiyin().get(2);
+        String yuePo = bengGua.getSuiyin().get(3);
+        String riZhi = bengGua.getSuiyin().get(4);
+        String riPo = bengGua.getSuiyin().get(5);
+
+        String yongshenDizhi=""; //用神的地支
+        String jishenDizhi=""; //忌神地支
+        for (int i = 0; i < bengGua.getRelation().size(); i++) { //找出用神和忌神地支
+            if (bengGua.getRelation().get(i).equals("子孙")){ //找子孙在哪一爻（子孙为用神）
+                String zisunGanzhi = bengGua.getGanZhi().get(i); //子孙的干支
+                yongshenDizhi = zisunGanzhi.substring(1, 2);
+                System.out.println(i+" i zisunGanzhi=== "+yongshenDizhi);
+            }
+            if (bengGua.getRelation().get(i).equals("父母")){ //找父母在哪一爻（父母为忌神）
+                String fumuGanzhi = bengGua.getGanZhi().get(i); //父母的干支
+                jishenDizhi = fumuGanzhi.substring(1, 2);
+                System.out.println(i+" i jishenDizhi=== "+jishenDizhi);
+            }
+        }
+
+        //用神忌神和 月建月破 的关系
+//        for (int i = 0; i < bengGua.getSuiyin().size(); i++) { //遍历月建月破
+//            String dizhi = bengGua.getSuiyin().get(i); //月建月破的地支
+//            if (dizhi.equals(yongshenDizhi)){
+//                System.out.println("用神地支 "+dizhi+" 又处在=== "+bengGua.getSuiyin());
+//            }
+//            if (dizhi.equals(jishenDizhi)){
+//                System.out.println("忌神地支 "+dizhi+" 又处在=== "+i);
+//            }
+//        }
+        for(HashMap.Entry<String, String> entry : bengGua.getSuiyin().entrySet()){
+//            System.out.println(entry.getKey()+" " +entry.getValue());
+            if (entry.getValue().equals(yongshenDizhi)){
+                System.out.println("用神地支 "+yongshenDizhi+" 又处在=== "+entry.getKey());
+            }
+            if (entry.getValue().equals(jishenDizhi)){
+                System.out.println("忌神地支 "+jishenDizhi+" 又处在=== "+entry.getKey());
+            }
+        }
+
+
+    }
 
 
     //本卦五行 和 每一爻的五行 和对应关系（父母，子孙，兄弟，官鬼）
@@ -271,7 +336,6 @@ public class LiuYao {
                 gbList.get(1).equals(gbList.get(4)) &&
                 gbList.get(2).equals(gbList.get(5))
         ) { //上经卦 和 下经卦 相同就找出本宫了
-            System.out.println("此卦就是本宫卦");
             baGua.setBianguaPosition("此卦就是本宫卦");
             baGua.setShiYao(6);
             baGua.setYingYao(3);
@@ -287,7 +351,7 @@ public class LiuYao {
                         gbList.get(1).equals(gbList.get(4)) &&
                         gbList.get(2).equals(gbList.get(5))
                 ) { //上经卦 和 下经卦 相同就找出本宫了
-                    System.out.println(i + 1 + "变卦 找到本宫");
+//                    System.out.println(i + 1 + "变卦 找到本宫");
                     baGua.setBianguaPosition(i + 1 + "变卦 找到本宫");
                     baGua.setShiYao(i + 1);
                     if (i == 2) {//三变卦的时候是 应爻是6
@@ -346,21 +410,24 @@ public class LiuYao {
         shangJinGua.add(gbList.get(4));
         shangJinGua.add(gbList.get(5));
         ArrayList<ArrayList<Boolean>> baGong = BaGuaInit.getBaGong(); //获取八卦
-        for (int i = 0; i < baGong.size(); i++) {
+        for (int i = 0; i < baGong.size(); i++) { //本宫上三爻和下三爻一样
             if (baGong.get(i).equals(xiaJinGua)) {
-//                    System.out.println("本宫卦是=== " + baGong.get(i));
-                System.out.println("本宫卦是=== " + baGuaString[i]);
+//                System.out.println("本宫卦是=== " + baGuaString[i]);
                 baGua.setBenGong(baGuaString[i]);
                 break;
             }
         }
+        //存本宫卦六爻
+//        benGongGua = new ArrayList<>();
+//        benGongGua.addAll(xiaJinGua);
+//        benGongGua.addAll(shangJinGua);
     }
 
 
     private HashMap<Integer, Boolean> yinYangMap; //0少阴，1老阴 为 false阴
     private String[] baGuaString = {"乾", "艮", "坎", "震", "坤", "兑", "离", "巽"};
 
-    private void initBase() {
+    private void  initBase() {
         yinYangMap = new HashMap<>();
         yinYangMap.put(0, false);
         yinYangMap.put(1, false);
