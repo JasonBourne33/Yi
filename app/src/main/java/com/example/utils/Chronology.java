@@ -124,8 +124,9 @@ public class Chronology {
 
 
         // 月算法 五虎盾 搞不定
-        int yearTiangan = remainderYear % 10; //JiaziList的 个位时天干
+        int yearTiangan = remainderYear % 10 == 0 ? 10 : remainderYear % 10; //JiaziList的 个位时天干
         System.out.println("yearTiangan=== " + yearTiangan);
+
         // -1 因为是 60甲子表里面的从1开始
         int monthTianganBegin = monthTianganMap.get(yearTiangan) - 1;
 //        System.out.println("monthBegin jiazi=== " + JiaziList[monthTianganBegin]);
@@ -191,7 +192,7 @@ public class Chronology {
 
 
         //初始化 八字
-        Bazi.getInstance().initBazi(mYearGanZhi,mMonthGanZhi,mDayGanZhi,mHourGanZhi);
+        Bazi.getInstance().initBazi(mYearGanZhi, mMonthGanZhi, mDayGanZhi, mHourGanZhi);
     }
 
     private HashMap<Integer, Integer> hourTianganMap;

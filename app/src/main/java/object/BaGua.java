@@ -17,7 +17,7 @@ public class BaGua {
 
     private String name;    //经卦名
     private String benWuxing; //本宫五行
-    private String benGong; //本宫五行 （比如 本宫离，五行火）
+    private String benGong; //本宫 （比如 本宫离）
     private String bianguaPosition; //在第几变卦找到本宫，可能归魂，游魂、
     private int shiYao; //世爻的位置，本宫是6，游魂4，归魂是3
     private int yingYao; //应爻的位置，本宫是3，游魂1，归魂是6
