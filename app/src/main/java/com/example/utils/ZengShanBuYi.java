@@ -24,7 +24,7 @@ public class ZengShanBuYi {
 
         //增删卜易 12页 例一：用神无根  自占病：父母为用神，妻财为忌神
         Chronology.getInstance().initGanZhi(2018,5,13,7);
-        LiuYao.getInstance().initLiuYao(0,2,2,2,3,1);
+        LiuYao.getInstance().initLiuYao(0,2,2,2,3,1,"父母");
 
         System.out.println(Chronology.getInstance().getGanZhi());
         System.out.println("本卦对象=== "+ BaGuaInit.getBengGua().toString());

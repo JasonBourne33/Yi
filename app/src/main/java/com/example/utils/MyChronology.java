@@ -221,7 +221,7 @@ public class MyChronology {
 
         //增删卜易 13页 例一：回头相生  卯月 己卯日
         Chronology.getInstance().initGanZhi(2013,3,14,7);
-        LiuYao.getInstance().initLiuYao(2,0,0,1,0,0);
+        LiuYao.getInstance().initLiuYao(2,0,0,1,0,0,"兄弟");
 
         System.out.println(Chronology.getInstance().getGanZhi());
         System.out.println("本卦对象=== "+BaGuaInit.getBengGua().toString());

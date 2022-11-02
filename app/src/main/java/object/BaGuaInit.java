@@ -55,6 +55,7 @@ public class BaGuaInit {
     public static HashMap<String,String> tu=new HashMap<>(); //土
 
 
+    public static HashMap<String,String> jiShen=new HashMap<>();//根据用神找忌神
 
 
     public static ArrayList<ArrayList<Boolean>> baGong=new ArrayList<>();    //八宫
@@ -92,6 +93,8 @@ public class BaGuaInit {
 
         initWuxing(); //八卦的五行 和 地支的五行
 
+        initJishen();//根据用神找忌神
+
         baGuaList.add(qian);
         baGuaList.add(gen );
         baGuaList.add(kan );
@@ -101,6 +104,14 @@ public class BaGuaInit {
         baGuaList.add(li  );
         baGuaList.add(xun );
 
+    }
+
+    private void initJishen() {
+        jiShen.put("子孙","父母"); //子孙为用神，父母为忌神  父母克子孙
+        jiShen.put("父母","妻财");
+        jiShen.put("妻财","兄弟");
+        jiShen.put("兄弟","官鬼");
+        jiShen.put("官鬼","子孙");
     }
 
     private void initWuxing() {
@@ -455,5 +466,13 @@ public class BaGuaInit {
 
     public static void setBenGongGua(BaGua benGongGua) {
         BaGuaInit.benGongGua = benGongGua;
+    }
+
+    public static HashMap<String, String> getJiShen() {
+        return jiShen;
+    }
+
+    public static void setJiShen(HashMap<String, String> jiShen) {
+        BaGuaInit.jiShen = jiShen;
     }
 }

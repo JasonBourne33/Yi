@@ -27,6 +27,7 @@ public class LiuYao {
     private int y4;
     private int y5;
     private int y6;
+    private String yongShen;
 
     private int by1; //b变卦 y爻 1
     private int by2;
@@ -116,13 +117,14 @@ public class LiuYao {
     private BaGua bianGua;
     private BaGua benGongGua;
 
-    public void initLiuYao(int y1, int y2, int y3, int y4, int y5, int y6) {
+    public void initLiuYao(int y1, int y2, int y3, int y4, int y5, int y6, String yongShen) {
         this.y1 = y1;
         this.y2 = y2;
         this.y3 = y3;
         this.y4 = y4;
         this.y5 = y5;
         this.y6 = y6;
+        this.yongShen = yongShen;
 
         initBase(); //根据老阴，老阳获取 阴 阳， 初始化BaGuaInit
 
@@ -162,101 +164,118 @@ public class LiuYao {
         initWuxing(bianGua); //变卦五行
         initWuxing(benGongGua); //变卦五行
 
-        duanGua("占病");
+        duanGua(yongShen);
+//        duanGua("子孙"); //子孙为用神
+//        duanGua("父母");
+//        duanGua("妻财");
+//        duanGua("官鬼");
+//        duanGua("兄弟");
+
+//        duanGua("占病");
     }
 
     //断卦
-    private void duanGua(String type) {
-        switch (type) {
-            case "占病":  //占病 子孙为用神，父母为忌神
-                zhanbing();
-                break;
-            case "自占病": //自占病：世爻为用神
-                zhanbing();
-                break;
+//    private void duanGua(String type) {
+//        switch (type) {
+//            case "占病":  //占病 子孙为用神，父母为忌神
+//                zhanbing();
+//                break;
+//            case "自占病": //自占病：世爻为用神
+//                zhanbing();
+//                break;
+//        }
+//    }
+
+    //断卦
+    private void duanGua(String yongShenEle) {
+
+        int j;
+        String yongShen = "";
+        if (yongShen.equals("世爻")) {
+            j = BaGuaInit.getBengGua().getShiYao() - 1; //世爻的位置
+            yongShen = BaGuaInit.getBengGua().getRelation().get(j);
+        } else if (yongShen.equals("应爻")) {
+            j = BaGuaInit.getBengGua().getYingYao() - 1; //应爻的位置
+            yongShen = BaGuaInit.getBengGua().getRelation().get(j);
+        } else { //剩下 兄弟，子孙 六亲
+            yongShen = yongShenEle;
         }
-    }
 
-    //占病 子孙为用神，父母为忌神
-    private void zhanbing() {
-        String yueJian = benGua.getSuiyin().get(2);
-        String yuePo = benGua.getSuiyin().get(3);
-        String riZhi = benGua.getSuiyin().get(4);
-        String riPo = benGua.getSuiyin().get(5);
-
-        int zisunPos = 0; //子孙的位置
-        int fuMuPos = 0;
-        boolean zisunFlag = true; //如果有两个子孙，获取第一个子孙
-        boolean fumuFlag = true;
+        String jiShen = BaGuaInit.getJiShen().get(yongShen);
+        System.out.println("用神===" + yongShen + " jiShen=== " + jiShen);
+        int yongShenPos = 0; //用神的位置
+        int jiShenPos = 0;
+        boolean yongShenFlag = true; //如果有两个用神（比如两个子孙），获取第一个用神
+        boolean jiShenFlag = true;
+        String yongShenGanzhi = ""; //用神的干支
+        String jiShenGanzhi; //忌神的干支
         String yongshenDizhi = ""; //用神的地支
         String jishenDizhi = ""; //忌神地支
-        String zisunGanzhi = ""; //子孙的干支
-        String fumuGanzhi; //父母的干支
         for (int i = 0; i < benGua.getRelation().size(); i++) { //找出用神和忌神地支
-            if (benGua.getRelation().get(i).equals("子孙") && zisunFlag) { //找子孙在哪一爻（子孙为用神）
-                zisunGanzhi = benGua.getGanZhi().get(i);
-                yongshenDizhi = zisunGanzhi.substring(1, 2);
-                zisunPos = i + 1;
-                System.out.println(i + 1 + " 爻 本卦中找到用神 子孙的地支=== " + yongshenDizhi);
-                zisunFlag = false;
+            if (benGua.getRelation().get(i).equals(yongShen) && yongShenFlag) { //找子孙在哪一爻（子孙为用神）
+                yongShenGanzhi = benGua.getGanZhi().get(i);
+                yongshenDizhi = yongShenGanzhi.substring(1, 2);
+                yongShenPos = i + 1;
+                System.out.println(i + 1 + " 爻 本卦中找到用神 用神 " + yongShen + " 的地支=== " + yongshenDizhi);
+                yongShenFlag = false;
             }
-            if (benGua.getRelation().get(i).equals("父母") && fumuFlag) { //找父母在哪一爻（父母为忌神）
-                fumuGanzhi = benGua.getGanZhi().get(i); //父母的干支
-                jishenDizhi = fumuGanzhi.substring(1, 2);
-                fuMuPos = i + 1;
-                System.out.println(i + 1 + " 爻 本卦中找到忌神 父母的地支=== " + jishenDizhi);
-                fumuFlag = false;
+            if (benGua.getRelation().get(i).equals(jiShen) && jiShenFlag) { //找父母在哪一爻（父母为忌神）
+                jiShenGanzhi = benGua.getGanZhi().get(i); //父母的干支
+                jishenDizhi = jiShenGanzhi.substring(1, 2);
+                jiShenPos = i + 1;
+                System.out.println(i + 1 + " 爻 本卦中找到忌神 忌神 " + jiShen + " 的地支=== " + jishenDizhi);
+                jiShenFlag = false;
             }
         }
-        String benGuaWuxing=""; //本卦五行  飞神
-        String benGongGuaWuxing=""; //本宫卦五行 伏神
+        String benGuaWuxing = ""; //本卦五行  飞神
+        String benGongGuaWuxing = ""; //本宫卦五行 伏神
 
-        if (zisunFlag) { //在本卦中没找到用神
+        if (yongShenFlag) { //在本卦中没找到用神
             for (int i = 0; i < benGongGua.getRelation().size(); i++) {
-                if (benGongGua.getRelation().get(i).equals("子孙") && zisunFlag) {
-                    zisunGanzhi = benGongGua.getGanZhi().get(i);
-                    yongshenDizhi = zisunGanzhi.substring(1, 2);
-                    zisunPos = i + 1;
+                if (benGongGua.getRelation().get(i).equals(yongShen) && yongShenFlag) {
+                    yongShenGanzhi = benGongGua.getGanZhi().get(i);
+                    yongshenDizhi = yongShenGanzhi.substring(1, 2);
+                    yongShenPos = i + 1;
 //                    System.out.println(i + 1 + " 爻 本宫中找到用神子孙（伏神）的地支=== " + yongshenDizhi);
 
-                    System.out.println(yongshenDizhi + benGongGua.getYaoWuxing().get(i) + "子孙伏于" +
-                            benGua.getGanZhi().get(i).substring(1, 2) + benGua.getYaoWuxing().get(i)+"之上");
+                    System.out.println(yongshenDizhi + benGongGua.getYaoWuxing().get(i) + yongShen + "伏于" +
+                            benGua.getGanZhi().get(i).substring(1, 2) + benGua.getYaoWuxing().get(i) + "之上");
 
-                    benGuaWuxing=benGua.getYaoWuxing().get(i);
-                    benGongGuaWuxing=benGongGua.getYaoWuxing().get(i);
-                    System.out.println(yongshenDizhi + benGongGuaWuxing + "子孙伏于" +
-                            benGua.getGanZhi().get(i).substring(1, 2) +benGuaWuxing +"之上");
-                    if(BaGuaInit.getWuxingKe().get(benGuaWuxing)==benGongGuaWuxing){
+                    benGuaWuxing = benGua.getYaoWuxing().get(i);
+                    benGongGuaWuxing = benGongGua.getYaoWuxing().get(i);
+                    System.out.println(yongshenDizhi + benGongGuaWuxing + yongShen + "伏于" +
+                            benGua.getGanZhi().get(i).substring(1, 2) + benGuaWuxing + "之下");
+                    if (BaGuaInit.getWuxingKe().get(benGuaWuxing) == benGongGuaWuxing) {
                         System.out.println("飞来克伏");
                     }
-                    if(BaGuaInit.getWuxingSheng().get(benGuaWuxing)==benGongGuaWuxing){
+                    if (BaGuaInit.getWuxingSheng().get(benGuaWuxing) == benGongGuaWuxing) {
                         System.out.println("飞来生伏");
                     }
 
-                    zisunFlag = false;
+                    yongShenFlag = false;
                 }
             }
         }
-        if (fumuFlag) { //在本卦中没找到忌神
+        if (jiShenFlag) { //在本卦中没找到忌神
             for (int i = 0; i < benGongGua.getRelation().size(); i++) {
-                if (benGongGua.getRelation().get(i).equals("父母") && fumuFlag) { //找父母在哪一爻（父母为忌神）
-                    fumuGanzhi = benGongGua.getGanZhi().get(i);
-                    jishenDizhi = fumuGanzhi.substring(1, 2);
-                    fuMuPos = i + 1;
+                if (benGongGua.getRelation().get(i).equals(jiShen) && jiShenFlag) { //找父母在哪一爻（父母为忌神）
+                    jiShenGanzhi = benGongGua.getGanZhi().get(i);
+                    jishenDizhi = jiShenGanzhi.substring(1, 2);
+                    jiShenPos = i + 1;
 //                    System.out.println( i+1 + " 爻 本宫中找到忌神父母（伏神）的地支=== " + jishenDizhi);
                     // 巳火父母伏于寅木之下
-                    benGuaWuxing=benGua.getYaoWuxing().get(i);
-                    benGongGuaWuxing=benGongGua.getYaoWuxing().get(i);
-                    System.out.println(jishenDizhi + benGongGuaWuxing + "父母伏于" +
-                            benGua.getGanZhi().get(i).substring(1, 2) +benGuaWuxing +"之上");
-                    if(BaGuaInit.getWuxingKe().get(benGuaWuxing)==benGongGuaWuxing){
+                    benGuaWuxing = benGua.getYaoWuxing().get(i);
+                    benGongGuaWuxing = benGongGua.getYaoWuxing().get(i);
+                    System.out.println(jishenDizhi + benGongGuaWuxing + jiShen + "伏于" +
+                            benGua.getGanZhi().get(i).substring(1, 2) + benGuaWuxing + "之下");
+                    if (BaGuaInit.getWuxingKe().get(benGuaWuxing) == benGongGuaWuxing) {
                         System.out.println("飞来克伏");
                     }
-                    if(BaGuaInit.getWuxingSheng().get(benGuaWuxing)==benGongGuaWuxing){
+                    if (BaGuaInit.getWuxingSheng().get(benGuaWuxing) == benGongGuaWuxing) {
                         System.out.println("飞来生伏");
                     }
 
-                    fumuFlag = false;
+                    jiShenFlag = false;
                 }
             }
         }
@@ -294,20 +313,20 @@ public class LiuYao {
             //忌神的克制关系
             if (jishenWuxing == keDizhiWuxing) {
                 System.out.println("忌神 " + jishenDizhi + jishenWuxing + " 被 "
-                        + entry.getKey() + entry.getValue() + keDizhiWuxing + " 所克制");
+                        + entry.getKey() + entry.getValue() + dizhiWuxing + " 所克制");
             }
             if (jishenWuxing == shengDizhiWuxing) {
                 System.out.println("忌神 " + jishenDizhi + jishenWuxing + " 被 "
-                        + entry.getKey() + entry.getValue() + shengDizhiWuxing + " 所生");
+                        + entry.getKey() + entry.getValue() + dizhiWuxing + " 所生");
             }
 
         }
         //用神和忌神是否持世
-        if (zisunPos == BaGuaInit.getBengGua().getShiYao()) {
-            System.out.println("子孙爻持世，在 " + BaGuaInit.getBengGua().getShiYao() + " 爻");
+        if (yongShenPos == BaGuaInit.getBengGua().getShiYao()) {
+            System.out.println(yongShen + "爻持世，在 " + BaGuaInit.getBengGua().getShiYao() + " 爻");
         }
-        if (fuMuPos == BaGuaInit.getBengGua().getShiYao()) {
-            System.out.println("父母爻持世，在 " + BaGuaInit.getBengGua().getShiYao() + " 爻");
+        if (jiShenPos == BaGuaInit.getBengGua().getShiYao()) {
+            System.out.println(jiShen + "爻持世，在 " + BaGuaInit.getBengGua().getShiYao() + " 爻");
         }
 
 
@@ -327,17 +346,17 @@ public class LiuYao {
         bagua.setBenWuxing(baguaWuxingMap.get(benGong)); //设置本宫的五行
         String benWuxing = bagua.getBenWuxing(); //获取本宫五行
 
-        ArrayList<String> relation = new ArrayList<>(); //存关系
+        ArrayList<String> relationList = new ArrayList<>(); //存关系
         ArrayList<String> yaoWuxing = new ArrayList<>();
         for (int i = 0; i < bagua.getGanZhi().size(); i++) {
             String yaoDizhi = bagua.getGanZhi().get(i).substring(1, 2); //截取地支
             String dizhiWuxing = dizhiWuxingMap.get(yaoDizhi); //地支五行
             yaoWuxing.add(dizhiWuxing);
-            relation.add(relation(dizhiWuxing, benWuxing));  //获取 地支和本宫 的关系
+            relationList.add(relation(dizhiWuxing, benWuxing));  //获取 地支和本宫 的关系
 //            System.out.println("relation=== "+relation);
         }
         bagua.setYaoWuxing(yaoWuxing);
-        bagua.setRelation(relation); //存到八卦对象
+        bagua.setRelation(relationList); //存到八卦对象
 
     }
 
