@@ -105,11 +105,11 @@ public class Chronology {
         Calendar cl = Calendar.getInstance();
         cl.set(SY, SM - 1, SD);
         sDObj = cl.getTime();
-        Lunar1(sDObj); // https://blog.csdn.net/buertianci/article/details/104636909
+        Lunar1(sDObj); //新历转农历
 
         //我加入的 年算法
         Calendar nowaday = Calendar.getInstance();
-        nowaday.set(year, month - 1, day);//原本的代码，-1可能错了
+        nowaday.set(this.year, month - 1, day);//原本的代码，-1可能错了
         Date date = nowaday.getTime();
         System.out.println("getTime=== " + date);
 
@@ -257,6 +257,8 @@ public class Chronology {
     private static int day;
     private static boolean isLeap;
 
+
+    //  https://blog.csdn.net/buertianci/article/details/104636909
     private static void Lunar1(Date objDate) {
         int i, leap = 0, temp = 0;
         Calendar cl = Calendar.getInstance();

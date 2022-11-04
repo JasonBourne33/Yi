@@ -9,7 +9,7 @@ public class BaGua {
     private ArrayList<String> yaoWuxing; //爻五行
     private ArrayList<String> relation; //相对本宫是父母，兄弟 等
     private ArrayList<String> bazi; //年月日时的 干支 （0年干，1年支，2月干，3月支，4日干，5日支，6时干，7时支）
-    private HashMap<String,String> suiyin; //0岁阴，1岁破，2月建，3月破，4日支，5日破
+    private HashMap<String,String> yueJian; //月建，月破，日支，日破
     private ArrayList<String> luma; //0禄，1马，2生，3旺，4墓
     private ArrayList<String> name64;   //0下卦，1上卦，2 在64卦里的名字
 
@@ -96,13 +96,6 @@ public class BaGua {
         this.bazi = bazi;
     }
 
-    public HashMap<String, String> getSuiyin() {
-        return suiyin;
-    }
-
-    public void setSuiyin(HashMap<String, String> suiyin) {
-        this.suiyin = suiyin;
-    }
 
     public ArrayList<String> getLuma() {
         return luma;
@@ -138,6 +131,14 @@ public class BaGua {
         this.yingYao = yingYao;
     }
 
+    public HashMap<String, String> getYueJian() {
+        return yueJian;
+    }
+
+    public void setYueJian(HashMap<String, String> yueJian) {
+        this.yueJian = yueJian;
+    }
+
     @Override
     public String toString() {
         return "BaGua{" +
@@ -146,7 +147,7 @@ public class BaGua {
                 ", yaoWuxing=" + yaoWuxing +
                 ", relation=" + relation +
                 ", bazi=" + bazi +
-                ", suiyin=" + suiyin +
+                ", yueJian=" + yueJian +
                 ", luma=" + luma +
                 ", name64=" + name64 +
                 ", name='" + name + '\'' +

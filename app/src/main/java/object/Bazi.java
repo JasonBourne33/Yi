@@ -58,7 +58,7 @@ public class Bazi {
     private String riZhi;
     private String riPo;
     private ArrayList<String> bazi = new ArrayList<>(); //年月日时的 干支 （年干，年支，月干，月支，日干，日支，时干，时支）
-    private HashMap<String,String> suiyin = new HashMap<>(); //岁阴，岁破，月建，月破，日支，日破
+    private HashMap<String,String> yueJianMap = new HashMap<>(); //月建，月破，日支，日破
     private ArrayList<String> luma = new ArrayList<>(); //禄，马，生，旺，墓
     //禄马生旺墓
     private String lu;
@@ -87,6 +87,7 @@ public class Bazi {
         String yueJian = m.substring(1, 2);
         String riZhi = d.substring(1, 2);
 
+        System.out.println("yueJian=== "+yueJian);
         this.suiYin = suiYin;
         this.suiPo = liuChong.get(suiYin);
         this.yueJian = yueJian;
@@ -94,16 +95,19 @@ public class Bazi {
         this.riZhi = riZhi;
         this.riPo = liuChong.get(riZhi);
 
-        suiyin.put("岁阴",suiYin);//先放到hashMap，再放到 本卦对象
-        suiyin.put("岁破",suiPo);
-        suiyin.put("月建",yueJian);
-        suiyin.put("月破",yuePo);
-        suiyin.put("日支",riZhi);
-        suiyin.put("日破",riPo);
+//        yueJianMap.put("岁阴",suiYin);//先放到hashMap，再放到 本卦对象
+//        yueJianMap.put("岁破",suiPo);
+        yueJianMap.put("月建",yueJian);
+        yueJianMap.put("月破",yuePo);
+        yueJianMap.put("日支",riZhi);
+        yueJianMap.put("日破",riPo);
 
 
-        System.out.println("月破=== " + yuePo);
-        System.out.println("日破=== " + riPo);
+
+
+
+//        System.out.println("月破=== " + yuePo);
+//        System.out.println("日破=== " + riPo);
 
         String riGan = d.substring(0, 1);
 //        Tiangan.getInstance().init(riGan);
@@ -148,11 +152,11 @@ public class Bazi {
         }
         ma = liuChong.get(sanHeDing);
 
-        System.out.println("禄=== " + lu);
-        System.out.println("马=== " + ma);
-        System.out.println("生=== " + sheng);
-        System.out.println("旺=== " + diWang);
-        System.out.println("墓=== " + mu);
+//        System.out.println("禄=== " + lu);
+//        System.out.println("马=== " + ma);
+//        System.out.println("生=== " + sheng);
+//        System.out.println("旺=== " + diWang);
+//        System.out.println("墓=== " + mu);
         luma.add(lu);
         luma.add(ma);
         luma.add(sheng);
@@ -161,7 +165,7 @@ public class Bazi {
 
 
         BaGuaInit.getBengGua().setBazi(bazi);
-        BaGuaInit.getBengGua().setSuiyin(suiyin);
+        BaGuaInit.getBengGua().setYueJian(yueJianMap);
         BaGuaInit.getBengGua().setLuma(luma);
 
 

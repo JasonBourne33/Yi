@@ -22,9 +22,19 @@ public class ZengShanBuYi {
 //        Chronology.getInstance().initGanZhi(2013,3,14,7);
 //        LiuYao.getInstance().initLiuYao(2,0,0,1,0,0);
 
-        //增删卜易 12页 例一：用神无根  自占病：父母为用神，妻财为忌神
-        Chronology.getInstance().initGanZhi(2018,5,13,7);
-        LiuYao.getInstance().initLiuYao(0,2,2,2,3,1,"父母");
+        //增删卜易 8页 乾卦世爻动
+//        Chronology.getInstance().initGanZhi(2018,5,13,7);
+//        LiuYao.getInstance().initLiuYao(2,2,2,2,2,3,"父母");
+
+        //增删卜易 12页 例一：用神无根  自占病：世爻父母为用神，
+//        Chronology.getInstance().initGanZhi(2017,5,8,7);
+//        LiuYao.getInstance().initLiuYao(0,2,2,2,3,1,"世爻");
+
+        //增删卜易 12页 例二：元神入墓  自占病
+        Chronology.getInstance().initGanZhi(2015,1,12,7);
+        LiuYao.getInstance().initLiuYao(3,0,2,2,3,2,"世爻");
+
+
 
         System.out.println(Chronology.getInstance().getGanZhi());
         System.out.println("本卦对象=== "+ BaGuaInit.getBengGua().toString());

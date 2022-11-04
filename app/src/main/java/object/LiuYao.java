@@ -113,9 +113,11 @@ public class LiuYao {
     }
 
 
-    private BaGua benGua;
-    private BaGua bianGua;
-    private BaGua benGongGua;
+    private BaGua benGua; //本卦
+    private BaGua bianGua; //变卦
+    private BaGua benGongGua; //本宫卦
+    private ArrayList<Integer> dongYaoList = new ArrayList<>();//存动爻，就是老阳和老阴的位置
+    private ArrayList<Integer> yaoNumList = new ArrayList<>();//存少阴 老阴 少阳 老阳
 
     public void initLiuYao(int y1, int y2, int y3, int y4, int y5, int y6, String yongShen) {
         this.y1 = y1;
@@ -128,7 +130,7 @@ public class LiuYao {
 
         initBase(); //根据老阴，老阳获取 阴 阳， 初始化BaGuaInit
 
-        Boolean b6 = yinYangMap.get(y6);
+        Boolean b6 = yinYangMap.get(y6);//根据老阴，老阳获取 阴 阳
         Boolean b5 = yinYangMap.get(y5);
         Boolean b4 = yinYangMap.get(y4);
         Boolean b3 = yinYangMap.get(y3);
@@ -162,7 +164,7 @@ public class LiuYao {
 
         initWuxing(benGua); //本卦五行 和 每一爻的五行 和对应关系（父母，子孙，兄弟，官鬼）
         initWuxing(bianGua); //变卦五行
-        initWuxing(benGongGua); //变卦五行
+        initWuxing(benGongGua); //本宫卦五行
 
         duanGua(yongShen);
 //        duanGua("子孙"); //子孙为用神
@@ -186,15 +188,15 @@ public class LiuYao {
 //        }
 //    }
 
+
     //断卦
     private void duanGua(String yongShenEle) {
-
         int j;
         String yongShen = "";
-        if (yongShen.equals("世爻")) {
+        if (yongShenEle.equals("世爻")) {
             j = BaGuaInit.getBengGua().getShiYao() - 1; //世爻的位置
             yongShen = BaGuaInit.getBengGua().getRelation().get(j);
-        } else if (yongShen.equals("应爻")) {
+        } else if (yongShenEle.equals("应爻")) {
             j = BaGuaInit.getBengGua().getYingYao() - 1; //应爻的位置
             yongShen = BaGuaInit.getBengGua().getRelation().get(j);
         } else { //剩下 兄弟，子孙 六亲
@@ -202,7 +204,7 @@ public class LiuYao {
         }
 
         String jiShen = BaGuaInit.getJiShen().get(yongShen);
-        System.out.println("用神===" + yongShen + " jiShen=== " + jiShen);
+        System.out.println("传入=== " + yongShenEle + " 用神===" + yongShen + " 忌神=== " + jiShen);
         int yongShenPos = 0; //用神的位置
         int jiShenPos = 0;
         boolean yongShenFlag = true; //如果有两个用神（比如两个子孙），获取第一个用神
@@ -211,19 +213,23 @@ public class LiuYao {
         String jiShenGanzhi; //忌神的干支
         String yongshenDizhi = ""; //用神的地支
         String jishenDizhi = ""; //忌神地支
+        String yongshenWuxing = "";//用神五行
+        String jishenWuxing = "";//忌神五行
         for (int i = 0; i < benGua.getRelation().size(); i++) { //找出用神和忌神地支
             if (benGua.getRelation().get(i).equals(yongShen) && yongShenFlag) { //找子孙在哪一爻（子孙为用神）
                 yongShenGanzhi = benGua.getGanZhi().get(i);
                 yongshenDizhi = yongShenGanzhi.substring(1, 2);
                 yongShenPos = i + 1;
-                System.out.println(i + 1 + " 爻 本卦中找到用神 用神 " + yongShen + " 的地支=== " + yongshenDizhi);
+                yongshenWuxing = dizhiWuxingMap.get(yongshenDizhi);
+                System.out.println(i + 1 + "爻 本卦中找到 用神 " + yongShen + "=== " + yongshenDizhi + yongshenWuxing);
                 yongShenFlag = false;
             }
             if (benGua.getRelation().get(i).equals(jiShen) && jiShenFlag) { //找父母在哪一爻（父母为忌神）
                 jiShenGanzhi = benGua.getGanZhi().get(i); //父母的干支
                 jishenDizhi = jiShenGanzhi.substring(1, 2);
                 jiShenPos = i + 1;
-                System.out.println(i + 1 + " 爻 本卦中找到忌神 忌神 " + jiShen + " 的地支=== " + jishenDizhi);
+                jishenWuxing = dizhiWuxingMap.get(jishenDizhi);
+                System.out.println(i + 1 + "爻 本卦中找到 忌神 " + jiShen + "=== " + jishenDizhi + jishenWuxing);
                 jiShenFlag = false;
             }
         }
@@ -281,15 +287,13 @@ public class LiuYao {
         }
 
 
-        String yongshenWuxing = dizhiWuxingMap.get(yongshenDizhi);//用神五行
-        String jishenWuxing = dizhiWuxingMap.get(jishenDizhi);//用神五行
-        System.out.println("yongshenWuxing=== " + yongshenWuxing);
-        System.out.println("jishenWuxing=== " + jishenWuxing);
+//        System.out.println("用神=== " + yongshenDizhi + yongshenWuxing);
+//        System.out.println("忌神=== " + jishenDizhi + jishenWuxing);
         String dizhiWuxing;//遍历获取地支五行
         String keDizhiWuxing;//克制地支五行的属性
         String shengDizhiWuxing;//生成地支五行的属性
         //用神忌神和 月建月破 的关系
-        for (HashMap.Entry<String, String> entry : benGua.getSuiyin().entrySet()) {//遍历月建月破
+        for (HashMap.Entry<String, String> entry : benGua.getYueJian().entrySet()) {//遍历月建月破
 //            System.out.println(entry.getKey()+" " +entry.getValue());
             if (entry.getValue().equals(yongshenDizhi)) {
                 System.out.println("用神地支 " + yongshenDizhi + " 又处在=== " + entry.getKey());
@@ -298,26 +302,28 @@ public class LiuYao {
                 System.out.println("忌神地支 " + jishenDizhi + " 又处在=== " + entry.getKey());
             }
 
-            dizhiWuxing = dizhiWuxingMap.get(entry.getValue());
-            keDizhiWuxing = BaGuaInit.getWuxingKe().get(dizhiWuxing);
-            shengDizhiWuxing = BaGuaInit.getWuxingSheng().get(dizhiWuxing);
+            if (entry.getKey() == "月建" || entry.getKey() == "日支") { //只要月建和日支的生克关系
+                dizhiWuxing = dizhiWuxingMap.get(entry.getValue());
+                keDizhiWuxing = BaGuaInit.getWuxingKe().get(dizhiWuxing);
+                shengDizhiWuxing = BaGuaInit.getWuxingSheng().get(dizhiWuxing);
 //            //用神的克制关系
-            if (yongshenWuxing == keDizhiWuxing) {
-                System.out.println("用神 " + yongshenDizhi + yongshenWuxing + " 被 "
-                        + entry.getKey() + entry.getValue() + dizhiWuxing + " 所克制");
-            }
-            if (yongshenWuxing == shengDizhiWuxing) {
-                System.out.println("用神 " + yongshenDizhi + yongshenWuxing + " 被 "
-                        + entry.getKey() + entry.getValue() + dizhiWuxing + " 所生");
-            }
-            //忌神的克制关系
-            if (jishenWuxing == keDizhiWuxing) {
-                System.out.println("忌神 " + jishenDizhi + jishenWuxing + " 被 "
-                        + entry.getKey() + entry.getValue() + dizhiWuxing + " 所克制");
-            }
-            if (jishenWuxing == shengDizhiWuxing) {
-                System.out.println("忌神 " + jishenDizhi + jishenWuxing + " 被 "
-                        + entry.getKey() + entry.getValue() + dizhiWuxing + " 所生");
+                if (yongshenWuxing == keDizhiWuxing) {
+                    System.out.println("用神 " + yongshenDizhi + yongshenWuxing + " 被 "
+                            + entry.getKey() + entry.getValue() + dizhiWuxing + " 所克制");
+                }
+                if (yongshenWuxing == shengDizhiWuxing) {
+                    System.out.println("用神 " + yongshenDizhi + yongshenWuxing + " 被 "
+                            + entry.getKey() + entry.getValue() + dizhiWuxing + " 所生");
+                }
+                //忌神的克制关系
+                if (jishenWuxing == keDizhiWuxing) {
+                    System.out.println("忌神 " + jishenDizhi + jishenWuxing + " 被 "
+                            + entry.getKey() + entry.getValue() + dizhiWuxing + " 所克制");
+                }
+                if (jishenWuxing == shengDizhiWuxing) {
+                    System.out.println("忌神 " + jishenDizhi + jishenWuxing + " 被 "
+                            + entry.getKey() + entry.getValue() + dizhiWuxing + " 所生");
+                }
             }
 
         }
@@ -327,6 +333,26 @@ public class LiuYao {
         }
         if (jiShenPos == BaGuaInit.getBengGua().getShiYao()) {
             System.out.println(jiShen + "爻持世，在 " + BaGuaInit.getBengGua().getShiYao() + " 爻");
+        }
+
+
+        Integer dongYao = 0; //记录动爻的位置
+        String dongYaoDizhi = ""; //动爻的地支
+        String dongYaoWuxing = ""; //动爻的五行
+        if (dongYaoList.size() == 0) {
+            System.out.println("此卦为 静卦");
+        }
+
+        for (int i = 0; i < dongYaoList.size(); i++) { //遍历存动爻的List
+            dongYao = dongYaoList.get(i); //获取动爻的位置
+            dongYaoDizhi = BaGuaInit.getBengGua().getGanZhi().get(dongYao).substring(1, 2);
+            dongYaoWuxing = BaGuaInit.getBengGua().getYaoWuxing().get(dongYao);
+            if (yongshenWuxing.equals(BaGuaInit.getWuxingKe().get(dongYaoWuxing))) { //如果动爻克用神
+                System.out.println((dongYao+1)+"爻 动爻 " + dongYaoDizhi + dongYaoWuxing + " 克制 用神 " + yongshenDizhi + yongshenWuxing);
+            }
+            if (yongshenWuxing.equals(BaGuaInit.getWuxingSheng().get(dongYaoWuxing))) { //如果动爻生用神
+                System.out.println((dongYao+1)+"爻 动爻 " + dongYaoDizhi + dongYaoWuxing + " 生 用神 " + yongshenDizhi + yongshenWuxing);
+            }
         }
 
 
@@ -540,11 +566,25 @@ public class LiuYao {
     }
 
 
-    private HashMap<Integer, Boolean> yinYangMap; //0少阴，1老阴 为 false阴
+    private HashMap<Integer, Boolean> yinYangMap = new HashMap<>();
+    ; //0少阴，1老阴 为 false阴
     private String[] baGuaString = {"乾", "艮", "坎", "震", "坤", "兑", "离", "巽"};
 
     private void initBase() {
-        yinYangMap = new HashMap<>();
+        yaoNumList.add(y1);
+        yaoNumList.add(y2);
+        yaoNumList.add(y3);
+        yaoNumList.add(y4);
+        yaoNumList.add(y5);
+        yaoNumList.add(y6);
+
+        for (int i = 0; i < yaoNumList.size(); i++) {
+            if (yaoNumList.get(i) == 1 || yaoNumList.get(i) == 3) {
+                dongYaoList.add(i); //动爻记录有老阳 老阴的位置 i从0开始
+//                System.out.println("动爻=== " + i);
+            }
+        }
+
         yinYangMap.put(0, false);
         yinYangMap.put(1, false);
         yinYangMap.put(2, true);

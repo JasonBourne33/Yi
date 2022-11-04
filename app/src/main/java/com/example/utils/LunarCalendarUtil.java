@@ -11,10 +11,12 @@ public final class LunarCalendarUtil {
     //公历（阳历）年，月，日
     private static int year;
     private static int month;
+    private static int monthNum; //一年里的第几个月，区分于农历月份，获取月干支用
     private static int day;
     private static boolean isLeap;
-    private static int[] lunarInfo = {0x04bd8, 0x04ae0, 0x0a570, 0x054d5,
-            0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2, 0x04ae0,
+    private static int[] lunarInfo = {
+            0x04bd8, 0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950, 0x16554, 0x056a0, 0x09ad0, 0x055d2,
+            0x04ae0,
             0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540, 0x0d6a0, 0x0ada2,
             0x095b0, 0x14977, 0x04970, 0x0a4b0, 0x0b4b5, 0x06a50, 0x06d40,
             0x1ab54, 0x02b60, 0x09570, 0x052f2, 0x04970, 0x06566, 0x0d4a0,
@@ -68,7 +70,8 @@ public final class LunarCalendarUtil {
     private static int lYearDays(int y) {
         int i;
         int sum = 348; //29*12
-//      for (i = 32768; i > 1000; i / 2)
+//      for (i = 1000 0000 0000 0000; i > 1000; 右移一位)
+//       获取第5到16位的月数据，0是小月29天，1是大月30天
         for (i = 0x8000; i > 0x8; i >>= 1) {
             sum += (lunarInfo[y - 1900] & i) == 0 ? 0 : 1; //大月+1天
         }
@@ -82,6 +85,7 @@ public final class LunarCalendarUtil {
      * @return
      */
     private static int leapDays(int y) {
+        // 0x10000就是 二进制的 0001 0000 0000 0000 0000      1就表示闰月是大月 0就表示闰月是小月
         if (leapMonth(y) != 0) {
             return ((lunarInfo[y - 1900] & 0x10000) == 0 ? 29 : 30);
         } else {
@@ -96,7 +100,8 @@ public final class LunarCalendarUtil {
      * @return
      */
     private static int leapMonth(int y) {
-        return (lunarInfo[y - 1900] & 0xf);
+        //例如取num=1010 1101的低四位 则将num&0xF得到0000 1101
+        return (lunarInfo[y - 1900] & 0xf); //获取后四位的 "闰哪个月" 信息
     }
 
     /**
@@ -110,74 +115,7 @@ public final class LunarCalendarUtil {
         return ((lunarInfo[y - 1900] & (0x10000 >> m)) == 0 ? 29 : 30);
     }
 
-    /**
-     * 算出农历, 传入日期物件, 传回农历日期物件
-     * 该物件属性有 .year .month .day .isLeap .yearCyl .dayCyl .monCyl
-     *
-     * @param objDate
-     */
-    private static void Lunar1(Date objDate) {
-        int i, leap = 0, temp = 0;
-        Calendar cl = Calendar.getInstance();
-        cl.set(1900, 0, 31); //1900-01-31是农历1900年正月初一
-        Date baseDate = cl.getTime();
-        //1900-01-31是农历1900年正月初一
-        int offset = (int) ((objDate.getTime() - baseDate.getTime()) / 86400000); //天数(86400000=24*60*60*1000)
-        //1899-12-21是农历1899年腊月甲子日
-        dayCyl = offset + 40;
-        //1898-10-01是农历甲子月
-        monCyl = 14;
-        //得到年数
-        for (i = 1900; i < 2050 && offset > 0; i++) {
-            //农历每年天数
-            temp = lYearDays(i);
-            offset -= temp;
-            monCyl += 12;
-        }
-        if (offset < 0) {
-            offset += temp;
-            i--;
-            monCyl -= 12;
-        }
-        year = i; //农历年份
-        yearCyl = i - 1864; //1864年是甲子年
-        leap = leapMonth(i); //闰哪个月
-        isLeap = false;
-        for (i = 1; i < 13 && offset > 0; i++) {
-            //闰月
-            if (leap > 0 && i == (leap + 1) && isLeap == false) {
-                --i;
-                isLeap = true;
-                temp = leapDays(year);
-            } else {
-                temp = monthDays(year, i);
-            }
-            //解除闰月
-            if (isLeap == true && i == (leap + 1)) {
-                isLeap = false;
-            }
-            offset -= temp;
-            if (isLeap == false) {
-                monCyl++;
-            }
-        }
-        if (offset == 0 && leap > 0 && i == leap + 1) {
-            if (isLeap) {
-                isLeap = false;
-            } else {
-                isLeap = true;
-                --i;
-                --monCyl;
-            }
-        }
-        if (offset < 0) {
-            offset += temp;
-            --i;
-            --monCyl;
-        }
-        month = i; //农历月份
-        day = offset + 1; //农历天份
-    }
+
 
     /**
      * 传入 offset 传回干支, 0=甲子
@@ -232,6 +170,9 @@ public final class LunarCalendarUtil {
     private static int getMonth() {
         return (month);
     }
+    private static int getMineMonthCyl() {
+        return (mineMonthCyl);
+    }
 
     private static int getDay() {
         return (day);
@@ -252,6 +193,8 @@ public final class LunarCalendarUtil {
     private static boolean getIsLeap() {
         return (isLeap);
     }
+
+
 
     /**
      * 获取-农历详细日期
@@ -331,6 +274,8 @@ public final class LunarCalendarUtil {
         return lMDBuffer.toString();
     }
 
+
+
     /**
      * 获取-农历月日
      *
@@ -358,6 +303,116 @@ public final class LunarCalendarUtil {
         return lMDBuffer.toString();
     }
 
+    private static int mineMonthCyl;
+    /**
+     * 算出农历, 传入日期物件, 传回农历日期物件
+     * 该物件属性有 .year .month .day .isLeap .yearCyl .dayCyl .monCyl
+     *
+     * @param objDate
+     */
+    private static void Lunar1(Date objDate) {
+        //i:临时变量，先农历存年
+        //leap: 存闰哪个月
+        //temp: 存农历每年天数
+        //offset：天数 传入的日期 - 1900年1月31日 相隔的天数
+        int i, leap = 0, temp = 0;
+        Calendar cl = Calendar.getInstance();
+        cl.set(1900, 0, 31); //1900-01-31是农历1900年正月初一
+        Date baseDate = cl.getTime();
+        //1900-01-31是农历1900年正月初一
+        int offset = (int) ((objDate.getTime() - baseDate.getTime()) / 86400000); //天数(86400000=24*60*60*1000)
+        //1899-12-21是农历1899年腊月甲子日
+        dayCyl = offset + 40;
+        //1898-10-01是农历甲子月
+        monCyl = 14;
+        //得到年数
+        for (i = 1900; i < 2050 && offset > 0; i++) {
+            //农历每年天数
+            temp = lYearDays(i); //temp存 i年这一年的总天数
+            offset -= temp; //相隔天数 - 这一年的总天数
+            monCyl += 12;
+        }
+        if (offset < 0) { //如果天数 减过头 了回退一年
+            offset += temp;
+            i--;
+            monCyl -= 12;
+        }
+        year = i; //农历年份
+        yearCyl = i - 1864; //1864年是甲子年
+        leap = leapMonth(i); //leap存 闰哪个月
+        isLeap = false; //循环里找到闰月就设为true，为了给monCyl用
+        for (i = 1; i < 13 && offset > 0; i++) {
+            // leap > 0表示有闰月，i == (leap + 1) 表示闰的月，比如闰5月就是在这年的第6个月
+            //闰月
+            if (leap > 0 && i == (leap + 1) && isLeap == false) {
+                --i;
+                isLeap = true;
+                temp = leapDays(year); //如果是闰月，temp就存闰月的天数
+            } else {
+                temp = monthDays(year, i); //不是闰月就存这个i月的天数
+            }
+            //解除闰月
+            if (isLeap == true && i == (leap + 1)) {
+                isLeap = false;
+            }
+            offset -= temp;//相隔天 -= 这个月的天
+            if (isLeap == false) { //无论闰月和普通月都++
+                monCyl++;
+//                System.out.println("monCyl==="+monCyl);
+            }
+        }
+        mineMonthCyl=monCyl;
+        System.out.println("isLeap=== "+isLeap+" offset=== "+offset);
+        //offset == 0 相隔天数用完    leap > 0闰月     i == leap + 1 表示当前还处在闰月
+        if (offset == 0 && leap > 0 && i == leap + 1) {
+            if (isLeap) {//找到闰月
+                isLeap = false;
+            } else {
+                isLeap = true;
+                --i;
+                --monCyl;
+            }
+        }
+        if (!isLeap) {
+            if (offset < 0) { //相隔天数为负数，减过头了
+                offset += temp;
+                --i;
+                --monCyl;
+            }
+        }
+        System.out.println("monCyl=== "+monCyl);
+        month = i; //农历月份
+        day = offset + 1; //农历天份
+    }
+
+    /**
+     * 获取-农历年月日
+     *
+     * @param year
+     * @param month
+     * @param day
+     * @return
+     */
+    public static void getLunarMine(String year, String month, String day) {
+        Date sDObj;
+        int SY, SM, SD;
+        int sy;
+        SY = Integer.parseInt(year);
+        SM = Integer.parseInt(month);
+        SD = Integer.parseInt(day);
+        sy = (SY - 4) % 12;
+        Calendar cl = Calendar.getInstance();
+        cl.set(SY, SM - 1, SD);
+        sDObj = cl.getTime();
+        //日期
+        Lunar1(sDObj); //农历
+
+        System.out.println("新历 "+year+" "+month+" "+day+"  农历 "+cyclical(getYearCyl())+"年 "
+                +" getMonCyl==="+getMonCyl()+" "+cyclical(getMonCyl())+"月 "+cyclical(getDayCyl())+"日  "+
+                getYear()+"年 "+getMonth()+"月 "+getDay()+"日  ");
+
+    }
+
     public static void main(String[] args) {
 //        System.out.println(getLunarDetails("2017", "8", "9"));
 
@@ -365,13 +420,36 @@ public final class LunarCalendarUtil {
 //        System.out.println(getLunarDetails("2019", "1", "22"));
 //        System.out.println(getLunarDetails("2019", "2", "10"));
 //        System.out.println(getLunarDetails("2020", "03", "03"));
+//        System.out.println(getLunarDetails("2015", "01", "12"));
+//        System.out.println(getLunarYearMonthDay("2015", "01", "12"));
+
+//        getLunarMine("2014", "9", "12");
+        getLunarMine("2014", "10", "12"); //getMonCyl===1390
+        getLunarMine("2014", "11", "12"); //getMonCyl===1390
+        getLunarMine("2014", "12", "12");
+
+
+        getLunarMine("2015", "1", "12");
+        getLunarMine("2015", "2", "12");
+        getLunarMine("2015", "3", "12");
+        getLunarMine("2015", "4", "12");
+        getLunarMine("2015", "5", "12");
+        getLunarMine("2015", "6", "12");
+        getLunarMine("2015", "7", "12");
+        getLunarMine("2015", "8", "12");
+        getLunarMine("2015", "9", "12");
+////
+//        getLunarMine("2015", "10", "12"); //getMonCyl===1401
+//        getLunarMine("2015", "11", "12"); //getMonCyl===1403
+//        getLunarMine("2015", "12", "12");
+
 //
 //        System.out.println(getLunarYearMonthDay("1990", "12", "22"));
 //        System.out.println(getLunarYearMonthDay("2019", "1", "22"));
 //        System.out.println(getLunarYearMonthDay("2019", "2", "10"));
 //        System.out.println(getLunarYearMonthDay("2020", "03", "03"));
-        System.out.println(getLunarYearMonthDay("2017", "7", "9"));
-        System.out.println(getLunarYearMonthDay("2017", "8", "9"));
+//        System.out.println(getLunarYearMonthDay("2017", "7", "9"));
+//        System.out.println(getLunarYearMonthDay("2017", "8", "9"));
 //
 //        System.out.println(getLunarMonthDay("1990", "12", "22"));
 //        System.out.println(getLunarMonthDay("2019", "1", "22"));
