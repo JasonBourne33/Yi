@@ -87,7 +87,6 @@ public class Bazi {
         String yueJian = m.substring(1, 2);
         String riZhi = d.substring(1, 2);
 
-        System.out.println("yueJian=== "+yueJian);
         this.suiYin = suiYin;
         this.suiPo = liuChong.get(suiYin);
         this.yueJian = yueJian;

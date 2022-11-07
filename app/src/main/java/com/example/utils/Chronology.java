@@ -109,7 +109,7 @@ public class Chronology {
 
         //我加入的 年算法
         Calendar nowaday = Calendar.getInstance();
-        nowaday.set(this.year, month - 1, day);//原本的代码，-1可能错了
+        nowaday.set(year, month - 1, day);//原本的代码，-1可能错了
         Date date = nowaday.getTime();
         System.out.println("getTime=== " + date);
 
@@ -119,13 +119,14 @@ public class Chronology {
         String yearGanZhi = JiaziList[remainderYear]; //根据余数来对应 六十甲子表
 //        int yearTiangan = remainder / 10;   //余数的十位是 年天干
 
-        System.out.println("remainder=== " + remainderYear);
-        mYearGanZhi = yearGanZhi;
+//        System.out.println("remainder=== " + remainderYear);
+//        mYearGanZhi = yearGanZhi;
+        mYearGanZhi = cyclical(yearCyl); //用lunar1 的年，因为农历年问题
 
 
         // 月算法 五虎盾 搞不定
         int yearTiangan = remainderYear % 10 == 0 ? 10 : remainderYear % 10; //JiaziList的 个位时天干
-        System.out.println("yearTiangan=== " + yearTiangan);
+//        System.out.println("yearTiangan=== " + yearTiangan);
 
         // -1 因为是 60甲子表里面的从1开始
         int monthTianganBegin = monthTianganMap.get(yearTiangan) - 1;
@@ -135,8 +136,9 @@ public class Chronology {
         //我自己加了个变量 monthNum存一年中的第几个月
         int jiaziNum = monthTianganBegin + getMonthNum(); //在甲子中的第几个
         String monthGanzhi = JiaziList[jiaziNum > 60 ? jiaziNum - 60 : jiaziNum];
-        mMonthGanZhi = monthGanzhi;
+//        mMonthGanZhi = monthGanzhi;//五虎盾的月算法，暂时停用，因为lunar1 可以解决阴历问题
 //        System.out.println("monthGanzhi=== "+monthGanzhi);
+        mMonthGanZhi = cyclical(getMonCyl());//五虎盾的月算法，暂时停用，因为lunar1 可以解决阴历问题
 
 
         //我加入的 日算法 =========================
@@ -259,7 +261,19 @@ public class Chronology {
 
 
     //  https://blog.csdn.net/buertianci/article/details/104636909
+    private static boolean leapCount=false; //解决闰月要到offset=0才归位的问题
+    /**
+     * 算出农历, 传入日期物件, 传回农历日期物件
+     * 该物件属性有 .year .month .day .isLeap .yearCyl .dayCyl .monCyl
+     *
+     * @param objDate
+     */
     private static void Lunar1(Date objDate) {
+        //i:临时变量，先农历存年
+        //leap: 存闰哪个月
+        //temp: 存农历每年天数
+        //offset：天数 传入的日期 - 1900年1月31日 相隔的天数
+        System.out.println("objDate=== "+objDate);
         int i, leap = 0, temp = 0;
         Calendar cl = Calendar.getInstance();
         cl.set(1900, 0, 31); //1900-01-31是农历1900年正月初一
@@ -273,55 +287,84 @@ public class Chronology {
         //得到年数
         for (i = 1900; i < 2050 && offset > 0; i++) {
             //农历每年天数
-            temp = lYearDays(i);
-            offset -= temp;
+            temp = lYearDays(i); //temp存 i年这一年的总天数
+            offset -= temp; //相隔天数 - 这一年的总天数
             monCyl += 12;
         }
-        if (offset < 0) {
+        if (offset < 0) { //如果天数 减过头 了回退一年
             offset += temp;
             i--;
             monCyl -= 12;
         }
         year = i; //农历年份
         yearCyl = i - 1864; //1864年是甲子年
-        leap = leapMonth(i); //闰哪个月
-        isLeap = false;
+        leap = leapMonth(i); //leap存 闰哪个月
+        isLeap = false; //循环里找到闰月就设为true，为了给monCyl用
         for (i = 1; i < 13 && offset > 0; i++) {
-            monthNum = i;
+            // leap > 0表示有闰月，i == (leap + 1) 表示闰的月，比如闰5月就是在这年的第6个月
             //闰月
             if (leap > 0 && i == (leap + 1) && isLeap == false) {
                 --i;
                 isLeap = true;
-                temp = leapDays(year);
+                leapCount = true;
+                temp = leapDays(year); //如果是闰月，temp就存闰月的天数
             } else {
-                temp = monthDays(year, i);
+                temp = monthDays(year, i); //不是闰月就存这个i月的天数
             }
             //解除闰月
             if (isLeap == true && i == (leap + 1)) {
                 isLeap = false;
             }
-            offset -= temp;
-            if (isLeap == false) {
+            offset -= temp;//相隔天 -= 这个月的天
+            if (isLeap == false) { //无论闰月和普通月都++
                 monCyl++;
+//                System.out.println("monCyl===" + monCyl);
             }
         }
+//        System.out.println("isLeap=== " + isLeap + " offset=== " + offset
+//                +" leap=== "+leap+" leapCount=== "+leapCount);
+        //offset == 0 相隔天数用完    leap > 0 有闰月     i == leap + 1 表示当前还处在闰月
         if (offset == 0 && leap > 0 && i == leap + 1) {
-            if (isLeap) {
+            if (isLeap) {//找到闰月
                 isLeap = false;
+                leapCount = false;
             } else {
                 isLeap = true;
+                leapCount = true;
                 --i;
                 --monCyl;
             }
         }
-        if (offset < 0) {
+        if (offset < 0) { //相隔天数为负数，减过头了
             offset += temp;
             --i;
-            --monCyl;
+            if(!leapCount){ //不急着解除闰月，等offset=0再解除，其他时候跟着isLeap的值
+                --monCyl;
+            }
         }
+        if(offset==0){ //在offset是0 的时候 让leapCount复位 leapCount=false;
+            leapCount=false;
+        }
+        System.out.println("monCyl=== " + monCyl);
         month = i; //农历月份
         day = offset + 1; //农历天份
     }
+
+
+    /**
+     * 传入 offset 传回干支, 0=甲子
+     *
+     * @param num
+     * @return
+     */
+    private static String cyclical(int num) {
+        return (Gan[num % 10] + Zhi[num % 12]);
+    }
+    private static String[] Gan = {"甲", "乙", "丙", "丁", "戊", "己", "庚", "辛",
+            "壬", "癸"};
+    private static String[] Zhi = {"子", "丑", "寅", "卯", "辰", "巳", "午", "未",
+            "申", "酉", "戌", "亥"};
+
 
     /**
      * 传回农历 y年的总天数

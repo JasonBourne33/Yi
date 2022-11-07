@@ -116,7 +116,6 @@ public final class LunarCalendarUtil {
     }
 
 
-
     /**
      * 传入 offset 传回干支, 0=甲子
      *
@@ -170,9 +169,6 @@ public final class LunarCalendarUtil {
     private static int getMonth() {
         return (month);
     }
-    private static int getMineMonthCyl() {
-        return (mineMonthCyl);
-    }
 
     private static int getDay() {
         return (day);
@@ -193,7 +189,6 @@ public final class LunarCalendarUtil {
     private static boolean getIsLeap() {
         return (isLeap);
     }
-
 
 
     /**
@@ -275,7 +270,6 @@ public final class LunarCalendarUtil {
     }
 
 
-
     /**
      * 获取-农历月日
      *
@@ -303,7 +297,9 @@ public final class LunarCalendarUtil {
         return lMDBuffer.toString();
     }
 
-    private static int mineMonthCyl;
+    private static boolean leapCount=false; //解决闰月要到offset=0才归位的问题
+
+    //  https://blog.csdn.net/buertianci/article/details/104636909
     /**
      * 算出农历, 传入日期物件, 传回农历日期物件
      * 该物件属性有 .year .month .day .isLeap .yearCyl .dayCyl .monCyl
@@ -311,6 +307,7 @@ public final class LunarCalendarUtil {
      * @param objDate
      */
     private static void Lunar1(Date objDate) {
+        System.out.println("objDate=== "+objDate);
         //i:临时变量，先农历存年
         //leap: 存闰哪个月
         //temp: 存农历每年天数
@@ -347,6 +344,7 @@ public final class LunarCalendarUtil {
             if (leap > 0 && i == (leap + 1) && isLeap == false) {
                 --i;
                 isLeap = true;
+                leapCount = true;
                 temp = leapDays(year); //如果是闰月，temp就存闰月的天数
             } else {
                 temp = monthDays(year, i); //不是闰月就存这个i月的天数
@@ -358,29 +356,34 @@ public final class LunarCalendarUtil {
             offset -= temp;//相隔天 -= 这个月的天
             if (isLeap == false) { //无论闰月和普通月都++
                 monCyl++;
-//                System.out.println("monCyl==="+monCyl);
+//                System.out.println("monCyl===" + monCyl);
             }
         }
-        mineMonthCyl=monCyl;
-        System.out.println("isLeap=== "+isLeap+" offset=== "+offset);
-        //offset == 0 相隔天数用完    leap > 0闰月     i == leap + 1 表示当前还处在闰月
+//        System.out.println("isLeap=== " + isLeap + " offset=== " + offset
+//                +" leap=== "+leap+" leapCount=== "+leapCount);
+        //offset == 0 相隔天数用完    leap > 0 有闰月     i == leap + 1 表示当前还处在闰月
         if (offset == 0 && leap > 0 && i == leap + 1) {
             if (isLeap) {//找到闰月
                 isLeap = false;
+                leapCount = false;
             } else {
                 isLeap = true;
+                leapCount = true;
                 --i;
                 --monCyl;
             }
         }
-        if (!isLeap) {
-            if (offset < 0) { //相隔天数为负数，减过头了
-                offset += temp;
-                --i;
+        if (offset < 0) { //相隔天数为负数，减过头了
+            offset += temp;
+            --i;
+            if(!leapCount){
                 --monCyl;
             }
         }
-        System.out.println("monCyl=== "+monCyl);
+        if(offset==0){
+            leapCount=false;
+        }
+//        System.out.println("monCyl=== " + monCyl);
         month = i; //农历月份
         day = offset + 1; //农历天份
     }
@@ -407,9 +410,9 @@ public final class LunarCalendarUtil {
         //日期
         Lunar1(sDObj); //农历
 
-        System.out.println("新历 "+year+" "+month+" "+day+"  农历 "+cyclical(getYearCyl())+"年 "
-                +" getMonCyl==="+getMonCyl()+" "+cyclical(getMonCyl())+"月 "+cyclical(getDayCyl())+"日  "+
-                getYear()+"年 "+getMonth()+"月 "+getDay()+"日  ");
+        System.out.println("新历 " + year + " " + month + " " + day + "  农历 " + cyclical(getYearCyl()) + "年 "
+                + " getMonCyl===" + getMonCyl() + " " + cyclical(getMonCyl()) + "月 " + cyclical(getDayCyl()) + "日  " +
+                getYear() + "年 " + getMonth() + "月 " + getDay() + "日  ");
 
     }
 
@@ -424,26 +427,43 @@ public final class LunarCalendarUtil {
 //        System.out.println(getLunarYearMonthDay("2015", "01", "12"));
 
 //        getLunarMine("2014", "9", "12");
-        getLunarMine("2014", "10", "12"); //getMonCyl===1390
-        getLunarMine("2014", "11", "12"); //getMonCyl===1390
-        getLunarMine("2014", "12", "12");
-
-
-        getLunarMine("2015", "1", "12");
-        getLunarMine("2015", "2", "12");
-        getLunarMine("2015", "3", "12");
-        getLunarMine("2015", "4", "12");
-        getLunarMine("2015", "5", "12");
-        getLunarMine("2015", "6", "12");
-        getLunarMine("2015", "7", "12");
-        getLunarMine("2015", "8", "12");
-        getLunarMine("2015", "9", "12");
-////
+//        getLunarMine("2014", "10", "12"); //getMonCyl===1390
+//        getLunarMine("2014", "11", "12"); //getMonCyl===1390
+//        getLunarMine("2014", "12", "12");
+//
+//
+//        getLunarMine("2015", "1", "12");
+//        getLunarMine("2015", "2", "12");
+//        getLunarMine("2015", "3", "12");
+//        getLunarMine("2015", "4", "12");
+//        getLunarMine("2015", "5", "12");
+//        getLunarMine("2015", "6", "12");
+//        getLunarMine("2015", "7", "12");
+//        getLunarMine("2015", "8", "12");
+//
+//        getLunarMine("2015", "9", "12");
 //        getLunarMine("2015", "10", "12"); //getMonCyl===1401
 //        getLunarMine("2015", "11", "12"); //getMonCyl===1403
 //        getLunarMine("2015", "12", "12");
 
-//
+        getLunarMine("2013", "3", "14");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //        System.out.println(getLunarYearMonthDay("1990", "12", "22"));
 //        System.out.println(getLunarYearMonthDay("2019", "1", "22"));
 //        System.out.println(getLunarYearMonthDay("2019", "2", "10"));

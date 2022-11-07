@@ -339,19 +339,34 @@ public class LiuYao {
         Integer dongYao = 0; //记录动爻的位置
         String dongYaoDizhi = ""; //动爻的地支
         String dongYaoWuxing = ""; //动爻的五行
+        String dongHouDizhi = "";//"动后"的地支
+        String dongHouWuxing = "";//"动后"的五行
         if (dongYaoList.size() == 0) {
             System.out.println("此卦为 静卦");
         }
 
         for (int i = 0; i < dongYaoList.size(); i++) { //遍历存动爻的List
             dongYao = dongYaoList.get(i); //获取动爻的位置
-            dongYaoDizhi = BaGuaInit.getBengGua().getGanZhi().get(dongYao).substring(1, 2);
+            dongYaoDizhi = BaGuaInit.getBengGua().getGanZhi().get(dongYao).substring(1, 2); //动爻的地支
             dongYaoWuxing = BaGuaInit.getBengGua().getYaoWuxing().get(dongYao);
+
+            //动后爻就是动爻位置对应变卦的哪一爻
+            dongHouDizhi = BaGuaInit.getBianGua().getGanZhi().get(dongYao).substring(1, 2);
+            dongHouWuxing = BaGuaInit.getBianGua().getYaoWuxing().get(dongYao);
+            System.out.println("动爻 " + (dongYao + 1) + "爻 " + dongYaoDizhi + dongYaoWuxing);
+//            System.out.println("dongHouDizhi=== " + dongHouDizhi);
+//            System.out.println("dongHouWuxing=== " + dongHouWuxing);
             if (yongshenWuxing.equals(BaGuaInit.getWuxingKe().get(dongYaoWuxing))) { //如果动爻克用神
-                System.out.println((dongYao+1)+"爻 动爻 " + dongYaoDizhi + dongYaoWuxing + " 克制 用神 " + yongshenDizhi + yongshenWuxing);
+                System.out.println("动爻 " + (dongYao + 1) + "爻 " + dongYaoDizhi + dongYaoWuxing + " 克制 用神 " + yongshenDizhi + yongshenWuxing);
             }
             if (yongshenWuxing.equals(BaGuaInit.getWuxingSheng().get(dongYaoWuxing))) { //如果动爻生用神
-                System.out.println((dongYao+1)+"爻 动爻 " + dongYaoDizhi + dongYaoWuxing + " 生 用神 " + yongshenDizhi + yongshenWuxing);
+                System.out.println("动爻 " + (dongYao + 1) + "爻 " + dongYaoDizhi + dongYaoWuxing + " 生 用神 " + yongshenDizhi + yongshenWuxing);
+            }
+            if (yongshenWuxing.equals(BaGuaInit.getWuxingKe().get(dongHouWuxing))) { //如果动后爻 克用神
+                System.out.println("动后爻 " + (dongYao + 1) + "爻 " + dongHouDizhi + dongHouWuxing + " 克制 用神 " + yongshenDizhi + yongshenWuxing);
+            }
+            if (yongshenWuxing.equals(BaGuaInit.getWuxingSheng().get(dongHouWuxing))) { //如果动爻生用神
+                System.out.println("动后爻 " + (dongYao + 1) + "爻 " + dongHouDizhi + dongHouWuxing + " 生 用神 " + yongshenDizhi + yongshenWuxing);
             }
         }
 

@@ -30,9 +30,16 @@ public class ZengShanBuYi {
 //        Chronology.getInstance().initGanZhi(2017,5,8,7);
 //        LiuYao.getInstance().initLiuYao(0,2,2,2,3,1,"世爻");
 
-        //增删卜易 12页 例二：元神入墓  自占病
-        Chronology.getInstance().initGanZhi(2015,1,12,7);
-        LiuYao.getInstance().initLiuYao(3,0,2,2,3,2,"世爻");
+        //增删卜易 12页 例二：元神入墓  自占病  丑月戊子日
+//        Chronology.getInstance().initGanZhi(2015,1,12,7);
+//        LiuYao.getInstance().initLiuYao(3,0,2,2,3,2,"世爻");
+        //请伊母再占一卦   母占子，子孙为用神
+//        Chronology.getInstance().initGanZhi(2015,1,12,7);
+//        LiuYao.getInstance().initLiuYao(2,1,2,2,0,2,"子孙");
+
+        //增删卜易 13页 例一：回头相生  弟占兄 卯月己卯日
+        Chronology.getInstance().initGanZhi(2013,3,14,7);
+        LiuYao.getInstance().initLiuYao(2,0,0,1,0,0,"兄弟");
 
 
 
