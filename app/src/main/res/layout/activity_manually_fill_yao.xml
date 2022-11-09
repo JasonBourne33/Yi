@@ -7,12 +7,26 @@
     android:orientation="vertical"
     tools:context=".ManuallyFillYaoActivity">
 
+    <TextView
+        android:id="@+id/tv_yao6"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="六爻"
+        />
     <Spinner
         android:id="@+id/sp_yao6"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:autofillHints="六爻"
         android:layout_weight="1"
+        />
+    <TextView
+        android:id="@+id/tv_yao5"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="五爻"
         />
     <Spinner
         android:id="@+id/sp_yao5"
@@ -21,12 +35,26 @@
         android:autofillHints="六爻"
         android:layout_weight="1"
         />
+    <TextView
+        android:id="@+id/tv_yao4"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="四爻"
+        />
     <Spinner
         android:id="@+id/sp_yao4"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:autofillHints="六爻"
         android:layout_weight="1"
+        />
+    <TextView
+        android:id="@+id/tv_yao3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="三爻"
         />
     <Spinner
         android:id="@+id/sp_yao3"
@@ -35,6 +63,13 @@
         android:autofillHints="六爻"
         android:layout_weight="1"
         />
+    <TextView
+        android:id="@+id/tv_yao2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="二爻"
+        />
     <Spinner
         android:id="@+id/sp_yao2"
         android:layout_width="wrap_content"
@@ -42,11 +77,26 @@
         android:autofillHints="六爻"
         android:layout_weight="1"
         />
+    <TextView
+        android:id="@+id/tv_yao1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="一爻"
+        />
     <Spinner
         android:id="@+id/sp_yao1"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:autofillHints="六爻"
         android:layout_weight="1"
+        />
+    <Button
+        android:id="@+id/btn_generate"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Generate"
+        android:visibility="invisible"
         />
 </androidx.appcompat.widget.LinearLayoutCompat>

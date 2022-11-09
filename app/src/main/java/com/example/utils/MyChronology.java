@@ -1,5 +1,6 @@
 package com.example.utils;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -220,8 +221,31 @@ public class MyChronology {
 //        LiuYao.getInstance().initLiuYao(2,2,2,2,3,0);
 
         //增删卜易 13页 例一：回头相生  卯月 己卯日
-        Chronology.getInstance().initGanZhi(2013,3,14,7);
+//        Chronology.getInstance().initGanZhi(2013,3,14,7);
+//        LiuYao.getInstance().initLiuYao(2,0,0,1,0,0,"兄弟");
+//
+     ;
+
+        SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
+
+        SimpleDateFormat yyyy= new SimpleDateFormat("yyyy");
+        SimpleDateFormat MM= new SimpleDateFormat("MM");
+        SimpleDateFormat dd= new SimpleDateFormat("dd");
+        SimpleDateFormat HH= new SimpleDateFormat("HH");
+        Date date = new Date(System.currentTimeMillis()); //获取当前时间
+        int y = Integer.parseInt(yyyy.format(date));
+        int m = Integer.parseInt(MM.format(date));
+        int d = Integer.parseInt(dd.format(date));
+        int h = Integer.parseInt(HH.format(date));
+
+        Chronology.getInstance().initGanZhi(y,m,d,h);
         LiuYao.getInstance().initLiuYao(2,0,0,1,0,0,"兄弟");
+        System.out.println(formatter.format(date));
+//        System.out.println(yyyy.format(date));
+//        System.out.println(MM.format(date));
+//        System.out.println(dd.format(date));
+//        System.out.println(HH.format(date));
+
 
         System.out.println(Chronology.getInstance().getGanZhi());
         System.out.println("本卦对象=== "+BaGuaInit.getBengGua().toString());

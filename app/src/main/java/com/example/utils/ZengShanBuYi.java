@@ -6,6 +6,11 @@ import object.LiuYao;
 public class ZengShanBuYi {
     public static void main(String[] args) {
 
+        // https://www.bilibili.com/video/BV15Z4y1R7Da/
+        // 巳月 甲寅日 占往营中贸易 妻财为用神
+        Chronology.getInstance().initGanZhi(2020,5,11,7);
+        LiuYao.getInstance().initLiuYao(0,2,3,0,2,2,"妻财");
+
         //未济卦  上☲ 下 ☵   学魔法47,51  硬币起卦  丁酉年 己酉月 丁未日 丙午时   闰六月 学魔法47,51
 //        Chronology.getInstance().initGanZhi(2017,9,17,12);
 //        LiuYao.getInstance().initLiuYao(1,2,0,3,1,2); //0少阴 1老阴 2少阳 3老阳
@@ -38,8 +43,21 @@ public class ZengShanBuYi {
 //        LiuYao.getInstance().initLiuYao(2,1,2,2,0,2,"子孙");
 
         //增删卜易 13页 例一：回头相生  弟占兄 卯月己卯日
-        Chronology.getInstance().initGanZhi(2013,3,14,7);
-        LiuYao.getInstance().initLiuYao(2,0,0,1,0,0,"兄弟");
+//        Chronology.getInstance().initGanZhi(2013,3,14,7);
+//        LiuYao.getInstance().initLiuYao(2,0,0,1,0,0,"兄弟");
+        //增删卜易 13页 例二：父母持世  巳月丙申日，占病（应该是父母占子）
+//        Chronology.getInstance().initGanZhi(2017,5,9,7);
+//        LiuYao.getInstance().initLiuYao(0,2,2,2,2,2,"子孙");
+
+        //五行相克 13页 例一：有克无生  卯月戊辰日，占父官事
+//        Chronology.getInstance().initGanZhi(2011,3,14,7);
+//        LiuYao.getInstance().initLiuYao(1,0,1,2,2,1,"父母");
+
+        //五行相克 13页 例二：克处逢生  卯月戊辰日，妹占兄官事
+//        Chronology.getInstance().initGanZhi(2011,3,14,7);
+//        LiuYao.getInstance().initLiuYao(0,1,0,2,2,2,"兄弟");
+
+
 
 
 
