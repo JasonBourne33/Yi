@@ -45,10 +45,11 @@ public class DuanGuaObj {
     @Override
     public String toString() {
         return "DuanGuaObj{" +
-                "input=" + input +
-                ", yongshenInfo=" + yongshenInfo +
-                ", duanYu=" + duanYu +
-                ", score=" + score +
+                "\r\ninput=" + input +
+                "\r\n yongshenInfo=" + yongshenInfo +
+                "\r\nduanYu=" + duanYu +
+                "\r\nscore=" + score +
                 '}';
+
     }
 }

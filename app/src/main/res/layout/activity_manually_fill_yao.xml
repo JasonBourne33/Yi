@@ -7,96 +7,119 @@
     android:orientation="vertical"
     tools:context=".ManuallyFillYaoActivity">
 
-    <TextView
-        android:id="@+id/tv_yao6"
+    <custom.DateTimeButton
+        android:id="@+id/dtb_pickdate"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="六爻"
-        />
-    <Spinner
-        android:id="@+id/sp_yao6"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:autofillHints="六爻"
-        android:layout_weight="1"
-        />
-    <TextView
-        android:id="@+id/tv_yao5"
+        android:gravity="center"
+        android:textSize="20dp" />
+    <!--    <TextView-->
+    <!--        android:id="@+id/tv_pickDate"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="0dp"-->
+    <!--        android:layout_weight="1"-->
+    <!--        android:gravity="center"-->
+    <!--        android:textSize="20dp"-->
+    <!--        />-->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="五爻"
-        />
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/sp_yao6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:autofillHints="六爻" />
+
+        <TextView
+            android:id="@+id/tv_yao6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="六爻" />
+    </LinearLayout>
+
+
     <Spinner
         android:id="@+id/sp_yao5"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:autofillHints="六爻"
         android:layout_weight="1"
-        />
-    <TextView
-        android:id="@+id/tv_yao4"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="四爻"
-        />
+        android:autofillHints="五爻" />
+
+
     <Spinner
         android:id="@+id/sp_yao4"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:autofillHints="六爻"
         android:layout_weight="1"
-        />
-    <TextView
-        android:id="@+id/tv_yao3"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="三爻"
-        />
+        android:autofillHints="四爻" />
+
+
     <Spinner
         android:id="@+id/sp_yao3"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:autofillHints="六爻"
         android:layout_weight="1"
-        />
-    <TextView
-        android:id="@+id/tv_yao2"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="二爻"
-        />
+        android:autofillHints="三爻" />
+
+
     <Spinner
         android:id="@+id/sp_yao2"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:autofillHints="六爻"
         android:layout_weight="1"
-        />
-    <TextView
-        android:id="@+id/tv_yao1"
+        android:autofillHints="二爻" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="一爻"
-        />
-    <Spinner
-        android:id="@+id/sp_yao1"
-        android:layout_width="wrap_content"
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/sp_yao1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:autofillHints="一爻" />
+
+        <TextView
+            android:id="@+id/tv_yao1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="一爻" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:autofillHints="六爻"
         android:layout_weight="1"
-        />
+        android:orientation="horizontal">
+
+        <Spinner
+            android:id="@+id/sp_yongShen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"/>
+
+        <TextView
+            android:id="@+id/tv_yongshen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="用神" />
+    </LinearLayout>
+
     <Button
         android:id="@+id/btn_generate"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="Generate"
-        android:visibility="invisible"
-        />
+        android:text="Generate" />
 </androidx.appcompat.widget.LinearLayoutCompat>

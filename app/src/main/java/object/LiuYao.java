@@ -445,6 +445,8 @@ public class LiuYao {
         }
 
         for (int i = 0; i < dongYaoList.size(); i++) { //遍历存动爻的List
+            System.out.println("dongYaoList=== "+dongYaoList);
+
             dongYao = dongYaoList.get(i); //获取动爻的位置
             dongYaoDizhi = BaGuaInit.getBengGua().getGanZhi().get(dongYao).substring(1, 2); //动爻的地支
             dongYaoWuxing = BaGuaInit.getBengGua().getYaoWuxing().get(dongYao);
@@ -701,8 +703,13 @@ public class LiuYao {
 
 
     private HashMap<Integer, Boolean> yinYangMap = new HashMap<>();
-    ; //0少阴，1老阴 为 false阴
+    private ArrayList<String> dongSymbol =new ArrayList<>();   //动符号,阳变阴为o，阴变阳为x
+     //0少阴，1老阴 为 false阴
     private String[] baGuaString = {"乾", "艮", "坎", "震", "坤", "兑", "离", "巽"};
+
+    public ArrayList<String> getDongSymbol() {
+        return dongSymbol;
+    }
 
     private void initBase() {
         yaoNumList.add(y1);
@@ -712,12 +719,21 @@ public class LiuYao {
         yaoNumList.add(y5);
         yaoNumList.add(y6);
 
-        for (int i = 0; i < yaoNumList.size(); i++) {
+        for (int i = 0; i < yaoNumList.size(); i++) { //遍历记录 动爻
             if (yaoNumList.get(i) == 1 || yaoNumList.get(i) == 3) {
                 dongYaoList.add(i); //动爻记录有老阳 老阴的位置 i从0开始
 //                System.out.println("动爻=== " + i);
             }
+            if (yaoNumList.get(i)==1){ //阴变阳为x
+                dongSymbol.add(" x-> ");
+            }else if (yaoNumList.get(i)==3){ //阳变阴为o
+                dongSymbol.add(" o-> ");
+            }else {
+                dongSymbol.add("  \t\t   ");
+            }
+
         }
+
 
         yinYangMap.put(0, false);
         yinYangMap.put(1, false);
@@ -725,6 +741,21 @@ public class LiuYao {
         yinYangMap.put(3, true);
 
         BaGuaInit.getInstance().initHexagram(); //初始化静态变量
+    }
+
+    public DuanGuaObj getDuanGuaObj() {
+        return duanGuaObj;
+    }
+
+    /**
+     * 第二次占卦的时候要清理之前的数据
+     */
+    public void clear(){
+        yaoNumList.clear();
+        dongYaoList.clear();
+        yaoList.clear();
+        dongSymbol.clear();
+        System.out.println("clear=== ");
     }
 
 }

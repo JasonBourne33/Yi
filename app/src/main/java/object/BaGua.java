@@ -139,23 +139,28 @@ public class BaGua {
         this.yueJian = yueJian;
     }
 
+    private static String ln = "\r\n";
     @Override
     public String toString() {
-        return "BaGua{" +
-                "yao=" + yao +
-                ", ganZhi=" + ganZhi +
-                ", yaoWuxing=" + yaoWuxing +
-                ", relation=" + relation +
-                ", bazi=" + bazi +
-                ", yueJian=" + yueJian +
-                ", luma=" + luma +
-                ", name64=" + name64 +
-                ", name='" + name + '\'' +
-                ", benWuxing='" + benWuxing + '\'' +
-                ", benGong='" + benGong + '\'' +
-                ", bianguaPosition='" + bianguaPosition + '\'' +
-                ", shiYao=" + shiYao +
-                ", yingYao=" + yingYao +
+        return "{" +
+                " \r\n yao=" + yao +
+                " \r\n ganZhi=" + ganZhi +
+                " \r\n yaoWuxing=" + yaoWuxing +
+                " \r\n relation=" + relation +
+                " \r\n bazi=" + bazi +
+                " \r\n yueJian=" + yueJian +
+                " \r\n luma=" + luma +
+                " \r\n name64=" + name64 +
+                " \r\n name='" + name + '\'' +
+                " \r\n benWuxing='" + benWuxing + '\'' +
+                " \r\n benGong='" + benGong + '\'' +
+                " \r\n bianguaPosition='" + bianguaPosition + '\'' +
+                " \r\n shiYao=" + shiYao +
+                " \r\n yingYao=" + yingYao +
                 '}';
+
+
+
+
     }
 }
