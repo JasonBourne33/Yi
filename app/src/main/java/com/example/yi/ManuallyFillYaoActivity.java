@@ -105,6 +105,7 @@ public class ManuallyFillYaoActivity extends AppCompatActivity implements View.O
         yongshenList.add("兄弟");
         yongshenList.add("官鬼");
         yongshenList.add("妻财");
+        yongshenList.add("世爻");
 
         //适配器
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, yaoList);
@@ -180,6 +181,7 @@ public class ManuallyFillYaoActivity extends AppCompatActivity implements View.O
         int day = dateTimeButton.getDay();
         int hour = dateTimeButton.getHour();
         String strYongshen = spYongshen.getSelectedItem().toString();
+        System.out.println("p6~1= "+p6+p5+p4+p3+p2+p1);
         Chronology.getInstance().initGanZhi(year,month,day,hour);
         LiuYao.getInstance().initLiuYao(p1, p2, p3, p4, p5, p6, strYongshen);
 

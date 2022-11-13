@@ -56,6 +56,9 @@ public class BaGuaInit {
 
 
     public static HashMap<String,String> jiShen=new HashMap<>();//根据用神找忌神
+    public static HashMap<String,String> yuanShen=new HashMap<>();//根据用神找元神
+    public static HashMap<String,String> chouShen=new HashMap<>();//根据用神找仇神
+
 
 
     public static ArrayList<ArrayList<Boolean>> baGong=new ArrayList<>();    //八宫
@@ -107,11 +110,27 @@ public class BaGuaInit {
     }
 
     private void initJishen() {
+        //父母克子孙，子孙克官鬼，官鬼克兄弟，兄弟克妻财，妻财克父母
         jiShen.put("子孙","父母"); //子孙为用神，父母为忌神  父母克子孙
         jiShen.put("父母","妻财");
         jiShen.put("妻财","兄弟");
         jiShen.put("兄弟","官鬼");
         jiShen.put("官鬼","子孙");
+
+        //父母生兄弟，兄弟生子孙，子孙生妻财，妻财生官鬼，官鬼神父母
+        yuanShen.put("子孙","兄弟");//子孙为用神，元神为兄弟，兄弟生子孙
+        yuanShen.put("父母","官鬼");
+        yuanShen.put("妻财","子孙");
+        yuanShen.put("兄弟","父母");
+        yuanShen.put("官鬼","妻财");
+
+        //仇神克元神，生继神
+        chouShen.put("子孙","官鬼"); //
+        chouShen.put("父母","子孙");
+        chouShen.put("妻财","父母"); //父母克子孙，生兄弟
+        chouShen.put("兄弟","妻财");
+        chouShen.put("官鬼","兄弟");
+
     }
 
     private void initWuxing() {
@@ -474,5 +493,13 @@ public class BaGuaInit {
 
     public static void setJiShen(HashMap<String, String> jiShen) {
         BaGuaInit.jiShen = jiShen;
+    }
+
+    public static HashMap<String, String> getYuanShen() {
+        return yuanShen;
+    }
+
+    public static HashMap<String, String> getChouShen() {
+        return chouShen;
     }
 }

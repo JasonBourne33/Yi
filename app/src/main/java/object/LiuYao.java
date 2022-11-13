@@ -200,12 +200,16 @@ public class LiuYao {
         }
 
         String jiShen = BaGuaInit.getJiShen().get(yongShen);
+        String yuanShen = BaGuaInit.getYuanShen().get(yongShen);
+        String chouShen = BaGuaInit.getChouShen().get(yongShen);
 //        System.out.println("传入=== " + yongShenEle + " 用神===" + yongShen + " 忌神=== " + jiShen);
 
         inputList = new HashMap<>();
         inputList.put("传入",yongShenEle);
         inputList.put("用神",yongShen);
+        inputList.put("元神",yuanShen);
         inputList.put("忌神",jiShen);
+        inputList.put("仇神",chouShen);
         duanGuaObj.setInput(inputList);
         int yongShenPos = 0; //用神的位置
         int jiShenPos = 0;

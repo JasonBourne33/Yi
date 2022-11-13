@@ -119,15 +119,18 @@ public class Bazi {
         String diWang = diWangMap.get(ganWuXing); //先获取帝旺
         int diWangInt = yueDiZhiList.indexOf(diWang); //再获取帝旺对应的位置
         //根据帝旺的位置寻找其他的十二长生的月地支
-        String linGuan = yueDiZhiList.get(diWangInt - 1); //临冠
+        System.out.println(i+" i linGuan=== "+(diWangInt - 1));
+        String linGuan = yueDiZhiList.get((diWangInt - 1)<0?12-Math.abs(diWangInt - 1):diWangInt-1); //临冠
         sheng = yueDiZhiList.get((diWangInt - 4) < 0 ? 12 - Math.abs(diWangInt - 4) : diWangInt - 4); //十二长生中的 生
         mu = yueDiZhiList.get((diWangInt + 4) > 11 ? (diWangInt + 4) - 12 : diWangInt + 4); //十二长生中的 墓
 
 
         if ((i & 1) == 0) { //偶数，阴天干，在帝旺上
             lu = diWang;
+            System.out.println("diWang=== "+diWang);
         } else { //阳天干,在临冠上
             lu = linGuan;
+            System.out.println("linGuan=== "+linGuan);
         }
 
 
@@ -276,5 +279,39 @@ public class Bazi {
         tianGanList.add("癸");
 
 
+    }
+
+    @Override
+    public String toString() {
+        return "Bazi{" +
+                "suiYin='" + suiYin + '\'' +
+                ", suiPo='" + suiPo + '\'' +
+                ", yueJian='" + yueJian + '\'' +
+                ", yuePo='" + yuePo + '\'' +
+                ", riZhi='" + riZhi + '\'' +
+                ", riPo='" + riPo + '\'' +
+                ", bazi=" + bazi +
+                ", yueJianMap=" + yueJianMap +
+                ", luma=" + luma +
+                ", lu='" + lu + '\'' +
+                ", ma='" + ma + '\'' +
+                ", sheng='" + sheng + '\'' +
+                ", wang='" + wang + '\'' +
+                ", mu='" + mu + '\'' +
+                ", i=" + i +
+                ", liuChong=" + liuChong +
+                ", wuXingMap=" + wuXingMap +
+                ", diWangMap=" + diWangMap +
+                ", wuXingList=" + wuXingList +
+                ", changShengList=" + changShengList +
+                ", yueDiZhiList=" + yueDiZhiList +
+                ", sanHeList=" + sanHeList +
+                ", tianGanList=" + tianGanList +
+                '}';
+    }
+
+    public void clear(){
+        luma.clear();
+        bazi.clear();
     }
 }

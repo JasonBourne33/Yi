@@ -14,6 +14,7 @@ import java.util.HashMap;
 
 import object.BaGua;
 import object.BaGuaInit;
+import object.Bazi;
 import object.DuanGuaObj;
 import object.LiuYao;
 
@@ -22,6 +23,7 @@ public class GuaDetailActivity extends AppCompatActivity {
     private Context mContext;
     private TextView tvLiuyao; //本卦信息
     private TextView duanInfo;
+    private TextView baziInfo; //八字信息
     private TextView bianGuaInfo;
     private TextView benGongGuaInfo;
 
@@ -53,6 +55,7 @@ public class GuaDetailActivity extends AppCompatActivity {
 
         tvLiuyao = findViewById(R.id.tv_guaInfo);
         duanInfo = findViewById(R.id.tv_duanInfo);//断卦的信息
+        baziInfo = findViewById(R.id.tv_bazi);//断卦的信息
         bianGuaInfo = findViewById(R.id.tv_bianGuaInfo);//变卦的信息
         benGongGuaInfo = findViewById(R.id.tv_benGongGuaInfo);//本宫的信息
         tvYao6 = findViewById(R.id.tv_yao6); //本卦的爻
@@ -73,6 +76,7 @@ public class GuaDetailActivity extends AppCompatActivity {
         ArrayList<Boolean> yaoList = BaGuaInit.getBengGua().getYao();
         tvLiuyao.setText("本卦= "+BaGuaInit.getBengGua().toString());
         duanInfo.setText(LiuYao.getInstance().getDuanGuaObj().toString()); //设置断卦信息
+        baziInfo.setText(Bazi.getInstance().toString());
         bianGuaInfo.setText("变卦= "+BaGuaInit.getBianGua().toString()); //变卦信息
         benGongGuaInfo.setText("本宫卦= "+BaGuaInit.getBenGongGua().toString()); //本宫卦信息
 
@@ -133,5 +137,6 @@ public class GuaDetailActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         LiuYao.getInstance().clear();
+        Bazi.getInstance().clear();
     }
 }
