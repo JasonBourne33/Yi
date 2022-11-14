@@ -60,8 +60,8 @@ public class ManuallyFillYaoActivity extends AppCompatActivity implements View.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manually_fill_yao);
-
         mContext=this;
+//        BaGuaInit.getInstance().initHexagram(); //初始化八卦基础
         btnGenerate = findViewById(R.id.btn_generate);
 //        tvPickDate = findViewById(R.id.tv_pickDate);
         dateTimeButton = findViewById(R.id.dtb_pickdate); //日期时间选择控件
@@ -182,7 +182,10 @@ public class ManuallyFillYaoActivity extends AppCompatActivity implements View.O
         int hour = dateTimeButton.getHour();
         String strYongshen = spYongshen.getSelectedItem().toString();
         System.out.println("p6~1= "+p6+p5+p4+p3+p2+p1);
+
+//        BaGuaInit.getInstance().initHexagram(); //初始化静态变量
         Chronology.getInstance().initGanZhi(year,month,day,hour);
+//        Chronology.getInstance().initGanZhi(2022,11,13,8);
         LiuYao.getInstance().initLiuYao(p1, p2, p3, p4, p5, p6, strYongshen);
 
         System.out.println("本卦对象=== "+ BaGuaInit.getBengGua().toString());

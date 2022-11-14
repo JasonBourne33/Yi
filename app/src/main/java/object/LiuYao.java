@@ -53,6 +53,10 @@ public class LiuYao {
     /***
      * 给卦里的爻纳干支
      */
+    private ArrayList<Boolean> xiaJinGua; //下面的经卦
+    private ArrayList<Boolean> shangJinGua;
+    private ArrayList<String> xiaGuaGanzhi; //下经卦干支
+    private ArrayList<String> shangGuaGanzhi;
     private void initGuaGanZhi(ArrayList<Boolean> yaoList, BaGua bagua) {
 
 //        for (int i = 0; i < yaoList.size(); i++) {
@@ -60,26 +64,32 @@ public class LiuYao {
 //        }
 
         //参考ArryList的 equels 方法写一个 JinGua的equals
-        ArrayList<Boolean> xiaJinGua = new ArrayList<>(); //下面的经卦
+
+        xiaJinGua = new ArrayList<>();
         xiaJinGua.add(yaoList.get(0));
         xiaJinGua.add(yaoList.get(1));
         xiaJinGua.add(yaoList.get(2));
-        ArrayList<Boolean> shangJinGua = new ArrayList<>();
+
+        shangJinGua = new ArrayList<>();
         shangJinGua.add(yaoList.get(3));
         shangJinGua.add(yaoList.get(4));
         shangJinGua.add(yaoList.get(5));
 
         ArrayList<ArrayList<Boolean>> baGong = BaGuaInit.getBaGong(); //获取八卦
         ArrayList<String> name64 = new ArrayList();
+        System.out.println("xiaJinGua=== "+xiaJinGua);
+
+
+        xiaGuaGanzhi = new ArrayList<>();
+
         for (int i = 0; i < baGong.size(); i++) {
+//            System.out.println("baGong.get(i)=== "+baGong.get(i));
             if (baGong.get(i).equals(xiaJinGua)) {
 //                System.out.println("下卦是=== " + baGuaString[i]);
                 name64.add(baGuaString[i]);
                 ArrayList<String> ganZhi = BaGuaInit.getBaGuaList().get(i).getGanZhi();
-                for (int j = 0; j < 3; j++) {
-//                    System.out.println("下卦干支是=== " + ganZhi.get(j));
-                }
-                ArrayList<String> xiaGuaGanzhi = new ArrayList<>();
+//                System.out.println("下卦干支是=== " + ganZhi.get(i));
+
                 xiaGuaGanzhi.add(ganZhi.get(0));
                 xiaGuaGanzhi.add(ganZhi.get(1));
                 xiaGuaGanzhi.add(ganZhi.get(2));
@@ -96,7 +106,8 @@ public class LiuYao {
 //                System.out.println("上卦干支是=== "+ganZhi.get(3));
 //                System.out.println("上卦干支是=== "+ganZhi.get(4));
 //                System.out.println("上卦干支是=== "+ganZhi.get(5));
-                ArrayList<String> shangGuaGanzhi = new ArrayList<>();
+
+                shangGuaGanzhi = new ArrayList<>();
                 shangGuaGanzhi.add(ganZhi.get(3));
                 shangGuaGanzhi.add(ganZhi.get(4));
                 shangGuaGanzhi.add(ganZhi.get(5));
@@ -682,7 +693,7 @@ public class LiuYao {
 //        }
 
         //参考ArryList的 equels 方法写一个 JinGua的equals
-        ArrayList<Boolean> xiaJinGua = new ArrayList<>(); //下面的经卦
+        xiaJinGua = new ArrayList<>(); //下面的经卦
         xiaJinGua.add(gbList.get(0));
         xiaJinGua.add(gbList.get(1));
         xiaJinGua.add(gbList.get(2));
@@ -744,7 +755,7 @@ public class LiuYao {
         yinYangMap.put(2, true);
         yinYangMap.put(3, true);
 
-        BaGuaInit.getInstance().initHexagram(); //初始化静态变量
+        BaGuaInit.getInstance();
     }
 
     public DuanGuaObj getDuanGuaObj() {
@@ -755,6 +766,12 @@ public class LiuYao {
      * 第二次占卦的时候要清理之前的数据
      */
     public void clear(){
+        xiaJinGua.clear();
+        shangJinGua.clear();
+
+        xiaGuaGanzhi.clear();
+        shangGuaGanzhi.clear();
+
         yaoNumList.clear();
         dongYaoList.clear();
         yaoList.clear();

@@ -119,23 +119,25 @@ public class Bazi {
         String diWang = diWangMap.get(ganWuXing); //先获取帝旺
         int diWangInt = yueDiZhiList.indexOf(diWang); //再获取帝旺对应的位置
         //根据帝旺的位置寻找其他的十二长生的月地支
-        System.out.println(i+" i linGuan=== "+(diWangInt - 1));
         String linGuan = yueDiZhiList.get((diWangInt - 1)<0?12-Math.abs(diWangInt - 1):diWangInt-1); //临冠
         sheng = yueDiZhiList.get((diWangInt - 4) < 0 ? 12 - Math.abs(diWangInt - 4) : diWangInt - 4); //十二长生中的 生
         mu = yueDiZhiList.get((diWangInt + 4) > 11 ? (diWangInt + 4) - 12 : diWangInt + 4); //十二长生中的 墓
 
+        System.out.println("diWangInt=== "+diWangInt);
+        System.out.println("sheng=== "+((diWangInt - 4) < 0 ? 12 - Math.abs(diWangInt - 4) : diWangInt - 4));
+        System.out.println("mu=== "+((diWangInt + 4) > 11 ? (diWangInt + 4) - 12 : diWangInt + 4));
 
         if ((i & 1) == 0) { //偶数，阴天干，在帝旺上
             lu = diWang;
-            System.out.println("diWang=== "+diWang);
         } else { //阳天干,在临冠上
             lu = linGuan;
-            System.out.println("linGuan=== "+linGuan);
         }
 
 
         //马 的代码  驿马三合顶头冲
         int sanHePos = sanHeList.indexOf(riZhi);
+        System.out.println("riZhi=== "+riZhi);
+        System.out.println("sanHePos=== "+sanHePos);
         int sanHe = sanHePos / 3; // 0是火的三合，1是金，2是水，3是木
         String sanHeDing = ""; // 存三合的顶头
         switch (sanHe) {
@@ -152,6 +154,7 @@ public class Bazi {
                 sanHeDing = sanHeList.get(9);
                 break;
         }
+        System.out.println("sanHeDing=== "+sanHeDing);
         ma = liuChong.get(sanHeDing);
 
 //        System.out.println("禄=== " + lu);
@@ -205,7 +208,7 @@ public class Bazi {
         wuXingMap.put("丁", "火");
         wuXingMap.put("戊", "土");
         wuXingMap.put("己", "土");
-        wuXingMap.put("艮", "金");
+        wuXingMap.put("庚", "金");
         wuXingMap.put("辛", "金");
         wuXingMap.put("壬", "水");
         wuXingMap.put("癸", "水");
@@ -253,16 +256,16 @@ public class Bazi {
         diWangMap.put("土", "辰");//现在还不知道土的帝旺是什么，但是不写会报错
 
         sanHeList = new ArrayList<>();//0~2 火的三合是 寅午戌   2~5 金的三合是 巳酉丑
-        sanHeList.add("寅");
+        sanHeList.add("寅");//0~2 火的三合是 寅午戌
         sanHeList.add("午");
         sanHeList.add("戌");
-        sanHeList.add("巳");
+        sanHeList.add("巳");//2~5 金的三合是 巳酉丑
         sanHeList.add("酉");
         sanHeList.add("丑");
-        sanHeList.add("申");
+        sanHeList.add("申"); //水的三合 申	子	辰
         sanHeList.add("子");
         sanHeList.add("辰");
-        sanHeList.add("亥");
+        sanHeList.add("亥"); //木的三合 亥	卯	未
         sanHeList.add("卯");
         sanHeList.add("未");
 
