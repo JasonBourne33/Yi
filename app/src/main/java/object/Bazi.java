@@ -59,13 +59,26 @@ public class Bazi {
     private String riPo;
     private ArrayList<String> bazi = new ArrayList<>(); //年月日时的 干支 （年干，年支，月干，月支，日干，日支，时干，时支）
     private HashMap<String,String> yueJianMap = new HashMap<>(); //月建，月破，日支，日破
+    private HashMap<String,String> twelveChangsheng = new HashMap<>(); //长生：地支
     private ArrayList<String> luma = new ArrayList<>(); //禄，马，生，旺，墓
     //禄马生旺墓
     private String lu;
     private String ma;
-    private String sheng;
-    private String wang;
-    private String mu;
+    private String sheng;   //长生1
+    private String diWang;    //帝旺5
+    private String mu;      //墓9
+
+    private String muYu;    //沐浴2
+    private String guanDai; //冠带3
+    private String linGuan; //临冠4
+    private String shuai;   //衰6
+    private String bing;    //病7
+    private String si;      //死8
+    private String jue;     //绝10
+    private String tai;     //胎11
+    private String yang;    //养12
+
+
 
     /**
      * @param y 年 干支
@@ -116,16 +129,38 @@ public class Bazi {
         // 丁 阴 火 帝旺是第5位  月地支是 午，寅卯辰巳午
         String ganWuXing = wuXingMap.get(riGan);
         i = tianGanList.indexOf(riGan) + 1; //wuXingList从第0位开始，+1 方便后面判断奇偶
-        String diWang = diWangMap.get(ganWuXing); //先获取帝旺
+        diWang = diWangMap.get(ganWuXing); //先获取帝旺
         int diWangInt = yueDiZhiList.indexOf(diWang); //再获取帝旺对应的位置
         //根据帝旺的位置寻找其他的十二长生的月地支
-        String linGuan = yueDiZhiList.get((diWangInt - 1)<0?12-Math.abs(diWangInt - 1):diWangInt-1); //临冠
-        sheng = yueDiZhiList.get((diWangInt - 4) < 0 ? 12 - Math.abs(diWangInt - 4) : diWangInt - 4); //十二长生中的 生
-        mu = yueDiZhiList.get((diWangInt + 4) > 11 ? (diWangInt + 4) - 12 : diWangInt + 4); //十二长生中的 墓
 
-        System.out.println("diWangInt=== "+diWangInt);
-        System.out.println("sheng=== "+((diWangInt - 4) < 0 ? 12 - Math.abs(diWangInt - 4) : diWangInt - 4));
-        System.out.println("mu=== "+((diWangInt + 4) > 11 ? (diWangInt + 4) - 12 : diWangInt + 4));
+        sheng = yueDiZhiList.get((diWangInt - 4) < 0 ? 12 - Math.abs(diWangInt - 4) : diWangInt - 4); //十二长生中的 生
+        muYu = yueDiZhiList.get((diWangInt - 3) < 0 ? 12 - Math.abs(diWangInt - 3) : diWangInt - 3); //沐浴
+        guanDai = yueDiZhiList.get((diWangInt - 2) < 0 ? 12 - Math.abs(diWangInt - 2) : diWangInt - 2);
+        linGuan = yueDiZhiList.get((diWangInt - 1) < 0 ? 12 - Math.abs(diWangInt - 1) : diWangInt - 1);
+        shuai = yueDiZhiList.get((diWangInt + 1) > 11 ? (diWangInt + 1) - 12 : diWangInt + 1); //衰
+        bing = yueDiZhiList.get((diWangInt + 2) > 11 ? (diWangInt + 2) - 12 : diWangInt + 2); //病
+        si = yueDiZhiList.get((diWangInt + 3) > 11 ? (diWangInt + 3) - 12 : diWangInt + 3); //死
+        mu = yueDiZhiList.get((diWangInt + 4) > 11 ? (diWangInt + 4) - 12 : diWangInt + 4); //十二长生中的 墓
+        jue = yueDiZhiList.get((diWangInt + 5) > 11 ? (diWangInt + 5) - 12 : diWangInt + 5);
+        tai = yueDiZhiList.get((diWangInt + 6) > 11 ? (diWangInt + 6) - 12 : diWangInt + 6);
+        yang = yueDiZhiList.get((diWangInt + 7) > 11 ? (diWangInt + 7) - 12 : diWangInt + 7);
+
+        twelveChangsheng.put("长生",sheng);
+        twelveChangsheng.put("沐浴",muYu);
+        twelveChangsheng.put("临冠",linGuan);
+        twelveChangsheng.put("冠带",guanDai);
+        twelveChangsheng.put("帝旺",diWang);
+        twelveChangsheng.put("衰",shuai);
+        twelveChangsheng.put("病",bing);
+        twelveChangsheng.put("死",si);
+        twelveChangsheng.put("墓",mu);
+        twelveChangsheng.put("绝",jue);
+        twelveChangsheng.put("胎",tai);
+        twelveChangsheng.put("养",yang);
+
+//        System.out.println("diWangInt=== "+diWangInt);
+//        System.out.println("sheng=== "+((diWangInt - 4) < 0 ? 12 - Math.abs(diWangInt - 4) : diWangInt - 4));
+//        System.out.println("mu=== "+((diWangInt + 4) > 11 ? (diWangInt + 4) - 12 : diWangInt + 4));
 
         if ((i & 1) == 0) { //偶数，阴天干，在帝旺上
             lu = diWang;
@@ -136,8 +171,8 @@ public class Bazi {
 
         //马 的代码  驿马三合顶头冲
         int sanHePos = sanHeList.indexOf(riZhi);
-        System.out.println("riZhi=== "+riZhi);
-        System.out.println("sanHePos=== "+sanHePos);
+//        System.out.println("riZhi=== "+riZhi);
+//        System.out.println("sanHePos=== "+sanHePos);
         int sanHe = sanHePos / 3; // 0是火的三合，1是金，2是水，3是木
         String sanHeDing = ""; // 存三合的顶头
         switch (sanHe) {
@@ -154,7 +189,7 @@ public class Bazi {
                 sanHeDing = sanHeList.get(9);
                 break;
         }
-        System.out.println("sanHeDing=== "+sanHeDing);
+//        System.out.println("sanHeDing=== "+sanHeDing);
         ma = liuChong.get(sanHeDing);
 
 //        System.out.println("禄=== " + lu);
@@ -299,8 +334,9 @@ public class Bazi {
                 ", lu='" + lu + '\'' +
                 ", ma='" + ma + '\'' +
                 ", sheng='" + sheng + '\'' +
-                ", wang='" + wang + '\'' +
+                ", wang='" + diWang + '\'' +
                 ", mu='" + mu + '\'' +
+                ", twelveChangsheng='" + twelveChangsheng + '\'' +
                 ", i=" + i +
                 ", liuChong=" + liuChong +
                 ", wuXingMap=" + wuXingMap +

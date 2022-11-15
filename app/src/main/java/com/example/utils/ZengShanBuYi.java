@@ -1,15 +1,17 @@
 package com.example.utils;
 
 import object.BaGuaInit;
+import object.Bazi;
 import object.LiuYao;
 
 public class ZengShanBuYi {
     public static void main(String[] args) {
+        BaGuaInit.getInstance().initHexagram();
 
         // https://www.bilibili.com/video/BV15Z4y1R7Da/
         // 巳月 甲寅日 占往营中贸易 妻财为用神
-        Chronology.getInstance().initGanZhi(2020,5,11,7);
-        LiuYao.getInstance().initLiuYao(0,2,3,0,2,2,"妻财");
+//        Chronology.getInstance().initGanZhi(2020,5,11,7);
+//        LiuYao.getInstance().initLiuYao(0,2,3,0,2,2,"妻财");
 
         //未济卦  上☲ 下 ☵   学魔法47,51  硬币起卦  丁酉年 己酉月 丁未日 丙午时   闰六月 学魔法47,51
 //        Chronology.getInstance().initGanZhi(2017,9,17,12);
@@ -58,12 +60,15 @@ public class ZengShanBuYi {
 //        LiuYao.getInstance().initLiuYao(0,1,0,2,2,2,"兄弟");
 
 
-
+        //20页 申月甲辰日，占兄病
+        Chronology.getInstance().initGanZhi(2022,8,19,7);
+        LiuYao.getInstance().initLiuYao(2,0,0,1,3,0,"兄弟");
 
 
         System.out.println(Chronology.getInstance().getGanZhi());
         System.out.println("本卦对象=== "+ BaGuaInit.getBengGua().toString());
-        System.out.println("变卦对象=== "+BaGuaInit.getBianGua().toString());
-        System.out.println("本宫卦对象=== "+BaGuaInit.getBenGongGua().toString());
+        System.out.println("八字对象=== "+Bazi.getInstance().toString());
+//        System.out.println("变卦对象=== "+BaGuaInit.getBianGua().toString());
+//        System.out.println("本宫卦对象=== "+BaGuaInit.getBenGongGua().toString());
     }
 }

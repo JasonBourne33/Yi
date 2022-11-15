@@ -6,6 +6,7 @@ import java.util.HashMap;
 public class DuanGuaObj {
 //    private ArrayList<String> input=new ArrayList<>(); //传入，用神，忌神
     private HashMap<String,String> input=new HashMap<>(); //传入，用神，忌神
+    private HashMap<String,Integer> yuanshenPos=new HashMap<>(); //用神，忌神，元神，仇神位置
     private ArrayList<String> yongshenInfo=new ArrayList<>(); //用神忌神哪里来，
     private ArrayList<String> duanYu=new ArrayList<>(); //断语
     private double score; //得分
@@ -42,6 +43,14 @@ public class DuanGuaObj {
         this.score = score;
     }
 
+    public HashMap<String, Integer> getYuanshenPos() {
+        return yuanshenPos;
+    }
+
+    public void setYuanshenPos(HashMap<String, Integer> yuanshenPos) {
+        this.yuanshenPos = yuanshenPos;
+    }
+
     @Override
     public String toString() {
         return "DuanGuaObj{" +
@@ -49,6 +58,7 @@ public class DuanGuaObj {
                 "\r\n yongshenInfo=" + yongshenInfo +
                 "\r\nduanYu=" + duanYu +
                 "\r\nscore=" + score +
+                "\r\nyuanshenPos=" + yuanshenPos +
                 '}';
 
     }
