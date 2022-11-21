@@ -1,0 +1,43 @@
+
+
+
+boolean zhenPoFlag=false; //真破还是假破
+boolean zuoyongYongshenFlag=false; //动爻是否已经作用于用神
+
+foreach 动爻list { //遍历动爻
+    if（动爻位置==用神位置）{ //动爻又是用神
+        if（ 变爻五行 生 动爻五行）{	//变爻回头生
+        	sout 变回头生，吉
+        }
+        if（变爻五行 克制 动爻五行）{	//变爻回头克
+       	 	sout 变回头克，凶
+        }
+        if（变爻五行 冲 动爻五行）{	    //变爻回头冲
+       	 	sout 变回头冲，凶
+        }
+        if（变爻五行 合 动爻五行）{	    //变爻回头合
+       	 	sout 变回头合，吉
+        }
+    }
+    if(变爻地支==月破地支){	//变爻月破
+        if（变爻五行 克制 动爻五行 or 变爻五行 生 动爻五行 or 变爻五行 冲 动爻五行 or 变爻五行 合 动爻五行）{
+            假破  zhenPoFlag=false;
+        }else{
+            真破   zhenPoFlag=true;
+        }
+	}
+	if(zhenPoFlag==false){ 假破，找动爻
+        if（动爻五行 生克冲合 用神）{
+            判断吉凶
+            zuoyongYongshenFlag=true;
+        }
+        if(zuoyongYongshenFlag==false) //如果动爻没有作用于用神
+            //动爻作用于世爻
+            if（动爻五行 生克冲合 世爻  ）{
+                判断吉凶
+            }
+        }
+	}
+
+	
+}

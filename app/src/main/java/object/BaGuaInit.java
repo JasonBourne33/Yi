@@ -87,28 +87,6 @@ public class BaGuaInit {
         return instance;
     }
 
-    public void initHexagram() {
-        initYao(); //爻的阴阳
-
-        initName(); //乾艮坎震
-
-        initGanZhi(); //爻的干支
-
-        initWuxing(); //八卦的五行 和 地支的五行
-
-        initJishen();//根据用神找忌神
-
-        baGuaList.add(qian);
-        baGuaList.add(gen );
-        baGuaList.add(kan );
-        baGuaList.add(zhen);
-        baGuaList.add(kun );
-        baGuaList.add(dui );
-        baGuaList.add(li  );
-        baGuaList.add(xun );
-
-    }
-
     private void initJishen() {
         //父母克子孙，子孙克官鬼，官鬼克兄弟，兄弟克妻财，妻财克父母
         jiShen.put("子孙","父母"); //子孙为用神，父母为忌神  父母克子孙
@@ -130,6 +108,31 @@ public class BaGuaInit {
         chouShen.put("妻财","父母"); //父母克子孙，生兄弟
         chouShen.put("兄弟","妻财");
         chouShen.put("官鬼","兄弟");
+
+    }
+
+    public void initHexagram() {
+
+        initYao(); //八卦爻的阴阳
+
+        initName(); //乾艮坎震
+
+        initGanZhi(); //八卦爻的干支
+
+        initWuxing(); //八卦的五行 和 地支的五行 五行和六亲的生克
+
+        initJishen();//根据用神找忌神，元神，仇神
+
+        Bazi.getInstance().initBaziBase();
+
+        baGuaList.add(qian);
+        baGuaList.add(gen );
+        baGuaList.add(kan );
+        baGuaList.add(zhen);
+        baGuaList.add(kun );
+        baGuaList.add(dui );
+        baGuaList.add(li  );
+        baGuaList.add(xun );
 
     }
 

@@ -60,9 +60,24 @@ public class ZengShanBuYi {
 //        LiuYao.getInstance().initLiuYao(0,1,0,2,2,2,"兄弟");
 
 
-        //20页 申月甲辰日，占兄病
-        Chronology.getInstance().initGanZhi(2022,8,19,7);
-        LiuYao.getInstance().initLiuYao(2,0,0,1,3,0,"兄弟");
+        //20页 申月甲辰日，占兄病      忌神、元神同动
+//        Chronology.getInstance().initGanZhi(2022,8,19,7);
+//        LiuYao.getInstance().initLiuYao(2,0,0,1,3,0,"兄弟");
+
+        //page43 申月癸卯日，占乡试，得“恒之大过”
+//        Chronology.getInstance().initGanZhi(2022,8,18,7);//报错
+//        Chronology.getInstance().initGanZhi(2022,8,18,9);
+//        LiuYao.getInstance().initLiuYao(0,2,2,2,1,0,"官鬼");
+
+        //六爻公开课五 变爻 卯月 壬申日
+//        Chronology.getInstance().initGanZhi(2022,3,20,9);
+//        LiuYao.getInstance().initLiuYao(0,1,1,0,2,0,"官鬼");
+        //六爻公开课五 动爻 酉月 甲辰日  16.25
+//        Chronology.getInstance().initGanZhi(2028,9,16,9);
+//        LiuYao.getInstance().initLiuYao(1,3,1,0,0,0,"官鬼");
+        //六爻公开课五 日月 午月 戊辰日  11.45
+        Chronology.getInstance().initGanZhi(2027,6,18,9);
+        LiuYao.getInstance().initLiuYao(0,0,0,2,0,2,"兄弟");
 
 
         System.out.println(Chronology.getInstance().getGanZhi());

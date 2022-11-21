@@ -183,7 +183,8 @@ public class Chronology {
         mDayGanZhi = JiaziList[dayJiazi];  //获取日干支
 
         // -1 因为是从 dayTianganInt 里面获得的，而 dayTianganInt 是60甲子表里面的从1开始
-        int hourTianganBegin = hourTianganMap.get(dayTianganInt) - 1;   //实验是庚，子时是庚子
+        int hourTiangan = hourTianganMap.get(dayTianganInt) - 1;
+        int hourTianganBegin = hourTiangan;   //实验是庚，子时是庚子
 
         //fHour是这一天经过的时辰数 hour+2因为 1:00已经是丑时了，还有本来子时跨天占一个小时
         int fHour = (int) Math.round((double) (hour + 2) / 2);
@@ -213,7 +214,7 @@ public class Chronology {
         hourTianganMap.put(4, 7); //丁壬庚子居
         hourTianganMap.put(9, 7);
         hourTianganMap.put(5, 9); //戊癸何方求，壬子时真途
-        hourTianganMap.put(10, 9);
+        hourTianganMap.put(0, 9);
 
         //五虎遁  没用上，搞不定，月份用了原算法
         monthTianganMap = new HashMap<>();
@@ -261,7 +262,8 @@ public class Chronology {
 
 
     //  https://blog.csdn.net/buertianci/article/details/104636909
-    private static boolean leapCount=false; //解决闰月要到offset=0才归位的问题
+    private static boolean leapCount = false; //解决闰月要到offset=0才归位的问题
+
     /**
      * 算出农历, 传入日期物件, 传回农历日期物件
      * 该物件属性有 .year .month .day .isLeap .yearCyl .dayCyl .monCyl
@@ -273,7 +275,7 @@ public class Chronology {
         //leap: 存闰哪个月
         //temp: 存农历每年天数
         //offset：天数 传入的日期 - 1900年1月31日 相隔的天数
-        System.out.println("objDate=== "+objDate);
+        System.out.println("objDate=== " + objDate);
         int i, leap = 0, temp = 0;
         Calendar cl = Calendar.getInstance();
         cl.set(1900, 0, 31); //1900-01-31是农历1900年正月初一
@@ -338,12 +340,12 @@ public class Chronology {
         if (offset < 0) { //相隔天数为负数，减过头了
             offset += temp;
             --i;
-            if(!leapCount){ //不急着解除闰月，等offset=0再解除，其他时候跟着isLeap的值
+            if (!leapCount) { //不急着解除闰月，等offset=0再解除，其他时候跟着isLeap的值
                 --monCyl;
             }
         }
-        if(offset==0){ //在offset是0 的时候 让leapCount复位 leapCount=false;
-            leapCount=false;
+        if (offset == 0) { //在offset是0 的时候 让leapCount复位 leapCount=false;
+            leapCount = false;
         }
         System.out.println("monCyl=== " + monCyl);
         month = i; //农历月份
@@ -360,6 +362,7 @@ public class Chronology {
     private static String cyclical(int num) {
         return (Gan[num % 10] + Zhi[num % 12]);
     }
+
     private static String[] Gan = {"甲", "乙", "丙", "丁", "戊", "己", "庚", "辛",
             "壬", "癸"};
     private static String[] Zhi = {"子", "丑", "寅", "卯", "辰", "巳", "午", "未",

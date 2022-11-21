@@ -183,10 +183,11 @@ public class ManuallyFillYaoActivity extends AppCompatActivity implements View.O
         String strYongshen = spYongshen.getSelectedItem().toString();
         System.out.println("p6~1= "+p6+p5+p4+p3+p2+p1);
 
-//        BaGuaInit.getInstance().initHexagram(); //初始化静态变量
-        Chronology.getInstance().initGanZhi(year,month,day,hour);
-//        Chronology.getInstance().initGanZhi(2022,11,13,8);
-        LiuYao.getInstance().initLiuYao(p1, p2, p3, p4, p5, p6, strYongshen);
+//        Chronology.getInstance().initGanZhi(year,month,day,hour);
+//        LiuYao.getInstance().initLiuYao(p1, p2, p3, p4, p5, p6, strYongshen);
+
+        Chronology.getInstance().initGanZhi(2027,6,18,9);
+        LiuYao.getInstance().initLiuYao(0,0,0,2,0,2,"兄弟");
 
         System.out.println("本卦对象=== "+ BaGuaInit.getBengGua().toString());
         System.out.println("变卦对象=== "+BaGuaInit.getBianGua().toString());

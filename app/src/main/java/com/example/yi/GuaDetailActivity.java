@@ -7,15 +7,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.example.utils.Chronology;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import object.BaGua;
 import object.BaGuaInit;
 import object.Bazi;
-import object.DuanGuaObj;
 import object.LiuYao;
 
 public class GuaDetailActivity extends AppCompatActivity {
