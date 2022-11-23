@@ -83,7 +83,24 @@ public class Bazi {
     private String tai;     //胎11
     private String yang;    //养12
 
+    private String  xunKong; //根据日支获取旬空
+    private HashMap<String,String>  xunKongList=new HashMap<String,String>(); //根据日支获取旬空
 
+    public String getXunKong() {
+        return xunKong;
+    }
+
+    public void setXunKong(String xunKong) {
+        this.xunKong = xunKong;
+    }
+
+    public HashMap<String, String> getXunKongList() {
+        return xunKongList;
+    }
+
+    public void setXunKongList(HashMap<String, String> xunKongList) {
+        this.xunKongList = xunKongList;
+    }
 
     /**
      * @param y 年 干支
@@ -121,7 +138,7 @@ public class Bazi {
         yueJianMap.put("日支",riZhi);
         yueJianMap.put("日破",riPo);
 
-
+        xunKong=xunKongList.get(d);
 
 
 
@@ -254,6 +271,69 @@ public class Bazi {
         tuiShenList.put("戌", "未");
         duanGua.setTuiShen(tuiShenList);
 
+        //六十甲子找旬空
+        xunKongList.put("甲子","戌亥");
+        xunKongList.put("乙丑","戌亥");
+        xunKongList.put("丙寅","戌亥");
+        xunKongList.put("丁卯","戌亥");
+        xunKongList.put("戊辰","戌亥");
+        xunKongList.put("己巳","戌亥");
+        xunKongList.put("庚午","戌亥");
+        xunKongList.put("辛未","戌亥");
+        xunKongList.put("壬申","戌亥");
+        xunKongList.put("癸酉","戌亥");
+        xunKongList.put("甲戌","申酉");
+        xunKongList.put("乙亥","申酉");
+        xunKongList.put("丙子","申酉");
+        xunKongList.put("丁丑","申酉");
+        xunKongList.put("戊寅","申酉");
+        xunKongList.put("己卯","申酉");
+        xunKongList.put("庚辰","申酉");
+        xunKongList.put("辛巳","申酉");
+        xunKongList.put("壬午","申酉");
+        xunKongList.put("癸未","申酉");
+        xunKongList.put("甲申","午未");
+        xunKongList.put("乙酉","午未");
+        xunKongList.put("丙戌","午未");
+        xunKongList.put("丁亥","午未");
+        xunKongList.put("戊子","午未");
+        xunKongList.put("己丑","午未");
+        xunKongList.put("庚寅","午未");
+        xunKongList.put("辛卯","午未");
+        xunKongList.put("壬辰","午未");
+        xunKongList.put("癸巳","午未");
+        xunKongList.put("甲午","辰巳");
+        xunKongList.put("乙未","辰巳");
+        xunKongList.put("丙申","辰巳");
+        xunKongList.put("丁酉","辰巳");
+        xunKongList.put("戊戌","辰巳");
+        xunKongList.put("己亥","辰巳");
+        xunKongList.put("庚子","辰巳");
+        xunKongList.put("辛丑","辰巳");
+        xunKongList.put("壬寅","辰巳");
+        xunKongList.put("癸卯","辰巳");
+        xunKongList.put("甲辰","寅卯");
+        xunKongList.put("乙巳","寅卯");
+        xunKongList.put("丙午","寅卯");
+        xunKongList.put("丁未","寅卯");
+        xunKongList.put("戊申","寅卯");
+        xunKongList.put("己酉","寅卯");
+        xunKongList.put("庚戌","寅卯");
+        xunKongList.put("辛亥","寅卯");
+        xunKongList.put("壬子","寅卯");
+        xunKongList.put("癸丑","寅卯");
+        xunKongList.put("甲寅","子丑");
+        xunKongList.put("乙卯","子丑");
+        xunKongList.put("丙辰","子丑");
+        xunKongList.put("丁巳","子丑");
+        xunKongList.put("戊午","子丑");
+        xunKongList.put("己未","子丑");
+        xunKongList.put("庚申","子丑");
+        xunKongList.put("辛酉","子丑");
+        xunKongList.put("壬戌","子丑");
+        xunKongList.put("癸亥","子丑");
+
+
         liuChongList.put("子", "午");
         liuChongList.put("午", "子");
         liuChongList.put("丑", "未");
@@ -372,20 +452,8 @@ public class Bazi {
     @Override
     public String toString() {
         return "Bazi{" +
-                "suiYin='" + suiYin + '\'' +
-                ", suiPo='" + suiPo + '\'' +
-                ", yueJian='" + yueJian + '\'' +
-                ", yuePo='" + yuePo + '\'' +
-                ", riZhi='" + riZhi + '\'' +
-                ", riPo='" + riPo + '\'' +
                 ", bazi=" + bazi +
                 ", yueJianMap=" + yueJianMap +
-                ", luma=" + luma +
-                ", lu='" + lu + '\'' +
-                ", ma='" + ma + '\'' +
-                ", sheng='" + sheng + '\'' +
-                ", wang='" + diWang + '\'' +
-                ", mu='" + mu + '\'' +
                 ", twelveChangsheng='" + twelveChangsheng + '\'' +
                 ", i=" + i +
                 ", liuChong=" + liuChong +
@@ -396,6 +464,7 @@ public class Bazi {
                 ", yueDiZhiList=" + yueDiZhiList +
                 ", sanHeList=" + sanHeList +
                 ", tianGanList=" + tianGanList +
+                ", xunKong=" + xunKong +
                 '}';
     }
 

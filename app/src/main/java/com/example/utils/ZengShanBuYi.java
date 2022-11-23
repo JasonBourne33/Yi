@@ -75,9 +75,27 @@ public class ZengShanBuYi {
         //六爻公开课五 动爻 酉月 甲辰日  16.25
 //        Chronology.getInstance().initGanZhi(2028,9,16,9);
 //        LiuYao.getInstance().initLiuYao(1,3,1,0,0,0,"官鬼");
-        //六爻公开课五 日月 午月 戊辰日  11.45
-        Chronology.getInstance().initGanZhi(2027,6,18,9);
-        LiuYao.getInstance().initLiuYao(0,0,0,2,0,2,"兄弟");
+        //六爻公开课五 静卦日月 午月 戊辰日  11.45
+//        Chronology.getInstance().initGanZhi(2027,6,18,9);
+//        LiuYao.getInstance().initLiuYao(0,0,0,2,0,2,"兄弟");
+        //六爻公开课五  酉月 甲辰日  16.20
+//        Bazi.getInstance().initBazi("甲子","甲酉","甲辰","甲子");
+//        LiuYao.getInstance().initLiuYao(1,3,1,0,0,0,"官鬼");
+        //六爻公开课六 测试假破  酉月 庚戌日  17.45
+//        Bazi.getInstance().initBazi("甲子","甲酉","庚戌","甲子");
+//        LiuYao.getInstance().initLiuYao(2,1,0,0,2,0,"子孙");
+        //六爻公开课六 测试真破  巳月 乙亥日  19.10
+//        Bazi.getInstance().initBazi("甲子","甲巳","乙亥","甲子");
+//        LiuYao.getInstance().initLiuYao(3,2,2,1,2,0,"官鬼");
+        //六爻公开课四 测试世爻用神  丑月 戊午日  14.20  明夷卦
+//        Bazi.getInstance().initBazi("甲子","甲丑","戊午","甲子");
+//        LiuYao.getInstance().initLiuYao(2,1,2,0,1,1,"官鬼");
+        //六爻公开课四 测试世爻用神  丑月 辛卯日  18.50  艮之升 太细分，现在还没搞定
+//        Bazi.getInstance().initBazi("甲子","甲丑","辛卯","甲子");
+//        LiuYao.getInstance().initLiuYao(0,1,2,0,0,3,"子孙");
+        //六爻公开课七 测试旬空  巳月 戊戌日  19.25    风雷益
+        Bazi.getInstance().initBazi("甲子","甲巳","戊戌","甲子");
+        LiuYao.getInstance().initLiuYao(2,0,0,0,2,2,"妻财");
 
 
         System.out.println(Chronology.getInstance().getGanZhi());

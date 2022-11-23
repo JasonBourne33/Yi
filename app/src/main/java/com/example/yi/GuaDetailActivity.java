@@ -114,14 +114,15 @@ public class GuaDetailActivity extends AppCompatActivity {
             ArrayList<String> dongSymbolMap = LiuYao.getInstance().getDongSymbol();
             tvList.get(i).setText(
                     benguaYao + " " + benGua.getRelation().get(i) +
-                            benGua.getGanZhi().get(i) + benGua.getYaoWuxing().get(i) +
-//                             dongSymbolMap.get(i)+  //阳变阴为o，阴变阳为x
+                            benGua.getGanZhi().get(i).substring(1,2) + benGua.getYaoWuxing().get(i) +
                             ((i + 1) == shiYao ? "世" : "") +
-                            ((i + 1) == yingYao ? "应" : "")
+                            ((i + 1) == yingYao ? "应" : "")+
+                            dongSymbolMap.get(i)  //阳变阴为o，阴变阳为x
+//                           ">"
             );
             tvBianList.get(i).setText(
                     bianguaYao + " " + bianGua.getRelation().get(i) +
-                            bianGua.getGanZhi().get(i) + bianGua.getYaoWuxing().get(i) +
+                            bianGua.getGanZhi().get(i).substring(1,2) + bianGua.getYaoWuxing().get(i) +
                             ((i + 1) == shiYao ? "世" : "") +
                             ((i + 1) == yingYao ? "应" : "")
             );

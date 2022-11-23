@@ -12,6 +12,7 @@ public class BaGua {
     private HashMap<String,String> yueJian; //月建，月破，日支，日破
     private ArrayList<String> luma; //0禄，1马，2生，3旺，4墓
     private ArrayList<String> name64;   //0下卦，1上卦，2 在64卦里的名字
+    private ArrayList<Integer> dongYaoList = new ArrayList<>();//存动爻，就是老阳和老阴的位置 从0开始
 
 
 
@@ -21,7 +22,23 @@ public class BaGua {
     private String bianguaPosition; //在第几变卦找到本宫，可能归魂，游魂、
     private int shiYao; //世爻的位置，本宫是6，游魂4，归魂是3
     private int yingYao; //应爻的位置，本宫是3，游魂1，归魂是6
+    private int linXunKong; //临旬空 1爻就是1
 
+    public int getLinXunKong() {
+        return linXunKong;
+    }
+
+    public void setLinXunKong(int linXunKong) {
+        this.linXunKong = linXunKong;
+    }
+
+    public ArrayList<Integer> getDongYaoList() {
+        return dongYaoList;
+    }
+
+    public void setDongYaoList(ArrayList<Integer> dongYaoList) {
+        this.dongYaoList = dongYaoList;
+    }
 
     public String getBenGong() {
         return benGong;
@@ -157,6 +174,8 @@ public class BaGua {
                 " \r\n bianguaPosition='" + bianguaPosition + '\'' +
                 " \r\n shiYao=" + shiYao +
                 " \r\n yingYao=" + yingYao +
+                " \r\n dongYaoList=" + dongYaoList +
+                " \r\n linXunKong=" + linXunKong +
                 '}';
 
 
