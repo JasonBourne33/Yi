@@ -162,20 +162,13 @@ public class BaGua {
         return "{" +
                 " \r\n yao=" + yao +
                 " \r\n ganZhi=" + ganZhi +
-                " \r\n yaoWuxing=" + yaoWuxing +
-                " \r\n relation=" + relation +
                 " \r\n bazi=" + bazi +
                 " \r\n yueJian=" + yueJian +
                 " \r\n luma=" + luma +
                 " \r\n name64=" + name64 +
-                " \r\n name='" + name + '\'' +
                 " \r\n benWuxing='" + benWuxing + '\'' +
                 " \r\n benGong='" + benGong + '\'' +
                 " \r\n bianguaPosition='" + bianguaPosition + '\'' +
-                " \r\n shiYao=" + shiYao +
-                " \r\n yingYao=" + yingYao +
-                " \r\n dongYaoList=" + dongYaoList +
-                " \r\n linXunKong=" + linXunKong +
                 '}';
 
 

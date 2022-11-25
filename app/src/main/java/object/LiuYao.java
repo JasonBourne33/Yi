@@ -389,7 +389,11 @@ public class LiuYao {
         String dongYaoWuxing = ""; //动爻的五行
         String bianYaoDizhi = "";//变爻的地支
         String bianYaoWuxing = "";//变爻的五行
+        String dongYaoDizhiWuxing="";   //动爻地支五行
+        String bianYaoDizhiWuxing="";   //变爻地支五行
         String yuejian = BaGuaInit.getBengGua().getYueJian().get("月建");
+        String riPo = BaGuaInit.getBengGua().getYueJian().get("日破");
+        HashMap<String, String> huaJueList = Bazi.getInstance().getHuaJue();
 
         if (dongYaoList.size() == 0) {
             System.out.println("此卦为 静卦");
@@ -404,10 +408,12 @@ public class LiuYao {
             dongYao = dongYaoList.get(i); //获取动爻的位置
             dongYaoDizhi = BaGuaInit.getBengGua().getGanZhi().get(dongYao).substring(1, 2); //动爻的地支
             dongYaoWuxing = BaGuaInit.getBengGua().getYaoWuxing().get(dongYao); //动爻的五行
+            dongYaoDizhiWuxing = dongYaoDizhi+dongYaoWuxing; //动爻的地支五行
 
             //变爻就是动爻位置对应变卦的哪一爻
             bianYaoDizhi = BaGuaInit.getBianGua().getGanZhi().get(dongYao).substring(1, 2);
             bianYaoWuxing = BaGuaInit.getBianGua().getYaoWuxing().get(dongYao); //变爻的五行
+            bianYaoDizhiWuxing = bianYaoDizhi+bianYaoWuxing; //变爻的地支五行
 //            System.out.println("动爻 " + (dongYao + 1) + "爻 " + dongYaoDizhi + dongYaoWuxing);
 //            System.out.println("bianYaoDizhi=== " + bianYaoDizhi);
 //            System.out.println("bianYaoWuxing=== " + bianYaoWuxing);
@@ -447,37 +453,52 @@ public class LiuYao {
             }
             if (DuanGua.getInstance().getLiuChong().get(bianYaoDizhi).equals(yuejian)) { //变爻冲月建
                 strInfo = "变爻 " + (dongYao + 1) + "爻 " + bianYaoDizhi + bianYaoWuxing + " 被月建 "
-                        + yuejian + " 冲克(如果没回头作用就是真破)";
+                        + yuejian + " 冲克 临月破 化破(如果没回头作用就是真破)";
                 System.out.println(strInfo);
                 duanGua.getDuanYu().add(strInfo);
                 System.out.println("duanGua=== " + duanGua);
-
+            }
+            if (DuanGua.getInstance().getLiuChong().get(bianYaoDizhi).equals(riPo)) { //变爻冲日支
+                strInfo = "变爻 " + (dongYao + 1) + "爻 " + bianYaoDizhi + bianYaoWuxing + " 被日支 "
+                        + riPo + " 冲克 临日破 化散(如果没回头作用就是真破)";
+                System.out.println(strInfo);
+                duanGua.getDuanYu().add(strInfo);
+                System.out.println("duanGua=== " + duanGua);
+            }
+            System.out.println("huaJueList.get(bianYaoDizhiWuxing)=== "+huaJueList.get(dongYaoDizhiWuxing));
+            System.out.println("bianYaoDizhiWuxing=== "+bianYaoDizhiWuxing);
+            if(bianYaoDizhiWuxing.equals(huaJueList.get(dongYaoDizhiWuxing))){//化绝
+                strInfo = "变爻 " + (dongYao + 1) + "爻 " + bianYaoDizhi + bianYaoWuxing + " 化 "
+                        + riPo + " 化绝 剔除";
+                System.out.println(strInfo);
+                duanGua.getDuanYu().add(strInfo);
+                System.out.println("duanGua=== " + duanGua);
             }
 
             //变爻生克冲合忌神
             if (jiShenPos == dongYao + 1) {
-                if (jishenWuxing.equals(BaGuaInit.getWuxingSheng().get(bianYaoWuxing))) { //如果变爻 生用神
+                if (jishenWuxing.equals(BaGuaInit.getWuxingSheng().get(bianYaoWuxing))) { //如果变爻 生忌神
                     strInfo = "变爻 " + (dongYao + 1) + "爻 " + bianYaoDizhi + bianYaoWuxing + " 回头生 忌神 "
                             + yongshenDizhi + jishenWuxing + " 凶兆";
                     System.out.println(strInfo);
                     duanGua.getDuanYu().add(strInfo);
                     System.out.println("duanGua=== " + duanGua);
                 }
-                if (jishenWuxing.equals(BaGuaInit.getWuxingKe().get(bianYaoWuxing))) { //如果变爻 克用神
+                if (jishenWuxing.equals(BaGuaInit.getWuxingKe().get(bianYaoWuxing))) { //如果变爻 克忌神
                     strInfo = "变爻 " + (dongYao + 1) + "爻 " + bianYaoDizhi + bianYaoWuxing + " 回头克制 忌神 "
                             + yongshenDizhi + jishenWuxing + " 吉兆";
                     System.out.println(strInfo);
                     duanGua.getDuanYu().add(strInfo);
                     System.out.println("duanGua=== " + duanGua);
                 }
-                if (jishenWuxing.equals(DuanGua.getInstance().getLiuChong().get(bianYaoDizhi))) { //如果变爻 克用神
+                if (jishenWuxing.equals(DuanGua.getInstance().getLiuChong().get(bianYaoDizhi))) { //如果变爻 克忌神
                     strInfo = "变爻 " + (dongYao + 1) + "爻 " + bianYaoDizhi + bianYaoWuxing + " 回头六冲 忌神 "
                             + yongshenDizhi + jishenWuxing + " 吉兆";
                     System.out.println(strInfo);
                     duanGua.getDuanYu().add(strInfo);
                     System.out.println("duanGua=== " + duanGua);
                 }
-                if (jishenWuxing.equals(DuanGua.getInstance().getLiuHe().get(bianYaoDizhi))) { //如果变爻 克用神
+                if (jishenWuxing.equals(DuanGua.getInstance().getLiuHe().get(bianYaoDizhi))) { //如果变爻 克忌神
                     strInfo = "变爻 " + (dongYao + 1) + "爻 " + bianYaoDizhi + bianYaoWuxing + " 回头六合 忌神 "
                             + yongshenDizhi + jishenWuxing + " 凶兆";
                     System.out.println(strInfo);
@@ -486,30 +507,30 @@ public class LiuYao {
                 }
             }
 
-            //变爻生克元忌神
+            //变爻生克元元神
             if (yuanShenPos == dongYao) {
-                if (yuanshenWuxing.equals(BaGuaInit.getWuxingSheng().get(bianYaoWuxing))) { //如果变爻 生用神
+                if (yuanshenWuxing.equals(BaGuaInit.getWuxingSheng().get(bianYaoWuxing))) {
                     strInfo = "变爻 " + (dongYao + 1) + "爻 " + bianYaoDizhi + bianYaoWuxing + " 回头生 元神 "
                             + yuanshenDizhi + yuanshenWuxing + " 吉兆";
                     System.out.println(strInfo);
                     duanGua.getDuanYu().add(strInfo);
                     System.out.println("duanGua=== " + duanGua);
                 }
-                if (yuanshenWuxing.equals(BaGuaInit.getWuxingKe().get(bianYaoWuxing))) { //如果变爻 克用神
+                if (yuanshenWuxing.equals(BaGuaInit.getWuxingKe().get(bianYaoWuxing))) {
                     strInfo = "变爻 " + (dongYao + 1) + "爻 " + bianYaoDizhi + bianYaoWuxing + " 回头克制 元神 "
                             + yuanshenDizhi + yuanshenWuxing + " 凶兆";
                     System.out.println(strInfo);
                     duanGua.getDuanYu().add(strInfo);
                     System.out.println("duanGua=== " + duanGua);
                 }
-                if (yuanshenWuxing.equals(DuanGua.getInstance().getLiuChong().get(bianYaoDizhi))) { //如果变爻 克用神
+                if (yuanshenWuxing.equals(DuanGua.getInstance().getLiuChong().get(bianYaoDizhi))) {
                     strInfo = "变爻 " + (dongYao + 1) + "爻 " + bianYaoDizhi + bianYaoWuxing + " 回头六冲 元神 "
                             + yuanshenDizhi + yuanshenWuxing + " 凶兆";
                     System.out.println(strInfo);
                     duanGua.getDuanYu().add(strInfo);
                     System.out.println("duanGua=== " + duanGua);
                 }
-                if (yuanshenWuxing.equals(DuanGua.getInstance().getLiuHe().get(bianYaoDizhi))) { //如果变爻 克用神
+                if (yuanshenWuxing.equals(DuanGua.getInstance().getLiuHe().get(bianYaoDizhi))) {
                     strInfo = "变爻 " + (dongYao + 1) + "爻 " + bianYaoDizhi + bianYaoWuxing + " 回头六合 元神 "
                             + yuanshenDizhi + yuanshenWuxing + " 吉兆";
                     System.out.println(strInfo);
@@ -621,17 +642,15 @@ public class LiuYao {
 
             //动化进神，退神
             if (bianYaoDizhi.equals(duanGua.getJinShen().get(dongYaoDizhi))) { //动化进神
-                strInfo = (dongYao + 1) + "爻 动化进神 " + dongYaoDizhi + " 化 " + bianYaoDizhi + " +1分";
+                strInfo = (dongYao + 1) + "爻 动化进神 " + dongYaoDizhi + " 化 " + bianYaoDizhi + " 力量较强";
                 System.out.println(strInfo);
                 duanGua.getDuanYu().add(strInfo);
-                duanGua.setScore(duanGua.getScore() + 1);
                 System.out.println("duanGuaObj.getScore===" + duanGua.getScore());
             }
             if (bianYaoDizhi.equals(duanGua.getTuiShen().get(dongYaoDizhi))) { //动化退神
-                strInfo = (dongYao + 1) + "爻 动化退神 " + dongYaoDizhi + " 化 " + bianYaoDizhi + " -1分";
+                strInfo = (dongYao + 1) + "爻 动化退神 " + dongYaoDizhi + " 化 " + bianYaoDizhi + " 剔除";
                 System.out.println(strInfo);
                 duanGua.getDuanYu().add(strInfo);
-                duanGua.setScore(duanGua.getScore() - 1);
                 System.out.println("duanGuaObj.getScore===" + duanGua.getScore());
             }
         }
@@ -646,11 +665,19 @@ public class LiuYao {
         }
 
         String yaoDizhi;
+        String riZhi = benGua.getYueJian().get("日支");
+        String richongDizhi = liuChongList.get(riZhi); //和日支相冲的地支
         for (int i = 0; i < benGua.getRelation().size(); i++) {
             yaoDizhi=benGua.getGanZhi().get(i).substring(1,2);
-            if(Bazi.getInstance().getXunKong().contains(yaoDizhi)){
+
+            if(Bazi.getInstance().getXunKong().contains(yaoDizhi)){ //旬空
                 System.out.println(i+1+"爻 处于旬空===");
                 benGua.setLinXunKong(i+1);
+                if(richongDizhi.equals(yaoDizhi)){  //日冲
+                    strInfo=i+1+"爻 处于旬空 又受日冲形成暗动";
+                    duanGua.getDuanYu().add(strInfo);
+                    System.out.println();
+                }
             }
         }
 
@@ -788,7 +815,7 @@ public class LiuYao {
                     duanGua.setScore(duanGua.getScore() - 2);
                     System.out.println("duanGuaObj.getScore===" + duanGua.getScore());
                 }
-                if (yongshenShengWuxing.equals(dizhiWuxing) || yongshenKeWuxing.equals(dizhiWuxing)) {
+                if (yongshenShengWuxing.equals(dizhiWuxing) || yongshenKeWuxing.equals(dizhiWuxing)) { //用神生克月建，泄
                     strInfo = "用神 " + yongshenDizhi + yongshenWuxing + " 生克 "
                             + entry.getKey() + entry.getValue() + dizhiWuxing + " 泄 -1分";
                     System.out.println(strInfo);
@@ -840,7 +867,7 @@ public class LiuYao {
                 }
                 if (yongshenDizhi.equals(chongDizhi)) {
                     strInfo = "用神 " + yongshenDizhi + yongshenWuxing + " 与 "
-                            + entry.getKey() + entry.getValue() + dizhiWuxing + " 六冲，月破 -2分";
+                            + entry.getKey() + entry.getValue() + dizhiWuxing + " 六冲 -2分";
                     System.out.println(strInfo);
                     duanGua.getDuanYu().add(strInfo);
                     duanGua.setScore(duanGua.getScore() - 2);
@@ -1163,6 +1190,7 @@ public class LiuYao {
      * 第二次占卦的时候要清理之前的数据
      */
     public void clear() {
+        duanGua.getDuanYu().clear();
         xiaJinGua.clear();
         shangJinGua.clear();
 
@@ -1173,6 +1201,7 @@ public class LiuYao {
         dongYaoList.clear();
         yaoList.clear();
         dongSymbol.clear();
+
         System.out.println("clear=== ");
     }
 

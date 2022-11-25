@@ -65,6 +65,7 @@ public class Bazi {
     private HashMap<String,String> yueJianMap = new HashMap<>(); //月建，月破，日支，日破
     private HashMap<String,String> twelveChangsheng = new HashMap<>(); //长生：地支
     private HashMap<String,String> liuChong;//六冲
+    private HashMap<String,String> huaJue=new HashMap<>();//化绝
     private ArrayList<String> luma = new ArrayList<>(); //禄，马，生，旺，墓
     //禄马生旺墓
     private String lu;
@@ -82,6 +83,14 @@ public class Bazi {
     private String jue;     //绝10
     private String tai;     //胎11
     private String yang;    //养12
+
+    public HashMap<String, String> getHuaJue() {
+        return huaJue;
+    }
+
+    public void setHuaJue(HashMap<String, String> huaJue) {
+        this.huaJue = huaJue;
+    }
 
     private String  xunKong; //根据日支获取旬空
     private HashMap<String,String>  xunKongList=new HashMap<String,String>(); //根据日支获取旬空
@@ -250,6 +259,9 @@ public class Bazi {
     HashMap<String, String> liuChongList = new HashMap<>(); //六冲
     private DuanGua duanGua=DuanGua.getInstance();
     public void initBaziBase() {
+
+        huaJue.put("子水","巳火");
+        huaJue.put("酉金","寅木");
 
         //进神：亥化子，寅化卯，巳化午，申化酉，丑化辰，辰化未，未化戌。
         jinShenList.put("亥", "子");

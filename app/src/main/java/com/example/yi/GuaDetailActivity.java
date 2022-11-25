@@ -17,6 +17,7 @@ import object.LiuYao;
 public class GuaDetailActivity extends AppCompatActivity {
 
     private Context mContext;
+    private TextView tvHead; //头部，日月，旬空
     private TextView tvLiuyao; //本卦信息
     private TextView duanInfo;
     private TextView baziInfo; //八字信息
@@ -49,6 +50,7 @@ public class GuaDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_gua_detail);
         mContext = this;
 
+        tvHead = findViewById(R.id.tv_head);
         tvLiuyao = findViewById(R.id.tv_guaInfo);
         duanInfo = findViewById(R.id.tv_duanInfo);//断卦的信息
         baziInfo = findViewById(R.id.tv_bazi);//断卦的信息
@@ -68,7 +70,11 @@ public class GuaDetailActivity extends AppCompatActivity {
         tvBYao2 = findViewById(R.id.tv_bYao2);
         tvBYao1 = findViewById(R.id.tv_bYao1);
 
-
+        BaGua bengGua = BaGuaInit.getBengGua();
+        String yueJian = bengGua.getYueJian().get("月建");
+        String riGanzhi = bengGua.getBazi().get(2);
+        String xunKong = Bazi.getInstance().getXunKong();
+        tvHead.setText(yueJian+"月 "+riGanzhi+"日   旬空:"+xunKong);
         ArrayList<Boolean> yaoList = BaGuaInit.getBengGua().getYao();
         tvLiuyao.setText("本卦= "+BaGuaInit.getBengGua().toString());
         duanInfo.setText(LiuYao.getInstance().getDuanGuaObj().toString()); //设置断卦信息

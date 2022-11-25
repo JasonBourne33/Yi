@@ -187,8 +187,12 @@ public class ManuallyFillYaoActivity extends AppCompatActivity implements View.O
 //        Chronology.getInstance().initGanZhi(year,month,day,hour);
 //        LiuYao.getInstance().initLiuYao(p1, p2, p3, p4, p5, p6, strYongshen);
 
-        Bazi.getInstance().initBazi("甲子","甲巳","戊戌","甲子");
-        LiuYao.getInstance().initLiuYao(2,0,0,0,2,2,"妻财");
+        //第七章：爻为何要发动？ 测试化破  午月 丙寅日  10.40    晋卦之噬嗑
+//        Bazi.getInstance().initBazi("甲子","甲午","丙寅","甲子");
+//        LiuYao.getInstance().initLiuYao(1,0,0,2,0,2,"父母");
+        //第七章：爻为何要发动？ 测试化绝  午月 癸卯日  12.55    艮之观
+        Bazi.getInstance().initBazi("甲子","甲午","癸卯","甲子");
+        LiuYao.getInstance().initLiuYao(0,0,3,0,1,2,"官鬼");
 
         System.out.println("本卦对象=== "+ BaGuaInit.getBengGua().toString());
         System.out.println("变卦对象=== "+BaGuaInit.getBianGua().toString());

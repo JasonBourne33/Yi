@@ -94,8 +94,12 @@ public class ZengShanBuYi {
 //        Bazi.getInstance().initBazi("甲子","甲丑","辛卯","甲子");
 //        LiuYao.getInstance().initLiuYao(0,1,2,0,0,3,"子孙");
         //六爻公开课七 测试旬空  巳月 戊戌日  19.25    风雷益
-        Bazi.getInstance().initBazi("甲子","甲巳","戊戌","甲子");
-        LiuYao.getInstance().initLiuYao(2,0,0,0,2,2,"妻财");
+//        Bazi.getInstance().initBazi("甲子","甲巳","戊戌","甲子");
+//        LiuYao.getInstance().initLiuYao(2,0,0,0,2,2,"妻财");
+
+        //第七章：爻为何要发动？ 测试化破  午月 丙寅日  10.40    晋卦之噬嗑
+        Bazi.getInstance().initBazi("甲子","甲午","丙寅","甲子");
+        LiuYao.getInstance().initLiuYao(1,0,0,2,0,2,"父母");
 
 
         System.out.println(Chronology.getInstance().getGanZhi());
