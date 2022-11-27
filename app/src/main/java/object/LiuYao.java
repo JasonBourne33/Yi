@@ -815,7 +815,7 @@ public class LiuYao {
                     duanGua.setScore(duanGua.getScore() - 2);
                     System.out.println("duanGuaObj.getScore===" + duanGua.getScore());
                 }
-                if (yongshenShengWuxing.equals(dizhiWuxing) || yongshenKeWuxing.equals(dizhiWuxing)) { //用神生克月建，泄
+                if (dizhiWuxing.equals(yongshenShengWuxing) || dizhiWuxing.equals(yongshenKeWuxing)) { //用神生克月建，泄
                     strInfo = "用神 " + yongshenDizhi + yongshenWuxing + " 生克 "
                             + entry.getKey() + entry.getValue() + dizhiWuxing + " 泄 -1分";
                     System.out.println(strInfo);

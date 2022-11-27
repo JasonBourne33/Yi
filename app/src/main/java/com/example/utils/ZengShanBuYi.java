@@ -9,6 +9,11 @@ public class ZengShanBuYi {
         BaGuaInit.getInstance().initHexagram();
 
         // https://www.bilibili.com/video/BV15Z4y1R7Da/
+
+        //儒鸿	2022.11.26	财运
+//        Bazi.getInstance().initBazi("甲子","辛亥","癸未","甲子");
+//        LiuYao.getInstance().initLiuYao(2,2,1,3,2,1,"妻财");
+
         // 巳月 甲寅日 占往营中贸易 妻财为用神
 //        Chronology.getInstance().initGanZhi(2020,5,11,7);
 //        LiuYao.getInstance().initLiuYao(0,2,3,0,2,2,"妻财");
@@ -98,8 +103,8 @@ public class ZengShanBuYi {
 //        LiuYao.getInstance().initLiuYao(2,0,0,0,2,2,"妻财");
 
         //第七章：爻为何要发动？ 测试化破  午月 丙寅日  10.40    晋卦之噬嗑
-        Bazi.getInstance().initBazi("甲子","甲午","丙寅","甲子");
-        LiuYao.getInstance().initLiuYao(1,0,0,2,0,2,"父母");
+//        Bazi.getInstance().initBazi("甲子","甲午","丙寅","甲子");
+//        LiuYao.getInstance().initLiuYao(1,0,0,2,0,2,"父母");
 
 
         System.out.println(Chronology.getInstance().getGanZhi());
