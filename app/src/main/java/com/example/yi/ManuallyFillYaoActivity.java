@@ -168,8 +168,6 @@ public class ManuallyFillYaoActivity extends AppCompatActivity implements View.O
     }
 
     private void initLiuyao() {
-        System.out.println("yao6=== " + yao6.getSelectedItem().toString());
-        System.out.println("getSelectedItemPosition=== " + yao6.getSelectedItemPosition());
 
         int p6 = yao6.getSelectedItemPosition(); //yao6 position
         int p5 = yao5.getSelectedItemPosition();
@@ -191,9 +189,9 @@ public class ManuallyFillYaoActivity extends AppCompatActivity implements View.O
 //        Bazi.getInstance().initBazi("甲子","甲午","癸卯","甲子");
 //        LiuYao.getInstance().initLiuYao(0,0,3,0,1,2,"官鬼");
 
-        //
-        Bazi.getInstance().initBazi("甲子","辛亥","乙酉","甲子");
-        LiuYao.getInstance().initLiuYao(1,0,3,0,2,0,"妻财");
+
+        Bazi.getInstance().initBazi("甲子","甲丑","戊子","甲子");
+        LiuYao.getInstance().initLiuYao(3,0,2,2,3,2,"世爻");
 
         System.out.println("本卦对象=== "+ BaGuaInit.getBengGua().toString());
         System.out.println("变卦对象=== "+BaGuaInit.getBianGua().toString());

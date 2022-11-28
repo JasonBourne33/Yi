@@ -66,6 +66,7 @@ public class Bazi {
     private HashMap<String,String> twelveChangsheng = new HashMap<>(); //长生：地支
     private HashMap<String,String> liuChong;//六冲
     private HashMap<String,String> huaJue=new HashMap<>();//化绝
+    private HashMap<String,String> sanHeMap=new HashMap<>();//动变爻的 三合
     private ArrayList<String> luma = new ArrayList<>(); //禄，马，生，旺，墓
     //禄马生旺墓
     private String lu;
@@ -83,6 +84,14 @@ public class Bazi {
     private String jue;     //绝10
     private String tai;     //胎11
     private String yang;    //养12
+
+    public HashMap<String, String> getSanHeMap() {
+        return sanHeMap;
+    }
+
+    public void setSanHeMap(HashMap<String, String> sanHeMap) {
+        this.sanHeMap = sanHeMap;
+    }
 
     public HashMap<String, String> getHuaJue() {
         return huaJue;
@@ -248,9 +257,9 @@ public class Bazi {
     private HashMap<String, String> wuXingMap;  //天干的五行
     private HashMap<String, String> diWangMap;  //五行的帝旺
     private ArrayList<String> wuXingList;   //五行
+    private ArrayList<String> sanHeList; //按照三合的来算
     private ArrayList<String> changShengList;   //十二长生
     private ArrayList<String> yueDiZhiList; //月地支 寅卯辰
-    private ArrayList<String> sanHeList; //按照三合的来算
     private ArrayList<String> tianGanList; //按照三合的来算
 
     HashMap<String, String> jinShenList = new HashMap<>(); //进神
@@ -259,6 +268,15 @@ public class Bazi {
     HashMap<String, String> liuChongList = new HashMap<>(); //六冲
     private DuanGua duanGua=DuanGua.getInstance();
     public void initBaziBase() {
+//        长生 	帝旺	墓
+//        火	寅	午	戌		火的三合是 寅午戌
+//        金	巳	酉	丑		金的三合是 巳酉丑
+//        水	申	子	辰
+//        木	亥	卯	未
+        sanHeMap.put("火","寅午戌");
+        sanHeMap.put("金","巳酉丑");
+        sanHeMap.put("水","申子辰");
+        sanHeMap.put("木","亥卯 未");
 
         huaJue.put("子水","巳火");
         huaJue.put("酉金","寅木");
@@ -432,6 +450,7 @@ public class Bazi {
         diWangMap.put("水", "亥");
         diWangMap.put("土", "辰");//现在还不知道土的帝旺是什么，但是不写会报错
 
+        //驿马三合顶头冲用的
         sanHeList = new ArrayList<>();//0~2 火的三合是 寅午戌   2~5 金的三合是 巳酉丑
         sanHeList.add("寅");//0~2 火的三合是 寅午戌
         sanHeList.add("午");
