@@ -434,24 +434,42 @@ public class LiuYao {
             }
         }
         //动变爻三合判断
-        for (int i = 0; i < sanHeYaoDizhiList.size(); i++) {
-            System.out.println("sanHeYaoDizhiList.get(i)=== " + sanHeYaoDizhiList.get(i));
+//        for (int i = 0; i < sanHeYaoDizhiList.size(); i++) {
+//            System.out.println("sanHeYaoDizhiList.get(i)=== " + sanHeYaoDizhiList.get(i));
+//        }
+//        System.out.println("sanHeYaoDizhiList=== " + sanHeYaoDizhiList.toString());
+//        HashMap<String, String> sanHeMap = Bazi.getInstance().getSanHeMap();
+//        String sanHeWuxing = "";
+//        String sanHeDizhi = "";
+//        for (int i = 0; i < sanHeYaoDizhiList.size(); i++) { //判断三合
+//            for (HashMap.Entry<String, String> entry : sanHeMap.entrySet()) {
+//                sanHeWuxing = entry.getKey();
+//                sanHeDizhi = entry.getValue();
+//                if (sanHeDizhi.contains(sanHeYaoDizhiList.get(i))) {
+//                    strInfo = "动爻和变爻中 " + sanHeDizhi + " 三合 " + sanHeWuxing;
+//                    System.out.println("strInfo=== " + strInfo);
+//                }
+//            }
+//        }
+
+
+        Boolean sanHeHuo =sanHeYaoDizhiList.contains("寅")&&sanHeYaoDizhiList.contains("午")&&sanHeYaoDizhiList.contains("戌");
+        Boolean sanHeJin =sanHeYaoDizhiList.contains("巳")&&sanHeYaoDizhiList.contains("酉")&&sanHeYaoDizhiList.contains("丑");
+        Boolean sanHeShui=sanHeYaoDizhiList.contains("申")&&sanHeYaoDizhiList.contains("子")&&sanHeYaoDizhiList.contains("辰");
+        Boolean sanHeMu  =sanHeYaoDizhiList.contains("亥")&&sanHeYaoDizhiList.contains("卯")&&sanHeYaoDizhiList.contains("未");
+        if(sanHeHuo){
+            strInfo = "动爻和变爻中 寅午戌 三合 火 局";
         }
-        System.out.println("sanHeYaoDizhiList=== " + sanHeYaoDizhiList.toString());
-        HashMap<String, String> sanHeMap = Bazi.getInstance().getSanHeMap();
-        String sanHeWuxing = "";
-        String sanHeDizhi = "";
-        for (int i = 0; i < sanHeYaoDizhiList.size(); i++) { //判断三合
-            for (HashMap.Entry<String, String> entry : sanHeMap.entrySet()) {
-                sanHeWuxing = entry.getKey();
-                sanHeDizhi = entry.getValue();
-                if (sanHeDizhi.contains(sanHeYaoDizhiList.get(i))) {
-                    strInfo = "动爻和变爻中 " + sanHeDizhi + " 三合 " + sanHeWuxing;
-                    System.out.println("strInfo=== " + strInfo);
-                }
-            }
+        if(sanHeJin){
+            strInfo = "动爻和变爻中 巳酉丑 三合 金 局";
         }
-        duanGua.getDuanYu().add(strInfo); //因为在里面会add四次
+        if(sanHeShui){
+            strInfo = "动爻和变爻中 申子辰 三合 水 局";
+        }
+        if(sanHeMu){
+            strInfo = "动爻和变爻中 亥卯未 三合 木 局";
+        }
+        duanGua.getDuanYu().add(strInfo);
 
 
         for (int i = 0; i < dongYaoList.size(); i++) { //遍历存动爻的List

@@ -189,9 +189,9 @@ public class ManuallyFillYaoActivity extends AppCompatActivity implements View.O
 //        Bazi.getInstance().initBazi("甲子","甲午","癸卯","甲子");
 //        LiuYao.getInstance().initLiuYao(0,0,3,0,1,2,"官鬼");
 
+        Bazi.getInstance().initBazi("甲子","甲寅","丙申","甲子");
+        LiuYao.getInstance().initLiuYao(1,0,3,0,0,2,"官鬼");
 
-        Bazi.getInstance().initBazi("甲子","甲丑","戊子","甲子");
-        LiuYao.getInstance().initLiuYao(3,0,2,2,3,2,"世爻");
 
         System.out.println("本卦对象=== "+ BaGuaInit.getBengGua().toString());
         System.out.println("变卦对象=== "+BaGuaInit.getBianGua().toString());
