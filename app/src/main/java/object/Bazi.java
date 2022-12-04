@@ -4,6 +4,7 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class Bazi {
     /**
@@ -68,6 +69,8 @@ public class Bazi {
     private HashMap<String,String> huaJue=new HashMap<>();//化绝
     private HashMap<String,String> sanHeMap=new HashMap<>();//动变爻的 三合
     private ArrayList<String> luma = new ArrayList<>(); //禄，马，生，旺，墓
+
+    private LinkedHashMap<String,String> xingSha=new LinkedHashMap<>(); //13星煞
     //禄马生旺墓
     private String lu;
     private String ma;
@@ -84,6 +87,15 @@ public class Bazi {
     private String jue;     //绝10
     private String tai;     //胎11
     private String yang;    //养12
+
+
+    public LinkedHashMap<String, String> getXingSha() {
+        return xingSha;
+    }
+
+    public void setXingSha(LinkedHashMap<String, String> xingSha) {
+        this.xingSha = xingSha;
+    }
 
     public HashMap<String, String> getSanHeMap() {
         return sanHeMap;
@@ -245,14 +257,45 @@ public class Bazi {
         luma.add(diWang);
         luma.add(mu);
 
-
         BaGuaInit.getBengGua().setBazi(bazi);
         BaGuaInit.getBengGua().setYueJian(yueJianMap);
         BaGuaInit.getBengGua().setLuma(luma);
 
+        //顺序 驿马、桃花、禄神、羊刃、贵人、谋星、文昌、将星、天医、天喜、灾煞、劫煞、华盖
+        xingSha.put("驿马",yiMa.get(riZhi));
+        xingSha.put("桃花",taoHua.get(riZhi));
+        xingSha.put("禄神",luShen.get(riGan));
+        xingSha.put("羊刃",yangRen.get(riGan));
+
+        xingSha.put("谋星",mouXing.get(riZhi));
+        xingSha.put("文昌",wengChang.get(riGan));
+        xingSha.put("将星",jiangXing.get(riZhi));
+        int yueJianPos = yueDiZhiList.indexOf(yueJian); //月建的位置
+        String tianYi=yueDiZhiList.get((yueJianPos - 1) < 0 ? 12 - Math.abs(yueJianPos - 1) : yueJianPos - 1); //天医
+        xingSha.put("天医",tianYi);
+        xingSha.put("天喜",tianXi.get(yueJian));
+        xingSha.put("灾煞",zaiSha.get(riZhi));
+        xingSha.put("劫煞",jieSha.get(riZhi));
+        xingSha.put("华盖",huaGai.get(riZhi));
+        xingSha.put("贵人",guiRen.get(riGan));
 
     }
 
+
+    //13星煞
+    private HashMap<String,String> guiRen=new HashMap<String,String>();
+    private HashMap<String,String> luShen=new HashMap<String,String>();
+    private HashMap<String,String> yangRen=new HashMap<String,String>();
+    private HashMap<String,String> wengChang=new HashMap<String,String>();
+    private HashMap<String,String> yiMa=new HashMap<String,String>();
+    private HashMap<String,String> taoHua=new HashMap<String,String>();
+    private HashMap<String,String> jiangXing=new HashMap<String,String>();
+    private HashMap<String,String> jieSha=new HashMap<String,String>();
+    private HashMap<String,String> huaGai=new HashMap<String,String>();
+    private HashMap<String,String> mouXing=new HashMap<String,String>();
+    private HashMap<String,String> tianYi=new HashMap<String,String>();
+    private HashMap<String,String> tianXi=new HashMap<String,String>();
+    private HashMap<String,String> zaiSha=new HashMap<String,String>();
 
     private HashMap<String, String> wuXingMap;  //天干的五行
     private HashMap<String, String> diWangMap;  //五行的帝旺
@@ -268,6 +311,7 @@ public class Bazi {
     HashMap<String, String> liuChongList = new HashMap<>(); //六冲
     private DuanGua duanGua=DuanGua.getInstance();
     public void initBaziBase() {
+
 //        长生 	帝旺	墓
 //        火	寅	午	戌		火的三合是 寅午戌
 //        金	巳	酉	丑		金的三合是 巳酉丑
@@ -478,11 +522,163 @@ public class Bazi {
         tianGanList.add("癸");
 
 
+        //星煞
+        //逢甲与戊日贵人星在丑，未；逢乙与己日贵人星在子，申；逢丙与丁日贵人星在亥，酉；逢庚与辛日贵人星在午，寅；逢壬与癸日贵人星在卯，巳。
+        guiRen.put("甲","丑,未");
+        guiRen.put("戊","丑,未");
+        guiRen.put("乙","子,申");
+        guiRen.put("己","子,申");
+        guiRen.put("丙","亥,酉");
+        guiRen.put("丁","亥,酉");
+        guiRen.put("庚","午,寅");
+        guiRen.put("辛","午,寅");
+        guiRen.put("壬","卯,巳");
+        guiRen.put("癸","卯,巳");
+
+        //逢甲日禄在寅，逢乙日禄在卯，逢丙日与戊日禄在巳，逢丁日与己日禄 在午，逢庚日禄在申，逢辛日禄在酉，逢壬日禄在亥，逢癸日禄在子。
+        luShen.put("甲","寅");
+        luShen.put("乙","卯");
+        luShen.put("丙","巳");
+        luShen.put("丁","午");
+        luShen.put("戊","巳");
+        luShen.put("己","午");
+        luShen.put("庚","申");
+        luShen.put("辛","酉");
+        luShen.put("壬","亥");
+        luShen.put("癸","子");
+        //逢甲日刃在卯，逢乙日刃在寅，逢丙日与戊日刃在午，逢丁日与己日刃在巳，逢庚日刃在酉，逢辛日刃在申，逢壬日刃在子，逢癸日刃在亥。
+        yangRen.put("甲","卯");
+        yangRen.put("乙","寅");
+        yangRen.put("丙","午");
+        yangRen.put("丁","巳");
+        yangRen.put("戊","午");
+        yangRen.put("己","巳");
+        yangRen.put("庚","酉");
+        yangRen.put("辛","申");
+        yangRen.put("壬","子");
+        yangRen.put("癸","亥");
+        //逢甲日文昌在巳，逢乙日文昌在午，逢丙日与戊日文昌在申，逢丁日与己日文昌在酉，逢庚日文昌在亥，逢辛日文昌在子，逢壬日文昌在寅，逢癸日文昌在卯。
+        wengChang.put("甲","巳");
+        wengChang.put("乙","午");
+        wengChang.put("丙","申");
+        wengChang.put("丁","酉");
+        wengChang.put("戊","申");
+        wengChang.put("己","酉");
+        wengChang.put("庚","亥");
+        wengChang.put("辛","子");
+        wengChang.put("壬","寅");
+        wengChang.put("癸","卯");
+        //逢申子辰日马星在寅，逢巳酉丑日马星在亥，逢寅午戌日马星在申，逢亥卯未日马星在巳。
+        yiMa.put("子","寅");
+        yiMa.put("丑","亥");
+        yiMa.put("寅","申");
+        yiMa.put("卯","巳");
+        yiMa.put("辰","寅");
+        yiMa.put("巳","亥");
+        yiMa.put("午","申");
+        yiMa.put("未","巳");
+        yiMa.put("申","寅");
+        yiMa.put("酉","亥");
+        yiMa.put("戌","申");
+        yiMa.put("亥","巳");
+        //逢申子辰日桃花在酉，逢巳酉丑日桃花在午，逢寅午戌日桃花在卯，逢亥卯未日桃花在子。
+        taoHua.put("子","酉");
+        taoHua.put("丑","午");
+        taoHua.put("寅","卯");
+        taoHua.put("卯","子");
+        taoHua.put("辰","酉");
+        taoHua.put("巳","午");
+        taoHua.put("午","卯");
+        taoHua.put("未","子");
+        taoHua.put("申","酉");
+        taoHua.put("酉","午");
+        taoHua.put("戌","卯");
+        taoHua.put("亥","子");
+        //逢申子辰日将星在子，逢巳酉丑日将星在酉，逢寅午戌日将星在午，逢亥卯未日将星在卯。
+        jiangXing.put("子","子");
+        jiangXing.put("丑","酉");
+        jiangXing.put("寅","午");
+        jiangXing.put("卯","卯");
+        jiangXing.put("辰","子");
+        jiangXing.put("巳","酉");
+        jiangXing.put("午","午");
+        jiangXing.put("未","卯");
+        jiangXing.put("申","子");
+        jiangXing.put("酉","酉");
+        jiangXing.put("戌","午");
+        jiangXing.put("亥","卯");
+        //逢申子辰日劫煞在巳，逢巳酉丑日劫煞在寅，逢寅午戌日劫煞在亥，逢亥卯未日劫煞在申。
+        jieSha.put("子","巳");
+        jieSha.put("丑","寅");
+        jieSha.put("寅","亥");
+        jieSha.put("卯","申");
+        jieSha.put("辰","巳");
+        jieSha.put("巳","寅");
+        jieSha.put("午","亥");
+        jieSha.put("未","申");
+        jieSha.put("申","巳");
+        jieSha.put("酉","寅");
+        jieSha.put("戌","亥");
+        jieSha.put("亥","申");
+        //逢申子辰日华盖在辰，逢巳酉丑日华盖在丑，逢寅午戌日华盖在戌，逢亥卯未日华盖在未。
+        huaGai.put("子","辰");
+        huaGai.put("丑","丑");
+        huaGai.put("寅","戌");
+        huaGai.put("卯","未");
+        huaGai.put("辰","辰");
+        huaGai.put("巳","丑");
+        huaGai.put("午","戌");
+        huaGai.put("未","未");
+        huaGai.put("申","辰");
+        huaGai.put("酉","丑");
+        huaGai.put("戌","戌");
+        huaGai.put("亥","未");
+        //逢申子辰日谋星在戌，逢巳酉丑日谋 星在未，逢寅午戌日谋星在辰，逢亥卯未日谋星在丑。
+        mouXing.put("子","戌");
+        mouXing.put("丑","未");
+        mouXing.put("寅","辰");
+        mouXing.put("卯","丑");
+        mouXing.put("辰","戌");
+        mouXing.put("巳","未");
+        mouXing.put("午","辰");
+        mouXing.put("未","丑");
+        mouXing.put("申","戌");
+        mouXing.put("酉","未");
+        mouXing.put("戌","辰");
+        mouXing.put("亥","丑");
+        //春天占卜天喜在 戌，夏天占卜天喜在丑，秋天占卜天喜在辰，冬天占卜天喜在未。
+        tianXi.put("子","未");
+        tianXi.put("丑","未");
+        tianXi.put("寅","戌");
+        tianXi.put("卯","戌");
+        tianXi.put("辰","戌");
+        tianXi.put("巳","丑");
+        tianXi.put("午","丑");
+        tianXi.put("未","丑");
+        tianXi.put("申","辰");
+        tianXi.put("酉","辰");
+        tianXi.put("戌","辰");
+        tianXi.put("亥","未");
+        //逢申子辰日灾煞在午，逢巳酉丑日灾煞在卯，逢寅午戌日灾煞在子，逢亥卯未日灾煞在酉。
+        zaiSha.put("子","午");
+        zaiSha.put("丑","卯");
+        zaiSha.put("寅","子");
+        zaiSha.put("卯","酉");
+        zaiSha.put("辰","午");
+        zaiSha.put("巳","卯");
+        zaiSha.put("午","子");
+        zaiSha.put("未","酉");
+        zaiSha.put("申","午");
+        zaiSha.put("酉","卯");
+        zaiSha.put("戌","子");
+        zaiSha.put("亥","酉");
+
     }
 
     @Override
     public String toString() {
         return "Bazi{" +
+                "  xingSha=" + xingSha +
                 ", bazi=" + bazi +
                 ", yueJianMap=" + yueJianMap +
                 ", twelveChangsheng='" + twelveChangsheng + '\'' +

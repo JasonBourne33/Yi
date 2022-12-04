@@ -87,7 +87,22 @@ public class BaGuaInit {
         return instance;
     }
 
+
+
     private void initJishen() {
+
+
+
+
+
+
+
+
+
+
+
+
+
         //父母克子孙，子孙克官鬼，官鬼克兄弟，兄弟克妻财，妻财克父母
         jiShen.put("子孙","父母"); //子孙为用神，父母为忌神  父母克子孙
         jiShen.put("父母","妻财");
@@ -343,10 +358,6 @@ public class BaGuaInit {
         xun.setYao(xunL );
 
     }
-
-
-
-
 
 
 

@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import object.BaGua;
 import object.BaGuaInit;
@@ -23,6 +25,7 @@ public class GuaDetailActivity extends AppCompatActivity {
     private TextView baziInfo; //八字信息
     private TextView bianGuaInfo;
     private TextView benGongGuaInfo;
+    private TextView tvXingSha; //星煞
 
     private TextView tvYao6;
     private TextView tvYao5;
@@ -56,6 +59,7 @@ public class GuaDetailActivity extends AppCompatActivity {
         baziInfo = findViewById(R.id.tv_bazi);//断卦的信息
         bianGuaInfo = findViewById(R.id.tv_bianGuaInfo);//变卦的信息
         benGongGuaInfo = findViewById(R.id.tv_benGongGuaInfo);//本宫的信息
+        tvXingSha = findViewById(R.id.tv_xingSha);//本宫的信息
         tvYao6 = findViewById(R.id.tv_yao6); //本卦的爻
         tvYao5 = findViewById(R.id.tv_yao5);
         tvYao4 = findViewById(R.id.tv_yao4);
@@ -74,7 +78,17 @@ public class GuaDetailActivity extends AppCompatActivity {
         String yueJian = bengGua.getYueJian().get("月建");
         String riGanzhi = bengGua.getBazi().get(2);
         String xunKong = Bazi.getInstance().getXunKong();
-        tvHead.setText(yueJian+"月 "+riGanzhi+"日   旬空:"+xunKong);
+        HashMap<String, String> xingShaList = Bazi.getInstance().getXingSha();
+        StringBuffer xingSha = new StringBuffer();
+        for (HashMap.Entry<String,String> entry : xingShaList.entrySet()){
+            xingSha.append(entry.getKey())
+                    .append(":")
+                    .append(entry.getValue())
+                    .append("      ");
+        }
+        tvXingSha.setText(xingSha);
+
+        tvHead.setText(yueJian+"月 "+riGanzhi+"日   旬空:"+xunKong); // 我来组成头部
         ArrayList<Boolean> yaoList = BaGuaInit.getBengGua().getYao();
         tvLiuyao.setText("本卦= "+BaGuaInit.getBengGua().toString());
         duanInfo.setText(LiuYao.getInstance().getDuanGuaObj().toString()); //设置断卦信息
@@ -115,8 +129,11 @@ public class GuaDetailActivity extends AppCompatActivity {
             tvList.get(i).setTextSize(18);
             tvBianList.get(i).setTextSize(18);
             // 一个█ 相当于4个空格
-            String benguaYao = benGua.getYao().get(i) ? "███" : "█    █";
-            String bianguaYao = bianGua.getYao().get(i) ? "███" : "█    █";
+//            String benguaYao = benGua.getYao().get(i) ? "███" : "█    █";
+//            String bianguaYao = bianGua.getYao().get(i) ? "███" : "█    █";
+            String benguaYao = benGua.getYao().get(i) ? "⚊" : "⚋";
+            String bianguaYao = bianGua.getYao().get(i) ? "⚊" : "⚋";
+
             ArrayList<String> dongSymbolMap = LiuYao.getInstance().getDongSymbol();
             tvList.get(i).setText(
                     benguaYao + " " + benGua.getRelation().get(i) +

@@ -10,15 +10,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Yi">
         <activity
+            android:name=".FillGanzhiActivity"
+            android:exported="true">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".FlashActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".GuaDetailActivity"
             android:exported="true" />
@@ -27,14 +39,10 @@
             android:exported="true" />
         <activity
             android:name=".ManuallyFillYaoActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true" >
-
-        </activity>
+            android:exported="true"></activity>
     </application>
 
 </manifest>

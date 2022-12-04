@@ -109,12 +109,13 @@ public class ZengShanBuYi {
 //        Bazi.getInstance().initBazi("甲子","甲午","丙寅","甲子");
 //        LiuYao.getInstance().initLiuYao(1,0,0,2,0,2,"父母");
         //第七章：爻为何要发动？ 测试三合局  寅月 丙申日  29.15   艮之颐
-        Bazi.getInstance().initBazi("甲子","甲寅","丙申","甲子");
-        LiuYao.getInstance().initLiuYao(1,0,3,0,0,2,"官鬼");
+//        Bazi.getInstance().initBazi("甲子","甲寅","丙申","甲子");
+//        LiuYao.getInstance().initLiuYao(1,0,3,0,0,2,"官鬼");
         //第七章：爻为何要发动？ 测试动爻联动  丑月 戊子日  29.15   同人之旅
 //        Bazi.getInstance().initBazi("甲子","甲丑","戊子","甲子");
 //        LiuYao.getInstance().initLiuYao(3,0,2,2,3,2,"世爻");
-
+        Bazi.getInstance().initBazi("甲子","甲午","庚申","甲子");
+        LiuYao.getInstance().initLiuYao(2,2,2,2,1,1,"官鬼");
 
         System.out.println(Chronology.getInstance().getGanZhi());
         System.out.println("本卦对象=== "+ BaGuaInit.getBengGua().toString());

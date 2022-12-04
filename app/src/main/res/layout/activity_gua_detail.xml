@@ -15,6 +15,13 @@
         tools:context=".GuaDetailActivity">
 
         <TextView
+            android:id="@+id/tv_xingSha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            />
+
+        <TextView
             android:id="@+id/tv_head"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -138,6 +145,13 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/tv_bazi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="16sp" />
+
+        <TextView
             android:id="@+id/tv_guaInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -151,12 +165,7 @@
             android:layout_marginTop="20dp"
             android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/tv_bazi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:textSize="16sp" />
+
 
 
 
