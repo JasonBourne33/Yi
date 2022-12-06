@@ -117,10 +117,11 @@ public class ZengShanBuYi {
         Bazi.getInstance().initBazi("甲子","甲午","庚申","甲子");
         LiuYao.getInstance().initLiuYao(2,2,2,2,1,1,"官鬼");
 
+
         System.out.println(Chronology.getInstance().getGanZhi());
         System.out.println("本卦对象=== "+ BaGuaInit.getBengGua().toString());
-        System.out.println("八字对象=== "+Bazi.getInstance().toString());
+//        System.out.println("八字对象=== "+Bazi.getInstance().toString());
 //        System.out.println("变卦对象=== "+BaGuaInit.getBianGua().toString());
-//        System.out.println("本宫卦对象=== "+BaGuaInit.getBenGongGua().toString());
+        System.out.println("本宫卦对象=== "+BaGuaInit.getBenGongGua().toString());
     }
 }

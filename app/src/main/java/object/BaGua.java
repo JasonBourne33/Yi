@@ -12,12 +12,14 @@ public class BaGua {
     private HashMap<String,String> yueJian; //月建，月破，日支，日破
 
     private ArrayList<String> luma; //0禄，1马，2生，3旺，4墓
-    private ArrayList<String> name64;   //0下卦，1上卦，2 在64卦里的名字
+    private String name64;   //0下卦，1上卦，2 在64卦里的名字
     private ArrayList<Integer> dongYaoList = new ArrayList<>();//存动爻，就是老阳和老阴的位置 从0开始
 
 
 
-    private String name;    //经卦名
+
+    private ArrayList<String> name;    //经卦名
+    private String baGuaName; //八卦名
     private String benWuxing; //本宫五行
     private String benGong; //本宫 （比如 本宫离）
     private String bianguaPosition; //在第几变卦找到本宫，可能归魂，游魂、
@@ -26,6 +28,30 @@ public class BaGua {
     private int linXunKong; //临旬空 1爻就是1
 
 
+
+    public String getBaGuaName() {
+        return baGuaName;
+    }
+
+    public void setBaGuaName(String baGuaName) {
+        this.baGuaName = baGuaName;
+    }
+
+    public String getName64() {
+        return name64;
+    }
+
+    public void setName64(String name64) {
+        this.name64 = name64;
+    }
+
+    public ArrayList<String> getName() {
+        return name;
+    }
+
+    public void setName(ArrayList<String> name) {
+        this.name = name;
+    }
 
     public int getLinXunKong() {
         return linXunKong;
@@ -83,13 +109,6 @@ public class BaGua {
         this.yao = yao;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public ArrayList<String> getRelation() {
         return relation;
@@ -125,13 +144,6 @@ public class BaGua {
         this.luma = luma;
     }
 
-    public ArrayList<String> getName64() {
-        return name64;
-    }
-
-    public void setName64(ArrayList<String> name64) {
-        this.name64 = name64;
-    }
 
 
     public int getShiYao() {
@@ -168,6 +180,7 @@ public class BaGua {
                 " \r\n bazi=" + bazi +
                 " \r\n yueJian=" + yueJian +
                 " \r\n luma=" + luma +
+                " \r\n name=" + name +
                 " \r\n name64=" + name64 +
                 " \r\n benWuxing='" + benWuxing + '\'' +
                 " \r\n benGong='" + benGong + '\'' +

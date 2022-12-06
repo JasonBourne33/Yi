@@ -57,7 +57,15 @@ public class LiuYao {
     private ArrayList<Boolean> shangJinGua;
     private ArrayList<String> xiaGuaGanzhi; //下经卦干支
     private ArrayList<String> shangGuaGanzhi;
+    ArrayList<String> name; //经卦名
 
+
+    /**
+     * 初始化 卦干支，根据 下上经卦 判断 64卦名
+     *
+     * @param yaoList 六爻阴阳true，false
+     * @param bagua   八卦对象
+     */
     private void initGuaGanZhi(ArrayList<Boolean> yaoList, BaGua bagua) {
 
 //        for (int i = 0; i < yaoList.size(); i++) {
@@ -77,7 +85,8 @@ public class LiuYao {
         shangJinGua.add(yaoList.get(5));
 
         ArrayList<ArrayList<Boolean>> baGong = BaGuaInit.getBaGong(); //获取八卦
-        ArrayList<String> name64 = new ArrayList();
+
+        name = new ArrayList();
 //        System.out.println("xiaJinGua=== "+xiaJinGua);
 
 
@@ -87,7 +96,7 @@ public class LiuYao {
 //            System.out.println("baGong.get(i)=== "+baGong.get(i));
             if (baGong.get(i).equals(xiaJinGua)) {
 //                System.out.println("下卦是=== " + baGuaString[i]);
-                name64.add(baGuaString[i]);
+                name.add(baGuaString[i]);
                 ArrayList<String> ganZhi = BaGuaInit.getBaGuaList().get(i).getGanZhi();
 //                System.out.println("下卦干支是=== " + ganZhi.get(i));
 
@@ -102,7 +111,7 @@ public class LiuYao {
         for (int i = 0; i < baGong.size(); i++) { //循环八卦
             if (baGong.get(i).equals(shangJinGua)) {
 //                System.out.println("上卦是=== " + baGuaString[i]);
-                name64.add(baGuaString[i]);
+                name.add(baGuaString[i]);
                 ArrayList<String> ganZhi = BaGuaInit.getBaGuaList().get(i).getGanZhi();
 //                System.out.println("上卦干支是=== "+ganZhi.get(3));
 //                System.out.println("上卦干支是=== "+ganZhi.get(4));
@@ -120,7 +129,7 @@ public class LiuYao {
         }
 
         //以后可以加入上下卦判断64卦的
-        bagua.setName64(name64);
+        bagua.setName(name);
 
     }
 
@@ -170,25 +179,32 @@ public class LiuYao {
         benGua.setYao(yaoList); //设置本卦的爻阴阳
 
 
-        baGongGuaBian(yaoList, benGua); //本卦 八宫式卦变 （游魂，归魂）
+        baGongGuaBianBenGua(yaoList, benGua); //本卦 八宫式卦变 （游魂，归魂）
+        System.out.println("gbList=== " + gbList);
         getBianGua();   //变卦（少阴变老阴）
         baGongGuaBian(bianGuaList, bianGua); //变卦 八宫式卦变 （游魂，归魂）
+        System.out.println("gbList=== " + gbList);
         benGongGua.setYao(gbList); //本宫的爻阴阳
-        baGongGuaBian(gbList, benGongGua); //本宫卦
+        baGongGuaBian(gbList, benGongGua); //本宫卦 八宫式卦变 （游魂，归魂）
 
-        initGuaGanZhi(yaoList, benGua); //给卦的六爻纳干支
-        initGuaGanZhi(bianGuaList, bianGua); //给卦纳干支
-        initGuaGanZhi(gbList, benGongGua); //给卦纳干支
+        initGuaGanZhi(yaoList, benGua); //给本卦的六爻纳干支
+        init64Gua(benGua); //根据上下经卦判断64卦名
+        initGuaGanZhi(bianGuaList, bianGua); //给变卦纳干支
+        init64Gua(bianGua);
+        System.out.println("gbList=== " + gbList);
+        initGuaGanZhi(gbList, benGongGua); //给本宫卦纳干支
 
         initWuxing(benGua); //本卦五行 和 每一爻的五行 和对应关系（父母，子孙，兄弟，官鬼）
 
         initWuxing(bianGua, benWuxing); //变卦五行
         initWuxing(benGongGua); //本宫卦五行
 
+
         duanGua(yongShen);
         System.out.println("断卦对象=== " + duanGua.toString());
         ;
     }
+
 
     //断卦
 //    private void duanGua(String type) {
@@ -453,20 +469,20 @@ public class LiuYao {
 //        }
 
 
-        Boolean sanHeHuo =sanHeYaoDizhiList.contains("寅")&&sanHeYaoDizhiList.contains("午")&&sanHeYaoDizhiList.contains("戌");
-        Boolean sanHeJin =sanHeYaoDizhiList.contains("巳")&&sanHeYaoDizhiList.contains("酉")&&sanHeYaoDizhiList.contains("丑");
-        Boolean sanHeShui=sanHeYaoDizhiList.contains("申")&&sanHeYaoDizhiList.contains("子")&&sanHeYaoDizhiList.contains("辰");
-        Boolean sanHeMu  =sanHeYaoDizhiList.contains("亥")&&sanHeYaoDizhiList.contains("卯")&&sanHeYaoDizhiList.contains("未");
-        if(sanHeHuo){
+        Boolean sanHeHuo = sanHeYaoDizhiList.contains("寅") && sanHeYaoDizhiList.contains("午") && sanHeYaoDizhiList.contains("戌");
+        Boolean sanHeJin = sanHeYaoDizhiList.contains("巳") && sanHeYaoDizhiList.contains("酉") && sanHeYaoDizhiList.contains("丑");
+        Boolean sanHeShui = sanHeYaoDizhiList.contains("申") && sanHeYaoDizhiList.contains("子") && sanHeYaoDizhiList.contains("辰");
+        Boolean sanHeMu = sanHeYaoDizhiList.contains("亥") && sanHeYaoDizhiList.contains("卯") && sanHeYaoDizhiList.contains("未");
+        if (sanHeHuo) {
             strInfo = "动爻和变爻中 寅午戌 三合 火 局";
         }
-        if(sanHeJin){
+        if (sanHeJin) {
             strInfo = "动爻和变爻中 巳酉丑 三合 金 局";
         }
-        if(sanHeShui){
+        if (sanHeShui) {
             strInfo = "动爻和变爻中 申子辰 三合 水 局";
         }
-        if(sanHeMu){
+        if (sanHeMu) {
             strInfo = "动爻和变爻中 亥卯未 三合 木 局";
         }
         duanGua.getDuanYu().add(strInfo);
@@ -1003,6 +1019,7 @@ public class LiuYao {
 
     }
 
+    //benWuxing就是ben
     private void initWuxing(BaGua bagua, String benWuxing) {
         String benGong = bagua.getBenGong(); //本宫 离
 
@@ -1103,7 +1120,114 @@ public class LiuYao {
     /**
      * 八宫式卦变（游魂卦，归魂卦）
      */
-    private ArrayList<Boolean> gbList;
+    private ArrayList<Boolean> gbList;//这个要个本宫用
+    private ArrayList<Boolean> gbDirtyList;//这个区分开来本宫用的，“吸收污染”
+
+    private void baGongGuaBianBenGua(ArrayList<Boolean> yaoList, BaGua baGua) {
+        //八公式卦变
+//        ☰	☰	☰	☰	☴	☶	☲	☲
+//        ☰	☴	☶	☷	☷	☷	☷	☰
+//        本宫 一变 二变 三变	四  五  游魂	归魂
+
+        Boolean flag = true; //很像冒泡的排序算法里的flag
+        //                gb 卦变
+        //卦变这个方法里用的 yaoList
+        gbList = new ArrayList<>();
+//        gbList=yaoList; list的赋值用=会直接给对象，要用addAll
+        gbList.addAll(yaoList);
+        if (gbList.get(0).equals(gbList.get(3)) &&
+                gbList.get(1).equals(gbList.get(4)) &&
+                gbList.get(2).equals(gbList.get(5))
+        ) { //上经卦 和 下经卦 相同就找出本宫了
+            baGua.setBianguaPosition("此卦就是本宫卦===");
+            baGua.setShiYao(6);
+            baGua.setYingYao(3);
+
+            flag = false;
+        }
+        Boolean iBoolean;
+        if (flag) {
+            for (int i = 0; i < gbList.size() - 1; i++) { //一到五变卦
+                iBoolean = gbList.get(i);
+                gbList.set(i, !iBoolean);   //从一爻开始变卦
+
+                if (gbList.get(0).equals(gbList.get(3)) &&
+                        gbList.get(1).equals(gbList.get(4)) &&
+                        gbList.get(2).equals(gbList.get(5))
+                ) { //上经卦 和 下经卦 相同就找出本宫了
+//                    System.out.println(i + 1 + "变卦 找到本宫");
+                    baGua.setBianguaPosition(i + 1 + "变卦 找到本宫===");
+                    baGua.setShiYao(i + 1);
+                    if (i == 2) {//三变卦的时候是 应爻是6
+                        baGua.setYingYao(6);
+                    } else {
+                        baGua.setYingYao((i + 4) % 6);
+                    }
+                    flag = false;
+                    break;
+                }
+            }
+        }
+        if (flag) { //五变卦都没有找到本宫
+            //游魂卦
+            gbList.set(3, !gbList.get(3));//变第三爻
+
+            if (gbList.get(0).equals(gbList.get(3)) &&
+                    gbList.get(1).equals(gbList.get(4)) &&
+                    gbList.get(2).equals(gbList.get(5))
+            ) { //上经卦 和 下经卦 相同就找出本宫了
+                System.out.println("游魂卦 找到本宫===");
+                baGua.setBianguaPosition("游魂卦 找到本宫===");
+                baGua.setShiYao(4);
+                baGua.setYingYao(1);
+                flag = false;
+            }
+        }
+
+        if (flag) { //游魂卦都没有找出本宫
+            gbList.set(2, !gbList.get(2));//归魂卦
+            gbList.set(1, !gbList.get(1));//归魂卦
+            gbList.set(0, !gbList.get(0));//归魂卦
+
+            if (gbList.get(0).equals(gbList.get(3)) &&
+                    gbList.get(1).equals(gbList.get(4)) &&
+                    gbList.get(2).equals(gbList.get(5))
+            ) { //上经卦 和 下经卦 相同就找出本宫了
+                System.out.println("归魂卦 才找到本宫===");
+                baGua.setBianguaPosition("归魂卦 才找到本宫===");
+                baGua.setShiYao(3);
+                baGua.setYingYao(6);
+                flag = false;
+            }
+        }
+
+//        for (int i = gbList.size(); i > 0; i--) {
+//            System.out.println(i + " 爻是=== " + gbList.get(i - 1));
+//        }
+
+        //参考ArryList的 equels 方法写一个 JinGua的equals
+        xiaJinGua = new ArrayList<>(); //下面的经卦
+        xiaJinGua.add(gbList.get(0));
+        xiaJinGua.add(gbList.get(1));
+        xiaJinGua.add(gbList.get(2));
+
+        ArrayList<Boolean> shangJinGua = new ArrayList<>();
+        shangJinGua.add(gbList.get(3));
+        shangJinGua.add(gbList.get(4));
+        shangJinGua.add(gbList.get(5));
+        ArrayList<ArrayList<Boolean>> baGong = BaGuaInit.getBaGong(); //获取八卦
+        for (int i = 0; i < baGong.size(); i++) { //本宫上三爻和下三爻一样
+            if (baGong.get(i).equals(xiaJinGua)) {
+//                System.out.println("本宫卦是=== " + baGuaString[i]);
+                baGua.setBenGong(baGuaString[i]);
+                break;
+            }
+        }
+        //存本宫卦六爻
+//        benGongGua = new ArrayList<>();
+//        benGongGua.addAll(xiaJinGua);
+//        benGongGua.addAll(shangJinGua);
+    }
 
     private void baGongGuaBian(ArrayList<Boolean> yaoList, BaGua baGua) {
         //八公式卦变
@@ -1121,15 +1245,16 @@ public class LiuYao {
                 gbList.get(1).equals(gbList.get(4)) &&
                 gbList.get(2).equals(gbList.get(5))
         ) { //上经卦 和 下经卦 相同就找出本宫了
-            baGua.setBianguaPosition("此卦就是本宫卦");
+            baGua.setBianguaPosition("此卦就是本宫卦===");
             baGua.setShiYao(6);
             baGua.setYingYao(3);
 
             flag = false;
         }
+        Boolean iBoolean;
         if (flag) {
             for (int i = 0; i < gbList.size() - 1; i++) { //一到五变卦
-                Boolean iBoolean = gbList.get(i);
+                iBoolean = gbList.get(i);
                 gbList.set(i, !iBoolean);   //从一爻开始变卦
 
                 if (gbList.get(0).equals(gbList.get(3)) &&
@@ -1137,7 +1262,7 @@ public class LiuYao {
                         gbList.get(2).equals(gbList.get(5))
                 ) { //上经卦 和 下经卦 相同就找出本宫了
 //                    System.out.println(i + 1 + "变卦 找到本宫");
-                    baGua.setBianguaPosition(i + 1 + "变卦 找到本宫");
+                    baGua.setBianguaPosition(i + 1 + "变卦 找到本宫===");
                     baGua.setShiYao(i + 1);
                     if (i == 2) {//三变卦的时候是 应爻是6
                         baGua.setYingYao(6);
@@ -1150,14 +1275,15 @@ public class LiuYao {
             }
         }
         if (flag) { //五变卦都没有找到本宫
-            gbList.set(3, !gbList.get(3));//游魂卦
+            //游魂卦
+            gbList.set(3, !gbList.get(3));//变第三爻
 
             if (gbList.get(0).equals(gbList.get(3)) &&
                     gbList.get(1).equals(gbList.get(4)) &&
                     gbList.get(2).equals(gbList.get(5))
             ) { //上经卦 和 下经卦 相同就找出本宫了
-                System.out.println("游魂卦 找到本宫");
-                baGua.setBianguaPosition("游魂卦 找到本宫");
+                System.out.println("游魂卦 找到本宫===");
+                baGua.setBianguaPosition("游魂卦 找到本宫===");
                 baGua.setShiYao(4);
                 baGua.setYingYao(1);
                 flag = false;
@@ -1173,10 +1299,11 @@ public class LiuYao {
                     gbList.get(1).equals(gbList.get(4)) &&
                     gbList.get(2).equals(gbList.get(5))
             ) { //上经卦 和 下经卦 相同就找出本宫了
-                System.out.println("归魂卦 才找到本宫");
-                baGua.setBianguaPosition("归魂卦 才找到本宫");
+                System.out.println("归魂卦 才找到本宫===");
+                baGua.setBianguaPosition("归魂卦 才找到本宫===");
                 baGua.setShiYao(3);
                 baGua.setYingYao(6);
+                flag = false;
             }
         }
 
@@ -1257,6 +1384,240 @@ public class LiuYao {
     public DuanGua getDuanGuaObj() {
         return duanGua;
     }
+
+    private void init64Gua(BaGua baGua) {
+        System.out.println("name.get(0)=== " + name.get(0));
+        System.out.println("name.get(1)=== " + name.get(1));
+        String name64 = "";
+        switch (name.get(0)) {
+            case "乾":
+                switch (name.get(1)) {
+                    case "乾":
+                        name64 = "乾为天";
+                        break;
+                    case "艮":
+                        name64 = "山天大畜";
+                        break;
+                    case "坎":
+                        name64 = "水天需";
+                        break;
+                    case "震":
+                        name64 = "雷天大壮";
+                        break;
+                    case "坤":
+                        name64 = "地天泰";
+                        break;
+                    case "兑":
+                        name64 = "泽天夬";
+                        break;
+                    case "离":
+                        name64 = "火天大有";
+                        break;
+                    case "巽":
+                        name64 = "风天小畜";
+                        break;
+                }
+                break;
+            case "艮":
+                switch (name.get(1)) {
+                    case "乾":
+                        name64 = "天山遁";
+                        break;
+                    case "艮":
+                        name64 = "艮为山";
+                        break;
+                    case "坎":
+                        name64 = "水山蹇";
+                        break;
+                    case "震":
+                        name64 = "山雷小过";
+                        break;
+                    case "坤":
+                        name64 = "地山谦";
+                        break;
+                    case "兑":
+                        name64 = "泽山咸";
+                        break;
+                    case "离":
+                        name64 = "火山旅";
+                        break;
+                    case "巽":
+                        name64 = "风山渐";
+                        break;
+                }
+                break;
+            case "坎":
+                switch (name.get(1)) {
+                    case "乾":
+                        name64 = "天水讼";
+                        break;
+                    case "艮":
+                        name64 = "山水蒙";
+                        break;
+                    case "坎":
+                        name64 = "坎为水";
+                        break;
+                    case "震":
+                        name64 = "雷水解";
+                        break;
+                    case "坤":
+                        name64 = "地水师";
+                        break;
+                    case "兑":
+                        name64 = "泽水困";
+                        break;
+                    case "离":
+                        name64 = "火水未济";
+                        break;
+                    case "巽":
+                        name64 = "风水涣";
+                        break;
+                }
+                break;
+            case "震":
+                switch (name.get(1)) {
+                    case "乾":
+                        name64 = "天雷无妄";
+                        break;
+                    case "艮":
+                        name64 = "山雷颐";
+                        break;
+                    case "坎":
+                        name64 = "水雷屯";
+                        break;
+                    case "震":
+                        name64 = "震为雷";
+                        break;
+                    case "坤":
+                        name64 = "地雷复";
+                        break;
+                    case "兑":
+                        name64 = "泽雷随";
+                        break;
+                    case "离":
+                        name64 = "火雷噬嗑";
+                        break;
+                    case "巽":
+                        name64 = "风雷益";
+                        break;
+                }
+                break;
+            case "坤":
+                switch (name.get(1)) {
+                    case "乾":
+                        name64 = "天地否";
+                        break;
+                    case "艮":
+                        name64 = "山地剥";
+                        break;
+                    case "坎":
+                        name64 = "水地比";
+                        break;
+                    case "震":
+                        name64 = "雷地豫";
+                        break;
+                    case "坤":
+                        name64 = "坤为地";
+                        break;
+                    case "兑":
+                        name64 = "泽地萃";
+                        break;
+                    case "离":
+                        name64 = "火地晋";
+                        break;
+                    case "巽":
+                        name64 = "风地观";
+                        break;
+                }
+                break;
+            case "兑":
+                switch (name.get(1)) {
+                    case "乾":
+                        name64 = "天泽履";
+                        break;
+                    case "艮":
+                        name64 = "山泽损";
+                        break;
+                    case "坎":
+                        name64 = "水泽节";
+                        break;
+                    case "震":
+                        name64 = "雷泽归妹";
+                        break;
+                    case "坤":
+                        name64 = "地泽临";
+                        break;
+                    case "兑":
+                        name64 = "兑为泽";
+                        break;
+                    case "离":
+                        name64 = "火泽睽";
+                        break;
+                    case "巽":
+                        name64 = "风泽中孚";
+                        break;
+                }
+                break;
+            case "离":
+                switch (name.get(1)) {
+                    case "乾":
+                        name64 = "天火同人";
+                        break;
+                    case "艮":
+                        name64 = "山火贲";
+                        break;
+                    case "坎":
+                        name64 = "水火既济";
+                        break;
+                    case "震":
+                        name64 = "雷火丰";
+                        break;
+                    case "坤":
+                        name64 = "地火明夷";
+                        break;
+                    case "兑":
+                        name64 = "泽火革";
+                        break;
+                    case "离":
+                        name64 = "离为火";
+                        break;
+                    case "巽":
+                        name64 = "风火家人";
+                        break;
+                }
+                break;
+            case "巽":
+                switch (name.get(1)) {
+                    case "乾":
+                        name64 = "天风姤";
+                        break;
+                    case "艮":
+                        name64 = "山风蛊";
+                        break;
+                    case "坎":
+                        name64 = "水风井";
+                        break;
+                    case "震":
+                        name64 = "雷风恒";
+                        break;
+                    case "坤":
+                        name64 = "地风升";
+                        break;
+                    case "兑":
+                        name64 = "泽风大过";
+                        break;
+                    case "离":
+                        name64 = "火风鼎";
+                        break;
+                    case "巽":
+                        name64 = "巽为风";
+                        break;
+                }
+                break;
+        }
+        baGua.setName64(name64);
+    }
+
 
     /**
      * 第二次占卦的时候要清理之前的数据

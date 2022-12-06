@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import object.BaGua;
@@ -19,13 +20,25 @@ import object.LiuYao;
 public class GuaDetailActivity extends AppCompatActivity {
 
     private Context mContext;
+
     private TextView tvHead; //头部，日月，旬空
+    private TextView tvBenGuaName;
+    private TextView tvbianGuaName;
+
     private TextView tvLiuyao; //本卦信息
     private TextView duanInfo;
     private TextView baziInfo; //八字信息
     private TextView bianGuaInfo;
     private TextView benGongGuaInfo;
     private TextView tvXingSha; //星煞
+
+    private TextView tvBenGongYao6;
+    private TextView tvBenGongYao5;
+    private TextView tvBenGongYao4;
+    private TextView tvBenGongYao3;
+    private TextView tvBenGongYao2;
+    private TextView tvBenGongYao1;
+
 
     private TextView tvYao6;
     private TextView tvYao5;
@@ -42,6 +55,7 @@ public class GuaDetailActivity extends AppCompatActivity {
     private TextView tvBYao1;
 
 
+    private ArrayList<TextView> tvbenGongList = new ArrayList<>(); //本宫 的
     private ArrayList<TextView> tvList = new ArrayList<>(); //本卦 的
     private ArrayList<TextView> tvBianList = new ArrayList<>(); //变卦的
 
@@ -54,12 +68,23 @@ public class GuaDetailActivity extends AppCompatActivity {
         mContext = this;
 
         tvHead = findViewById(R.id.tv_head);
+        tvBenGuaName = findViewById(R.id.tv_benGuaName);
+        tvbianGuaName = findViewById(R.id.tv_bianGuaName);
         tvLiuyao = findViewById(R.id.tv_guaInfo);
         duanInfo = findViewById(R.id.tv_duanInfo);//断卦的信息
         baziInfo = findViewById(R.id.tv_bazi);//断卦的信息
         bianGuaInfo = findViewById(R.id.tv_bianGuaInfo);//变卦的信息
         benGongGuaInfo = findViewById(R.id.tv_benGongGuaInfo);//本宫的信息
         tvXingSha = findViewById(R.id.tv_xingSha);//本宫的信息
+        tvBenGongYao6 = findViewById(R.id.tv_benGongYao6); //本功的爻
+        tvBenGongYao5 = findViewById(R.id.tv_benGongYao5);
+        tvBenGongYao4 = findViewById(R.id.tv_benGongYao4);
+        tvBenGongYao3 = findViewById(R.id.tv_benGongYao3);
+        tvBenGongYao2 = findViewById(R.id.tv_benGongYao2);
+        tvBenGongYao1 = findViewById(R.id.tv_benGongYao1);
+
+
+
         tvYao6 = findViewById(R.id.tv_yao6); //本卦的爻
         tvYao5 = findViewById(R.id.tv_yao5);
         tvYao4 = findViewById(R.id.tv_yao4);
@@ -74,37 +99,42 @@ public class GuaDetailActivity extends AppCompatActivity {
         tvBYao2 = findViewById(R.id.tv_bYao2);
         tvBYao1 = findViewById(R.id.tv_bYao1);
 
-        BaGua bengGua = BaGuaInit.getBengGua();
-        String yueJian = bengGua.getYueJian().get("月建");
-        String riGanzhi = bengGua.getBazi().get(2);
+
+        BaGua benGongGua = BaGuaInit.getBenGongGua();
+        BaGua benGua = BaGuaInit.getBengGua();
+        BaGua bianGua = BaGuaInit.getBianGua();
+
+        String yueJian = benGua.getYueJian().get("月建");
+        String riGanzhi = benGua.getBazi().get(2);
         String xunKong = Bazi.getInstance().getXunKong();
         HashMap<String, String> xingShaList = Bazi.getInstance().getXingSha();
         StringBuffer xingSha = new StringBuffer();
-        for (HashMap.Entry<String,String> entry : xingShaList.entrySet()){
+        for (HashMap.Entry<String, String> entry : xingShaList.entrySet()) {
             xingSha.append(entry.getKey())
                     .append(":")
                     .append(entry.getValue())
-                    .append("      ");
+                    .append("        ");
         }
         tvXingSha.setText(xingSha);
 
-        tvHead.setText(yueJian+"月 "+riGanzhi+"日   旬空:"+xunKong); // 我来组成头部
+        tvHead.setText(yueJian + "月 " + riGanzhi + "日   旬空:" + xunKong); // 我来组成头部
+        tvBenGuaName.setText(benGua.getName64());
+        tvbianGuaName.setText(bianGua.getName64());
+
         ArrayList<Boolean> yaoList = BaGuaInit.getBengGua().getYao();
-        tvLiuyao.setText("本卦= "+BaGuaInit.getBengGua().toString());
+        tvLiuyao.setText("本卦= " + BaGuaInit.getBengGua().toString());
         duanInfo.setText(LiuYao.getInstance().getDuanGuaObj().toString()); //设置断卦信息
         baziInfo.setText(Bazi.getInstance().toString());
-        bianGuaInfo.setText("变卦= "+BaGuaInit.getBianGua().toString()); //变卦信息
-        benGongGuaInfo.setText("本宫卦= "+BaGuaInit.getBenGongGua().toString()); //本宫卦信息
+        bianGuaInfo.setText("变卦= " + BaGuaInit.getBianGua().toString()); //变卦信息
+        benGongGuaInfo.setText("本宫卦= " + BaGuaInit.getBenGongGua().toString()); //本宫卦信息
 
-        BaGua benGua = BaGuaInit.getBengGua();
-        BaGua bianGua = BaGuaInit.getBianGua();
-//        TextView textView = new TextView(mContext);
-//        tvYao6.setText(benGua.getYao().get(5) == true ?"▆▆▆":"▆ ▆" +" " + benGua.getRelation().get(5) + benGua.getGanZhi().get(5) + benGua.getYaoWuxing().get(5));
-//        tvYao5.setText(benGua.getYao().get(4) == true ?"▆▆▆":"▆ ▆" +" " + benGua.getRelation().get(4) + benGua.getGanZhi().get(4) + benGua.getYaoWuxing().get(4));
-//        tvYao4.setText(benGua.getYao().get(3) == true ?"▆▆▆":"▆ ▆" +" " + benGua.getRelation().get(3) + benGua.getGanZhi().get(3) + benGua.getYaoWuxing().get(3));
-//        tvYao3.setText(benGua.getYao().get(2) == true ?"▆▆▆":"▆ ▆" +" " + benGua.getRelation().get(2) + benGua.getGanZhi().get(2) + benGua.getYaoWuxing().get(2));
-//        tvYao2.setText(benGua.getYao().get(1) == true ?"▆▆▆":"▆ ▆" +" " + benGua.getRelation().get(1) + benGua.getGanZhi().get(1) + benGua.getYaoWuxing().get(1));
-//        tvYao1.setText(benGua.getYao().get(0) == true ?"▆▆▆":"▆ ▆" +" " + benGua.getRelation().get(0) + benGua.getGanZhi().get(0) + benGua.getYaoWuxing().get(0));
+        tvbenGongList.add(tvBenGongYao6);
+        tvbenGongList.add(tvBenGongYao5);
+        tvbenGongList.add(tvBenGongYao4);
+        tvbenGongList.add(tvBenGongYao3);
+        tvbenGongList.add(tvBenGongYao2);
+        tvbenGongList.add(tvBenGongYao1);
+
         tvList.add(tvYao1);
         tvList.add(tvYao2);
         tvList.add(tvYao3);
@@ -124,28 +154,39 @@ public class GuaDetailActivity extends AppCompatActivity {
         int yingYao = BaGuaInit.getBengGua().getYingYao();
 //        int bShiYao = BaGuaInit.getBianGua().getShiYao();
 //        int bYingYao = BaGuaInit.getBengGua().getYingYao();
+        String benguaYao;
+        String bianguaYao;
+        ArrayList<String> dongSymbolMap;
+        ArrayList<LinkedHashMap> liuShen = Bazi.getInstance().getLiuShen();
         //遍历TextView 加入内容
         for (int i = 0; i < tvList.size(); i++) {
-            tvList.get(i).setTextSize(18);
-            tvBianList.get(i).setTextSize(18);
+            tvbenGongList.get(i).setTextSize(15);
+            tvList.get(i).setTextSize(15);
+            tvBianList.get(i).setTextSize(15);
             // 一个█ 相当于4个空格
 //            String benguaYao = benGua.getYao().get(i) ? "███" : "█    █";
 //            String bianguaYao = bianGua.getYao().get(i) ? "███" : "█    █";
-            String benguaYao = benGua.getYao().get(i) ? "⚊" : "⚋";
-            String bianguaYao = bianGua.getYao().get(i) ? "⚊" : "⚋";
 
-            ArrayList<String> dongSymbolMap = LiuYao.getInstance().getDongSymbol();
+            benguaYao = benGua.getYao().get(i) ? "⚊" : "⚋";
+            bianguaYao = bianGua.getYao().get(i) ? "⚊" : "⚋";
+
+            dongSymbolMap = LiuYao.getInstance().getDongSymbol();
+            tvbenGongList.get(i).setText(
+                    liuShen.get(i).get(benGongGua.getGanZhi().get(i).substring(0,1))+" "+
+                    benGongGua.getRelation().get(i)+
+                            benGongGua.getGanZhi().get(i).substring(1,2)+benGongGua.getYaoWuxing().get(i)
+            );
             tvList.get(i).setText(
                     benguaYao + " " + benGua.getRelation().get(i) +
-                            benGua.getGanZhi().get(i).substring(1,2) + benGua.getYaoWuxing().get(i) +
+                            benGua.getGanZhi().get(i).substring(1, 2) + benGua.getYaoWuxing().get(i) +
                             ((i + 1) == shiYao ? "世" : "") +
-                            ((i + 1) == yingYao ? "应" : "")+
+                            ((i + 1) == yingYao ? "应" : "") +
                             dongSymbolMap.get(i)  //阳变阴为o，阴变阳为x
 //                           ">"
             );
             tvBianList.get(i).setText(
                     bianguaYao + " " + bianGua.getRelation().get(i) +
-                            bianGua.getGanZhi().get(i).substring(1,2) + bianGua.getYaoWuxing().get(i) +
+                            bianGua.getGanZhi().get(i).substring(1, 2) + bianGua.getYaoWuxing().get(i) +
                             ((i + 1) == shiYao ? "世" : "") +
                             ((i + 1) == yingYao ? "应" : "")
             );

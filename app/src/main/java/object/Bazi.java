@@ -60,6 +60,7 @@ public class Bazi {
     private String suiPo;
     private String yueJian;
     private String yuePo;
+    private String riGan;
     private String riZhi;
     private String riPo;
     private ArrayList<String> bazi = new ArrayList<>(); //年月日时的 干支 （年干，年支，月干，月支，日干，日支，时干，时支）
@@ -87,6 +88,10 @@ public class Bazi {
     private String jue;     //绝10
     private String tai;     //胎11
     private String yang;    //养12
+
+
+
+
 
 
     public LinkedHashMap<String, String> getXingSha() {
@@ -132,11 +137,104 @@ public class Bazi {
         this.xunKongList = xunKongList;
     }
 
+    public ArrayList<LinkedHashMap> getLiuShen() {
+        return liuShen;
+    }
+
+    //六神    x.get(1).get("甲")
+    private ArrayList<LinkedHashMap> liuShen=new ArrayList<>(); //把下面的六爻六神包起来
+    private LinkedHashMap<String,String> liuShenYao6=new LinkedHashMap<>();
+    private LinkedHashMap<String,String> liuShenYao5=new LinkedHashMap<>();
+    private LinkedHashMap<String,String> liuShenYao4=new LinkedHashMap<>();
+    private LinkedHashMap<String,String> liuShenYao3=new LinkedHashMap<>();
+    private LinkedHashMap<String,String> liuShenYao2=new LinkedHashMap<>();
+    private LinkedHashMap<String,String> liuShenYao1=new LinkedHashMap<>();
+//           甲乙日 丙丁日 戊日日 己日日 庚辛日 壬癸日
+//———————————————————————————
+//    第 6 爻 玄武   青龙   朱雀   勾陈   螣蛇   白虎
+//    第 5 爻 白虎   玄武   青龙   朱雀   勾陈   螣蛇
+//    第 4 爻 螣蛇   白虎   玄武   青龙   朱雀   勾陈
+//    第 3 爻 勾陈   螣蛇   白虎   玄武   青龙   朱雀
+//    第 2 爻 朱雀   勾陈   螣蛇   白虎   玄武   青龙
+//    第 1 爻 青龙   朱雀   勾陈   螣蛇   白虎   玄武
+//    x.get(1).get("甲")
+    public void initLiuShen(){ //横着存
+        liuShenYao1.put("甲","青龙");
+        liuShenYao1.put("乙","青龙");
+        liuShenYao1.put("丙","朱雀");
+        liuShenYao1.put("丁","朱雀");
+        liuShenYao1.put("戊","勾陈");
+        liuShenYao1.put("己","螣蛇");
+        liuShenYao1.put("庚","白虎");
+        liuShenYao1.put("辛","白虎");
+        liuShenYao1.put("壬","玄武");
+        liuShenYao1.put("癸","玄武");
+
+        liuShenYao2.put("甲","朱雀");
+        liuShenYao2.put("乙","朱雀");
+        liuShenYao2.put("丙","勾陈");
+        liuShenYao2.put("丁","勾陈");
+        liuShenYao2.put("戊","螣蛇");
+        liuShenYao2.put("己","白虎");
+        liuShenYao2.put("庚","玄武");
+        liuShenYao2.put("辛","玄武");
+        liuShenYao2.put("壬","青龙");
+        liuShenYao2.put("癸","青龙");
+
+        liuShenYao3.put("甲","勾陈");
+        liuShenYao3.put("乙","勾陈");
+        liuShenYao3.put("丙","螣蛇");
+        liuShenYao3.put("丁","螣蛇");
+        liuShenYao3.put("戊","白虎");
+        liuShenYao3.put("己","玄武");
+        liuShenYao3.put("庚","青龙");
+        liuShenYao3.put("辛","青龙");
+        liuShenYao3.put("壬","朱雀");
+        liuShenYao3.put("癸","朱雀");
+
+        liuShenYao4.put("甲","螣蛇");
+        liuShenYao4.put("乙","螣蛇");
+        liuShenYao4.put("丙","白虎");
+        liuShenYao4.put("丁","白虎");
+        liuShenYao4.put("戊","玄武");
+        liuShenYao4.put("己","青龙");
+        liuShenYao4.put("庚","朱雀");
+        liuShenYao4.put("辛","朱雀");
+        liuShenYao4.put("壬","勾陈");
+        liuShenYao4.put("癸","勾陈");
+
+        liuShenYao5.put("甲","白虎");
+        liuShenYao5.put("乙","白虎");
+        liuShenYao5.put("丙","玄武");
+        liuShenYao5.put("丁","玄武");
+        liuShenYao5.put("戊","青龙");
+        liuShenYao5.put("己","朱雀");
+        liuShenYao5.put("庚","勾陈");
+        liuShenYao5.put("辛","勾陈");
+        liuShenYao5.put("壬","螣蛇");
+        liuShenYao5.put("癸","螣蛇");
+
+        liuShenYao6.put("甲","玄武");
+        liuShenYao6.put("乙","玄武");
+        liuShenYao6.put("丙","青龙");
+        liuShenYao6.put("丁","青龙");
+        liuShenYao6.put("戊","朱雀");
+        liuShenYao6.put("己","勾陈");
+        liuShenYao6.put("庚","螣蛇");
+        liuShenYao6.put("辛","螣蛇");
+        liuShenYao6.put("壬","白虎");
+        liuShenYao6.put("癸","白虎");
+
+        liuShen.add(liuShenYao1);
+        liuShen.add(liuShenYao2);
+        liuShen.add(liuShenYao3);
+        liuShen.add(liuShenYao4);
+        liuShen.add(liuShenYao5);
+        liuShen.add(liuShenYao6);
+    }
+
     /**
-     * @param y 年 干支
-     * @param m 月
-     * @param d 日
-     * @param h 时
+     * 每个实例都调用这个方法
      */
     private int i;
 
@@ -168,6 +266,7 @@ public class Bazi {
         yueJianMap.put("日支",riZhi);
         yueJianMap.put("日破",riPo);
 
+        BaGuaInit.getBengGua().setBazi(bazi);
         xunKong=xunKongList.get(d);
 
 
@@ -175,7 +274,8 @@ public class Bazi {
 //        System.out.println("月破=== " + yuePo);
 //        System.out.println("日破=== " + riPo);
 
-        String riGan = d.substring(0, 1);
+
+        riGan = d.substring(0, 1);
 //        Tiangan.getInstance().init(riGan);
 //        System.out.println(Tiangan.getInstance().getInfo());
 
@@ -257,27 +357,12 @@ public class Bazi {
         luma.add(diWang);
         luma.add(mu);
 
-        BaGuaInit.getBengGua().setBazi(bazi);
+
         BaGuaInit.getBengGua().setYueJian(yueJianMap);
         BaGuaInit.getBengGua().setLuma(luma);
 
-        //顺序 驿马、桃花、禄神、羊刃、贵人、谋星、文昌、将星、天医、天喜、灾煞、劫煞、华盖
-        xingSha.put("驿马",yiMa.get(riZhi));
-        xingSha.put("桃花",taoHua.get(riZhi));
-        xingSha.put("禄神",luShen.get(riGan));
-        xingSha.put("羊刃",yangRen.get(riGan));
-
-        xingSha.put("谋星",mouXing.get(riZhi));
-        xingSha.put("文昌",wengChang.get(riGan));
-        xingSha.put("将星",jiangXing.get(riZhi));
-        int yueJianPos = yueDiZhiList.indexOf(yueJian); //月建的位置
-        String tianYi=yueDiZhiList.get((yueJianPos - 1) < 0 ? 12 - Math.abs(yueJianPos - 1) : yueJianPos - 1); //天医
-        xingSha.put("天医",tianYi);
-        xingSha.put("天喜",tianXi.get(yueJian));
-        xingSha.put("灾煞",zaiSha.get(riZhi));
-        xingSha.put("劫煞",jieSha.get(riZhi));
-        xingSha.put("华盖",huaGai.get(riZhi));
-        xingSha.put("贵人",guiRen.get(riGan));
+        //星煞
+        initXingSha();
 
     }
 
@@ -293,7 +378,7 @@ public class Bazi {
     private HashMap<String,String> jieSha=new HashMap<String,String>();
     private HashMap<String,String> huaGai=new HashMap<String,String>();
     private HashMap<String,String> mouXing=new HashMap<String,String>();
-    private HashMap<String,String> tianYi=new HashMap<String,String>();
+    private String tianYi;
     private HashMap<String,String> tianXi=new HashMap<String,String>();
     private HashMap<String,String> zaiSha=new HashMap<String,String>();
 
@@ -325,119 +410,14 @@ public class Bazi {
         huaJue.put("子水","巳火");
         huaJue.put("酉金","寅木");
 
-        //进神：亥化子，寅化卯，巳化午，申化酉，丑化辰，辰化未，未化戌。
-        jinShenList.put("亥", "子");
-        jinShenList.put("寅", "卯");
-        jinShenList.put("巳", "午");
-        jinShenList.put("申", "酉");
-        jinShenList.put("丑", "辰");
-        jinShenList.put("辰", "未");
-        jinShenList.put("未", "戌");
-        duanGua.setJinShen(jinShenList);
-
-        //退神：子化亥，卯化寅，午化巳，酉化申，辰化丑，未化辰，戌化未。
-        tuiShenList.put("子", "亥");
-        tuiShenList.put("卯", "寅");
-        tuiShenList.put("午", "巳");
-        tuiShenList.put("酉", "申");
-        tuiShenList.put("辰", "丑");
-        tuiShenList.put("未", "辰");
-        tuiShenList.put("戌", "未");
-        duanGua.setTuiShen(tuiShenList);
+        //进神退神
+        initJinTuiShen();
 
         //六十甲子找旬空
-        xunKongList.put("甲子","戌亥");
-        xunKongList.put("乙丑","戌亥");
-        xunKongList.put("丙寅","戌亥");
-        xunKongList.put("丁卯","戌亥");
-        xunKongList.put("戊辰","戌亥");
-        xunKongList.put("己巳","戌亥");
-        xunKongList.put("庚午","戌亥");
-        xunKongList.put("辛未","戌亥");
-        xunKongList.put("壬申","戌亥");
-        xunKongList.put("癸酉","戌亥");
-        xunKongList.put("甲戌","申酉");
-        xunKongList.put("乙亥","申酉");
-        xunKongList.put("丙子","申酉");
-        xunKongList.put("丁丑","申酉");
-        xunKongList.put("戊寅","申酉");
-        xunKongList.put("己卯","申酉");
-        xunKongList.put("庚辰","申酉");
-        xunKongList.put("辛巳","申酉");
-        xunKongList.put("壬午","申酉");
-        xunKongList.put("癸未","申酉");
-        xunKongList.put("甲申","午未");
-        xunKongList.put("乙酉","午未");
-        xunKongList.put("丙戌","午未");
-        xunKongList.put("丁亥","午未");
-        xunKongList.put("戊子","午未");
-        xunKongList.put("己丑","午未");
-        xunKongList.put("庚寅","午未");
-        xunKongList.put("辛卯","午未");
-        xunKongList.put("壬辰","午未");
-        xunKongList.put("癸巳","午未");
-        xunKongList.put("甲午","辰巳");
-        xunKongList.put("乙未","辰巳");
-        xunKongList.put("丙申","辰巳");
-        xunKongList.put("丁酉","辰巳");
-        xunKongList.put("戊戌","辰巳");
-        xunKongList.put("己亥","辰巳");
-        xunKongList.put("庚子","辰巳");
-        xunKongList.put("辛丑","辰巳");
-        xunKongList.put("壬寅","辰巳");
-        xunKongList.put("癸卯","辰巳");
-        xunKongList.put("甲辰","寅卯");
-        xunKongList.put("乙巳","寅卯");
-        xunKongList.put("丙午","寅卯");
-        xunKongList.put("丁未","寅卯");
-        xunKongList.put("戊申","寅卯");
-        xunKongList.put("己酉","寅卯");
-        xunKongList.put("庚戌","寅卯");
-        xunKongList.put("辛亥","寅卯");
-        xunKongList.put("壬子","寅卯");
-        xunKongList.put("癸丑","寅卯");
-        xunKongList.put("甲寅","子丑");
-        xunKongList.put("乙卯","子丑");
-        xunKongList.put("丙辰","子丑");
-        xunKongList.put("丁巳","子丑");
-        xunKongList.put("戊午","子丑");
-        xunKongList.put("己未","子丑");
-        xunKongList.put("庚申","子丑");
-        xunKongList.put("辛酉","子丑");
-        xunKongList.put("壬戌","子丑");
-        xunKongList.put("癸亥","子丑");
+        initXunKong();
 
-
-        liuChongList.put("子", "午");
-        liuChongList.put("午", "子");
-        liuChongList.put("丑", "未");
-        liuChongList.put("未", "丑");
-        liuChongList.put("寅", "申");
-        liuChongList.put("申", "寅");
-        liuChongList.put("卯", "酉");
-        liuChongList.put("酉", "卯");
-        liuChongList.put("辰", "戌");
-        liuChongList.put("戌", "辰");
-        liuChongList.put("巳", "亥");
-        liuChongList.put("亥", "巳");
-        duanGua.setLiuChong(liuChongList);
-        System.out.println("liuChongList=== "+liuChongList);
-        System.out.println("duanGua.getLiuChong()=== "+duanGua.getLiuChong());
-
-        //丑子六合土，寅亥六合木，卯戌六合火，辰酉六合金，巳申六合水 午未六合日月
-        liuHeList.put("子", "丑");
-        liuHeList.put("丑", "子");
-        liuHeList.put("寅", "亥");
-        liuHeList.put("亥", "寅");
-        liuHeList.put("卯", "戌");
-        liuHeList.put("戌", "卯");
-        liuHeList.put("辰", "酉");
-        liuHeList.put("酉", "辰");
-        liuHeList.put("巳", "申");
-        liuHeList.put("申", "巳");
-        liuHeList.put("午", "未");
-        liuHeList.put("未", "午");
-        duanGua.setLiuHe(liuHeList);
+        //六冲六合
+        initLiuChongHe();
 
 
         wuXingMap = new HashMap<>();
@@ -522,7 +502,132 @@ public class Bazi {
         tianGanList.add("癸");
 
 
-        //星煞
+
+
+       //六神
+       initLiuShen();
+
+    }
+
+    private void initLiuChongHe() {
+        liuChongList.put("子", "午");
+        liuChongList.put("午", "子");
+        liuChongList.put("丑", "未");
+        liuChongList.put("未", "丑");
+        liuChongList.put("寅", "申");
+        liuChongList.put("申", "寅");
+        liuChongList.put("卯", "酉");
+        liuChongList.put("酉", "卯");
+        liuChongList.put("辰", "戌");
+        liuChongList.put("戌", "辰");
+        liuChongList.put("巳", "亥");
+        liuChongList.put("亥", "巳");
+        duanGua.setLiuChong(liuChongList);
+        System.out.println("liuChongList=== "+liuChongList);
+        System.out.println("duanGua.getLiuChong()=== "+duanGua.getLiuChong());
+
+        //丑子六合土，寅亥六合木，卯戌六合火，辰酉六合金，巳申六合水 午未六合日月
+        liuHeList.put("子", "丑");
+        liuHeList.put("丑", "子");
+        liuHeList.put("寅", "亥");
+        liuHeList.put("亥", "寅");
+        liuHeList.put("卯", "戌");
+        liuHeList.put("戌", "卯");
+        liuHeList.put("辰", "酉");
+        liuHeList.put("酉", "辰");
+        liuHeList.put("巳", "申");
+        liuHeList.put("申", "巳");
+        liuHeList.put("午", "未");
+        liuHeList.put("未", "午");
+        duanGua.setLiuHe(liuHeList);
+    }
+
+    private void initJinTuiShen() {
+        //进神：亥化子，寅化卯，巳化午，申化酉，丑化辰，辰化未，未化戌。
+        jinShenList.put("亥", "子");
+        jinShenList.put("寅", "卯");
+        jinShenList.put("巳", "午");
+        jinShenList.put("申", "酉");
+        jinShenList.put("丑", "辰");
+        jinShenList.put("辰", "未");
+        jinShenList.put("未", "戌");
+        duanGua.setJinShen(jinShenList);
+
+        //退神：子化亥，卯化寅，午化巳，酉化申，辰化丑，未化辰，戌化未。
+        tuiShenList.put("子", "亥");
+        tuiShenList.put("卯", "寅");
+        tuiShenList.put("午", "巳");
+        tuiShenList.put("酉", "申");
+        tuiShenList.put("辰", "丑");
+        tuiShenList.put("未", "辰");
+        tuiShenList.put("戌", "未");
+        duanGua.setTuiShen(tuiShenList);
+    }
+
+    private void initXunKong() {
+        xunKongList.put("甲子","戌亥");
+        xunKongList.put("乙丑","戌亥");
+        xunKongList.put("丙寅","戌亥");
+        xunKongList.put("丁卯","戌亥");
+        xunKongList.put("戊辰","戌亥");
+        xunKongList.put("己巳","戌亥");
+        xunKongList.put("庚午","戌亥");
+        xunKongList.put("辛未","戌亥");
+        xunKongList.put("壬申","戌亥");
+        xunKongList.put("癸酉","戌亥");
+        xunKongList.put("甲戌","申酉");
+        xunKongList.put("乙亥","申酉");
+        xunKongList.put("丙子","申酉");
+        xunKongList.put("丁丑","申酉");
+        xunKongList.put("戊寅","申酉");
+        xunKongList.put("己卯","申酉");
+        xunKongList.put("庚辰","申酉");
+        xunKongList.put("辛巳","申酉");
+        xunKongList.put("壬午","申酉");
+        xunKongList.put("癸未","申酉");
+        xunKongList.put("甲申","午未");
+        xunKongList.put("乙酉","午未");
+        xunKongList.put("丙戌","午未");
+        xunKongList.put("丁亥","午未");
+        xunKongList.put("戊子","午未");
+        xunKongList.put("己丑","午未");
+        xunKongList.put("庚寅","午未");
+        xunKongList.put("辛卯","午未");
+        xunKongList.put("壬辰","午未");
+        xunKongList.put("癸巳","午未");
+        xunKongList.put("甲午","辰巳");
+        xunKongList.put("乙未","辰巳");
+        xunKongList.put("丙申","辰巳");
+        xunKongList.put("丁酉","辰巳");
+        xunKongList.put("戊戌","辰巳");
+        xunKongList.put("己亥","辰巳");
+        xunKongList.put("庚子","辰巳");
+        xunKongList.put("辛丑","辰巳");
+        xunKongList.put("壬寅","辰巳");
+        xunKongList.put("癸卯","辰巳");
+        xunKongList.put("甲辰","寅卯");
+        xunKongList.put("乙巳","寅卯");
+        xunKongList.put("丙午","寅卯");
+        xunKongList.put("丁未","寅卯");
+        xunKongList.put("戊申","寅卯");
+        xunKongList.put("己酉","寅卯");
+        xunKongList.put("庚戌","寅卯");
+        xunKongList.put("辛亥","寅卯");
+        xunKongList.put("壬子","寅卯");
+        xunKongList.put("癸丑","寅卯");
+        xunKongList.put("甲寅","子丑");
+        xunKongList.put("乙卯","子丑");
+        xunKongList.put("丙辰","子丑");
+        xunKongList.put("丁巳","子丑");
+        xunKongList.put("戊午","子丑");
+        xunKongList.put("己未","子丑");
+        xunKongList.put("庚申","子丑");
+        xunKongList.put("辛酉","子丑");
+        xunKongList.put("壬戌","子丑");
+        xunKongList.put("癸亥","子丑");
+    }
+
+    private void initXingSha() {
         //逢甲与戊日贵人星在丑，未；逢乙与己日贵人星在子，申；逢丙与丁日贵人星在亥，酉；逢庚与辛日贵人星在午，寅；逢壬与癸日贵人星在卯，巳。
         guiRen.put("甲","丑,未");
         guiRen.put("戊","丑,未");
@@ -673,7 +778,25 @@ public class Bazi {
         zaiSha.put("戌","子");
         zaiSha.put("亥","酉");
 
+        //顺序 驿马、桃花、禄神、羊刃、贵人、谋星、文昌、将星、天医、天喜、灾煞、劫煞、华盖
+        xingSha.put("驿马",yiMa.get(riZhi));
+        xingSha.put("桃花",taoHua.get(riZhi));
+        xingSha.put("禄神",luShen.get(riGan));
+        xingSha.put("羊刃",yangRen.get(riGan));
+
+        xingSha.put("谋星",mouXing.get(riZhi));
+        xingSha.put("文昌",wengChang.get(riGan));
+        xingSha.put("将星",jiangXing.get(riZhi));
+        int yueJianPos = yueDiZhiList.indexOf(yueJian); //月建的位置
+        tianYi=yueDiZhiList.get((yueJianPos - 1) < 0 ? 12 - Math.abs(yueJianPos - 1) : yueJianPos - 1); //天医
+        xingSha.put("天医",tianYi);
+        xingSha.put("天喜",tianXi.get(yueJian));
+        xingSha.put("灾煞",zaiSha.get(riZhi));
+        xingSha.put("劫煞",jieSha.get(riZhi));
+        xingSha.put("华盖",huaGai.get(riZhi));
+        xingSha.put("贵人",guiRen.get(riGan));
     }
+
 
     @Override
     public String toString() {

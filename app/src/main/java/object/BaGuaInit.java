@@ -298,14 +298,15 @@ public class BaGuaInit {
 
     //乾艮坎震
     private void initName() {
-        qian.setName("乾");
-        gen .setName("艮");
-        kan .setName("坎");
-        zhen.setName("震");
-        kun .setName("坤");
-        dui .setName("兑");
-        li  .setName("离");
-        xun .setName("巽");
+        qian.setBaGuaName("乾");
+        gen .setBaGuaName("艮");
+        kan .setBaGuaName("坎");
+        zhen.setBaGuaName("震");
+        kun .setBaGuaName("坤");
+        dui .setBaGuaName("兑");
+        li  .setBaGuaName("离");
+        xun .setBaGuaName("巽");
+
 
     }
 
