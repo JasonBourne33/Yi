@@ -177,6 +177,7 @@ public class BaGua {
         return "{" +
                 " \r\n yao=" + yao +
                 " \r\n ganZhi=" + ganZhi +
+                " \r\n relation=" + relation +
                 " \r\n bazi=" + bazi +
                 " \r\n yueJian=" + yueJian +
                 " \r\n luma=" + luma +

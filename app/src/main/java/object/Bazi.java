@@ -1,5 +1,7 @@
 package object;
 
+import android.util.Log;
+
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -137,12 +139,13 @@ public class Bazi {
         this.xunKongList = xunKongList;
     }
 
-    public ArrayList<LinkedHashMap> getLiuShen() {
+    public ArrayList<String> getLiuShen() {
         return liuShen;
     }
 
     //六神    x.get(1).get("甲")
-    private ArrayList<LinkedHashMap> liuShen=new ArrayList<>(); //把下面的六爻六神包起来
+    private ArrayList<String> liuShen=new ArrayList<>(); //存 根据八字日天干获取到的六神
+    private ArrayList<LinkedHashMap> liuShenList=new ArrayList<>(); //把下面的六爻六神包起来
     private LinkedHashMap<String,String> liuShenYao6=new LinkedHashMap<>();
     private LinkedHashMap<String,String> liuShenYao5=new LinkedHashMap<>();
     private LinkedHashMap<String,String> liuShenYao4=new LinkedHashMap<>();
@@ -225,19 +228,22 @@ public class Bazi {
         liuShenYao6.put("壬","白虎");
         liuShenYao6.put("癸","白虎");
 
-        liuShen.add(liuShenYao1);
-        liuShen.add(liuShenYao2);
-        liuShen.add(liuShenYao3);
-        liuShen.add(liuShenYao4);
-        liuShen.add(liuShenYao5);
-        liuShen.add(liuShenYao6);
+        liuShenList.add(liuShenYao1);
+        liuShenList.add(liuShenYao2);
+        liuShenList.add(liuShenYao3);
+        liuShenList.add(liuShenYao4);
+        liuShenList.add(liuShenYao5);
+        liuShenList.add(liuShenYao6);
+
+
+
+
     }
 
     /**
      * 每个实例都调用这个方法
      */
     private int i;
-
     public void initBazi(String y, String m, String d, String h) {
 
 
@@ -249,7 +255,8 @@ public class Bazi {
 
         String suiYin = y.substring(1, 2);
         String yueJian = m.substring(1, 2);
-        String riZhi = d.substring(1, 2);
+
+        riZhi = d.substring(1, 2);
 
         liuChong=duanGua.getLiuChong();
         this.suiYin = suiYin;
@@ -361,9 +368,17 @@ public class Bazi {
         BaGuaInit.getBengGua().setYueJian(yueJianMap);
         BaGuaInit.getBengGua().setLuma(luma);
 
-        //星煞
+        //星煞 需要用到月建
         initXingSha();
 
+        //根据日天干找出六神存到liuShen
+        Log.i("riGan===",riGan);
+        Log.i("liuShenList.get(0)===",(liuShenList.get(0).get(riGan).toString()));
+        Log.i("liuShenList.get(1)===",(liuShenList.get(1).get(riGan).toString()));
+        Log.i("liuShenList.get(2)===",(liuShenList.get(2).get(riGan).toString()));
+        for (int j = 0; j < 6; j++) {//0~5 六爻
+            liuShen.add(liuShenList.get(j).get(riGan).toString());
+        }
     }
 
 
@@ -419,7 +434,47 @@ public class Bazi {
         //六冲六合
         initLiuChongHe();
 
+        //五行，十二长生，帝旺，驿马
+        initChangSheng();
 
+        //天干地支
+        initTianGanDiZhi();
+
+       //六神
+       initLiuShen();
+
+
+    }
+
+    private void initTianGanDiZhi() {
+        tianGanList = new ArrayList<>();
+        tianGanList.add("甲");
+        tianGanList.add("乙");
+        tianGanList.add("丙");
+        tianGanList.add("丁");
+        tianGanList.add("戊");
+        tianGanList.add("己");
+        tianGanList.add("艮");
+        tianGanList.add("辛");
+        tianGanList.add("壬");
+        tianGanList.add("癸");
+
+        yueDiZhiList = new ArrayList<>();
+        yueDiZhiList.add("寅");
+        yueDiZhiList.add("卯");
+        yueDiZhiList.add("辰");
+        yueDiZhiList.add("巳");
+        yueDiZhiList.add("午");
+        yueDiZhiList.add("未");
+        yueDiZhiList.add("申");
+        yueDiZhiList.add("酉");
+        yueDiZhiList.add("戌");
+        yueDiZhiList.add("亥");
+        yueDiZhiList.add("子");
+        yueDiZhiList.add("丑");
+    }
+
+    private void initChangSheng() {
         wuXingMap = new HashMap<>();
         wuXingMap.put("甲", "木");
         wuXingMap.put("乙", "木");
@@ -453,20 +508,6 @@ public class Bazi {
         changShengList.add("胎");
         changShengList.add("养");
 
-        yueDiZhiList = new ArrayList<>();
-        yueDiZhiList.add("寅");
-        yueDiZhiList.add("卯");
-        yueDiZhiList.add("辰");
-        yueDiZhiList.add("巳");
-        yueDiZhiList.add("午");
-        yueDiZhiList.add("未");
-        yueDiZhiList.add("申");
-        yueDiZhiList.add("酉");
-        yueDiZhiList.add("戌");
-        yueDiZhiList.add("亥");
-        yueDiZhiList.add("子");
-        yueDiZhiList.add("丑");
-
         diWangMap = new HashMap<>();
         diWangMap.put("木", "卯");
         diWangMap.put("火", "午");
@@ -488,25 +529,6 @@ public class Bazi {
         sanHeList.add("亥"); //木的三合 亥	卯	未
         sanHeList.add("卯");
         sanHeList.add("未");
-
-        tianGanList = new ArrayList<>();
-        tianGanList.add("甲");
-        tianGanList.add("乙");
-        tianGanList.add("丙");
-        tianGanList.add("丁");
-        tianGanList.add("戊");
-        tianGanList.add("己");
-        tianGanList.add("艮");
-        tianGanList.add("辛");
-        tianGanList.add("壬");
-        tianGanList.add("癸");
-
-
-
-
-       //六神
-       initLiuShen();
-
     }
 
     private void initLiuChongHe() {

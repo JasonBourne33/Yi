@@ -94,7 +94,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_gravity="left"
+                android:paddingLeft="2dp"
+                >
 
                 <TextView
                     android:id="@+id/tv_benGuaName"
@@ -103,54 +106,118 @@
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
                     android:layout_gravity="center_horizontal"
+                    android:text="雷之大壮"
                     android:textSize="18sp" />
                 <TextView
                     android:id="@+id/tv_yao6"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:gravity="center_horizontal" />
+                    />
 
                 <TextView
                     android:id="@+id/tv_yao5"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:gravity="center_horizontal" />
+                    />
 
                 <TextView
                     android:id="@+id/tv_yao4"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:gravity="center_horizontal" />
+                    />
 
                 <TextView
                     android:id="@+id/tv_yao3"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:gravity="center_horizontal" />
+                    />
 
                 <TextView
                     android:id="@+id/tv_yao2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:gravity="center_horizontal" />
+                     />
 
                 <TextView
                     android:id="@+id/tv_yao1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:gravity="center_horizontal" />
+                     />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.2"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_signalnull"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/tv_symbol6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_symbol5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_symbol4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_symbol3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_symbol2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_symbol1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:textSize="14sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.9"
                 android:layout_gravity="center_horizontal"
                 android:orientation="vertical">
 
