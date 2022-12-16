@@ -28,31 +28,6 @@ public class Bazi {
         return instance;
     }
 
-
-    public String getSuiYin() {
-        return suiYin;
-    }
-
-    public String getSuiPo() {
-        return suiPo;
-    }
-
-    public String getYueJian() {
-        return yueJian;
-    }
-
-    public String getYuePo() {
-        return yuePo;
-    }
-
-    public String getRiZhi() {
-        return riZhi;
-    }
-
-    public String getRiPo() {
-        return riPo;
-    }
-
     public HashMap<String, String> getTwelveChangsheng() {
         return twelveChangsheng;
     }
@@ -138,6 +113,30 @@ public class Bazi {
     public void setXunKongList(HashMap<String, String> xunKongList) {
         this.xunKongList = xunKongList;
     }
+    public String getSuiYin() {
+        return suiYin;
+    }
+
+    public String getSuiPo() {
+        return suiPo;
+    }
+
+    public String getYueJian() {
+        return yueJian;
+    }
+
+    public String getYuePo() {
+        return yuePo;
+    }
+
+    public String getRiZhi() {
+        return riZhi;
+    }
+
+    public String getRiPo() {
+        return riPo;
+    }
+
 
     public ArrayList<String> getLiuShen() {
         return liuShen;
@@ -372,10 +371,10 @@ public class Bazi {
         initXingSha();
 
         //根据日天干找出六神存到liuShen
-        Log.i("riGan===",riGan);
-        Log.i("liuShenList.get(0)===",(liuShenList.get(0).get(riGan).toString()));
-        Log.i("liuShenList.get(1)===",(liuShenList.get(1).get(riGan).toString()));
-        Log.i("liuShenList.get(2)===",(liuShenList.get(2).get(riGan).toString()));
+//        Log.i("riGan===",riGan);
+//        Log.i("liuShenList.get(0)===",(liuShenList.get(0).get(riGan).toString()));
+//        Log.i("liuShenList.get(1)===",(liuShenList.get(1).get(riGan).toString()));
+//        Log.i("liuShenList.get(2)===",(liuShenList.get(2).get(riGan).toString()));
         for (int j = 0; j < 6; j++) {//0~5 六爻
             liuShen.add(liuShenList.get(j).get(riGan).toString());
         }
@@ -545,8 +544,8 @@ public class Bazi {
         liuChongList.put("巳", "亥");
         liuChongList.put("亥", "巳");
         duanGua.setLiuChong(liuChongList);
-        System.out.println("liuChongList=== "+liuChongList);
-        System.out.println("duanGua.getLiuChong()=== "+duanGua.getLiuChong());
+//        System.out.println("liuChongList=== "+liuChongList);
+//        System.out.println("duanGua.getLiuChong()=== "+duanGua.getLiuChong());
 
         //丑子六合土，寅亥六合木，卯戌六合火，辰酉六合金，巳申六合水 午未六合日月
         liuHeList.put("子", "丑");

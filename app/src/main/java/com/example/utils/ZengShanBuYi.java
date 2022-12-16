@@ -15,6 +15,9 @@ public class ZengShanBuYi {
 //        LiuYao.getInstance().initLiuYao(2,2,1,3,2,1,"妻财");
         //自终身财 11.27
 //        Bazi.getInstance().initBazi("甲子","辛亥","乙酉","甲子");
+        Chronology.getInstance().initGanZhi(2022,11,27,7);
+        LiuYao.getInstance().initLiuYao(1,0,3,0,2,0,"妻财");
+//        Chronology.getInstance().initGanZhi(2022,12,12,7);
 //        LiuYao.getInstance().initLiuYao(1,0,3,0,2,0,"妻财");
 
         // 巳月 甲寅日 占往营中贸易 妻财为用神
@@ -114,8 +117,10 @@ public class ZengShanBuYi {
         //第七章：爻为何要发动？ 测试动爻联动  丑月 戊子日  29.15   同人之旅
 //        Bazi.getInstance().initBazi("甲子","甲丑","戊子","甲子");
 //        LiuYao.getInstance().initLiuYao(3,0,2,2,3,2,"世爻");
-        Bazi.getInstance().initBazi("甲子","甲午","庚申","甲子");
-        LiuYao.getInstance().initLiuYao(2,2,2,2,1,1,"官鬼");
+
+        //截图测试
+//        Bazi.getInstance().initBazi("甲子","甲午","庚申","甲子");
+//        LiuYao.getInstance().initLiuYao(2,2,2,2,1,1,"官鬼");
 
 
         System.out.println(Chronology.getInstance().getGanZhi());

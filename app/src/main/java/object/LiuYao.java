@@ -742,35 +742,35 @@ public class LiuYao {
         }
 
         String benGuaDizhi;
-        //动爻生克（联动）
-        for (int i = 0; i < liandongList.size(); i++) {
-            dongYao = liandongList.get(i); //获取动爻的位置
-            dongYaoDizhi = BaGuaInit.getBengGua().getGanZhi().get(dongYao).substring(1, 2); //动爻的地支
-            dongYaoWuxing = BaGuaInit.getBengGua().getYaoWuxing().get(dongYao); //动爻的五行
-            dongYaoDizhiWuxing = dongYaoDizhi + dongYaoWuxing; //动爻的地支五行
-
-            //变爻就是动爻位置对应变卦的哪一爻
-            bianYaoDizhi = BaGuaInit.getBianGua().getGanZhi().get(dongYao).substring(1, 2);
-            bianYaoWuxing = BaGuaInit.getBianGua().getYaoWuxing().get(dongYao); //变爻的五行
-            bianYaoDizhiWuxing = bianYaoDizhi + bianYaoWuxing; //变爻的地支五行
-
-            for (int k = 0; k < benGua.getGanZhi().size(); k++) {
-                benGuaDizhi = benGua.getGanZhi().get(k).substring(1, 2);
-                benGuaWuxing = benGua.getYaoWuxing().get(k);
-                if (benGuaWuxing.equals(BaGuaInit.getWuxingSheng().get(dongYaoWuxing))) { //如果动爻 生其他
-                    strInfo = "动爻 " + (dongYao + 1) + "爻 " + dongYaoDizhi + dongYaoWuxing + " 生 " + (k + 1) + " 爻的 "
-                            + benGuaDizhi + benGuaWuxing;
-                    System.out.println(strInfo);
-                    duanGua.getDuanYu().add(strInfo);
-                }
-                if (benGuaWuxing.equals(BaGuaInit.getWuxingKe().get(dongYaoWuxing))) { //如果动爻 克其他
-                    strInfo = "动爻 " + (dongYao + 1) + "爻 " + dongYaoDizhi + dongYaoWuxing + " 克 " + (k + 1) + " 爻的 "
-                            + benGuaDizhi + benGuaWuxing;
-                    System.out.println(strInfo);
-                    duanGua.getDuanYu().add(strInfo);
-                }
-            }
-        }
+        //动爻生克（联动） ，太多太乱，先停用
+//        for (int i = 0; i < liandongList.size(); i++) {
+//            dongYao = liandongList.get(i); //获取动爻的位置
+//            dongYaoDizhi = BaGuaInit.getBengGua().getGanZhi().get(dongYao).substring(1, 2); //动爻的地支
+//            dongYaoWuxing = BaGuaInit.getBengGua().getYaoWuxing().get(dongYao); //动爻的五行
+//            dongYaoDizhiWuxing = dongYaoDizhi + dongYaoWuxing; //动爻的地支五行
+//
+//            //变爻就是动爻位置对应变卦的哪一爻
+//            bianYaoDizhi = BaGuaInit.getBianGua().getGanZhi().get(dongYao).substring(1, 2);
+//            bianYaoWuxing = BaGuaInit.getBianGua().getYaoWuxing().get(dongYao); //变爻的五行
+//            bianYaoDizhiWuxing = bianYaoDizhi + bianYaoWuxing; //变爻的地支五行
+//
+//            for (int k = 0; k < benGua.getGanZhi().size(); k++) {
+//                benGuaDizhi = benGua.getGanZhi().get(k).substring(1, 2);
+//                benGuaWuxing = benGua.getYaoWuxing().get(k);
+//                if (benGuaWuxing.equals(BaGuaInit.getWuxingSheng().get(dongYaoWuxing))) { //如果动爻 生其他
+//                    strInfo = "动爻 " + (dongYao + 1) + "爻 " + dongYaoDizhi + dongYaoWuxing + " 生 " + (k + 1) + " 爻的 "
+//                            + benGuaDizhi + benGuaWuxing;
+//                    System.out.println(strInfo);
+//                    duanGua.getDuanYu().add(strInfo);
+//                }
+//                if (benGuaWuxing.equals(BaGuaInit.getWuxingKe().get(dongYaoWuxing))) { //如果动爻 克其他
+//                    strInfo = "动爻 " + (dongYao + 1) + "爻 " + dongYaoDizhi + dongYaoWuxing + " 克 " + (k + 1) + " 爻的 "
+//                            + benGuaDizhi + benGuaWuxing;
+//                    System.out.println(strInfo);
+//                    duanGua.getDuanYu().add(strInfo);
+//                }
+//            }
+//        }
 
 
 //        System.out.println("用神=== " + yongshenDizhi + yongshenWuxing);

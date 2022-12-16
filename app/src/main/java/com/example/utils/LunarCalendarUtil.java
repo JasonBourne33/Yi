@@ -446,7 +446,9 @@ public final class LunarCalendarUtil {
 //        getLunarMine("2015", "11", "12"); //getMonCyl===1403
 //        getLunarMine("2015", "12", "12");
 
-        getLunarMine("2013", "3", "14");
+        getLunarMine("2022", "10", "27"); //辛亥月
+        getLunarMine("2022", "11", "27"); //壬子月 1488
+        getLunarMine("2022", "12", "27"); //月
 
 
 

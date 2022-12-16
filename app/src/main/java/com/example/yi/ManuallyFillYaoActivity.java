@@ -182,16 +182,13 @@ public class ManuallyFillYaoActivity extends AppCompatActivity implements View.O
         String strYongshen = spYongshen.getSelectedItem().toString();
         System.out.println("p6~1= "+p6+p5+p4+p3+p2+p1);
 
-//        Chronology.getInstance().initGanZhi(year,month,day,hour);
-//        LiuYao.getInstance().initLiuYao(p1, p2, p3, p4, p5, p6, strYongshen);
+        Chronology.getInstance().initGanZhi(year,month,day,hour);
+        LiuYao.getInstance().initLiuYao(p1, p2, p3, p4, p5, p6, strYongshen);
 
         //第七章：爻为何要发动？ 测试化绝  午月 癸卯日  12.55    艮之观
 //        Bazi.getInstance().initBazi("甲子","甲午","癸卯","甲子");
 //        LiuYao.getInstance().initLiuYao(0,0,3,0,1,2,"官鬼");
 
-        Bazi.getInstance().initBazi("甲子","甲午","庚申","甲子");
-        LiuYao.getInstance().initLiuYao(2,2,2,2,1,1,"官鬼");
-//        LiuYao.getInstance().initLiuYao(0,0,0,0,0,0,"官鬼");
 
         System.out.println("本卦对象=== "+ BaGuaInit.getBengGua().toString());
         System.out.println("变卦对象=== "+BaGuaInit.getBianGua().toString());

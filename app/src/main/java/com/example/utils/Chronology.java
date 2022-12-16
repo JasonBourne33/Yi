@@ -1,5 +1,9 @@
 package com.example.utils;
 
+
+import com.nlf.calendar.Lunar;
+import com.nlf.calendar.Solar;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -92,6 +96,20 @@ public class Chronology {
      * @param day
      */
     public void initGanZhi(int year, int month, int day, int hour) {
+        Solar solar = Solar.fromYmdHms(year, month, day, hour, 0, 0);
+        String yearInGanZhi = solar.getLunar().getYearInGanZhi();
+        String monthInGanZhi = solar.getLunar().getMonthInGanZhi();
+        String dayInGanZhi = solar.getLunar().getDayInGanZhi();
+        String timeInGanZhi = solar.getLunar().getTimeInGanZhi();
+        System.out.println("lunar=== "+yearInGanZhi+" "+monthInGanZhi+" "+dayInGanZhi+" "+timeInGanZhi);
+
+
+
+        //初始化 八字
+        Bazi.getInstance().initBazi(yearInGanZhi, monthInGanZhi, dayInGanZhi, timeInGanZhi);
+    }
+
+    public void initGanZhiNo(int year, int month, int day, int hour) {
 
         initBase(); //初始化五护盾，五鼠盾等 map
 
@@ -197,6 +215,7 @@ public class Chronology {
         //初始化 八字
         Bazi.getInstance().initBazi(mYearGanZhi, mMonthGanZhi, mDayGanZhi, mHourGanZhi);
     }
+
 
     private HashMap<Integer, Integer> hourTianganMap;
     private HashMap<Integer, Integer> monthTianganMap;
