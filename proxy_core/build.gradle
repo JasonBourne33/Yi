@@ -3,12 +3,12 @@ plugins {
 }
 
 android {
-    namespace 'com.example.mylibrary'
+    namespace 'com.example.proxy_core'
     compileSdk 33
 
     defaultConfig {
-        minSdk 33
-        targetSdk 33
+        minSdk 21
+        targetSdk 32
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -33,6 +33,4 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
-
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
 }

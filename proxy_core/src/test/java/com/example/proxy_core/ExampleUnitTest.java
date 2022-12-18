@@ -1,4 +1,4 @@
-package com.example.mylibrary;
+package com.example.proxy_core;
 
 import org.junit.Test;
 
