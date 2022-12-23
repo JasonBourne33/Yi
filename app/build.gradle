@@ -22,10 +22,10 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
-    buildToolsVersion '33.0.0'
+    buildToolsVersion '33.0.1'
 }
 
 dependencies {
@@ -33,9 +33,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation files('libs\\lunar-1.2.28.jar')
-    implementation project(path: ':proxy_tools')
-    implementation project(path: ':proxy_core')
+    implementation files('libs/lunar-1.2.28.jar')
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
