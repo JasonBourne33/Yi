@@ -133,7 +133,10 @@ public class ManuallyFillYaoActivity extends AppCompatActivity implements View.O
         switch (v.getId()) {
             case R.id.btn_generate:
                 initLiuyao();
+                Bundle bundle=new Bundle();
+                bundle.putString("date",year+"年 "+month+"月 "+day+"日 ");
                 Intent intent=new Intent();
+                intent.putExtra("mBundle",bundle);
                 intent.setClass(mContext,GuaDetailActivity.class);
                 startActivity(intent);
                 break;
@@ -167,6 +170,10 @@ public class ManuallyFillYaoActivity extends AppCompatActivity implements View.O
                 , calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 
+    private int year;
+    private int month;
+    private int day;
+    private int hour;
     private void initLiuyao() {
 
         int p6 = yao6.getSelectedItemPosition(); //yao6 position
@@ -175,10 +182,11 @@ public class ManuallyFillYaoActivity extends AppCompatActivity implements View.O
         int p3 = yao3.getSelectedItemPosition();
         int p2 = yao2.getSelectedItemPosition();
         int p1 = yao1.getSelectedItemPosition();
-        int year = dateTimeButton.getYear();
-        int month = dateTimeButton.getMonth();
-        int day = dateTimeButton.getDay();
-        int hour = dateTimeButton.getHour();
+
+        year = dateTimeButton.getYear();
+        month = dateTimeButton.getMonth();
+        day = dateTimeButton.getDay();
+        hour = dateTimeButton.getHour();
         String strYongshen = spYongshen.getSelectedItem().toString();
         System.out.println("p6~1= "+p6+p5+p4+p3+p2+p1);
 

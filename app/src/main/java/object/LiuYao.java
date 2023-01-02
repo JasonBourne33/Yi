@@ -183,7 +183,7 @@ public class LiuYao {
 
         baGongGuaBian(yaoList, benGua); //本卦 八宫式卦变 （游魂，归魂）
         getBianGua();   //变卦（少阴变老阴）
-//        baGongGuaBian(bianGuaList, bianGua); //变卦 八宫式卦变 （游魂，归魂）
+        baGongGuaBianBenGua(bianGuaList, bianGua); //变卦 八宫式卦变 （游魂，归魂）
         benGongGua.setYao(gbList); //本宫的爻阴阳
         baGongGuaBian(yaoList, benGongGua); //本宫卦 八宫式卦变 （游魂，归魂）
 
@@ -1124,7 +1124,7 @@ public class LiuYao {
     /**
      * 八宫式卦变（游魂卦，归魂卦）
      */
-    private ArrayList<Boolean> gbBenGongList=new ArrayList<>();//本卦里变，给首宫卦用 八宫试卦变里存爻
+//    private ArrayList<Boolean> gbBenGongList=new ArrayList<>();//本卦里变，给首宫卦用 八宫试卦变里存爻
     private ArrayList<Boolean> gbList;//变卦，本宫卦 给八宫试卦变用的
 
     private void baGongGuaBianBenGua(ArrayList<Boolean> yaoList, BaGua baGua) {
@@ -1133,6 +1133,7 @@ public class LiuYao {
 //        ☰	☴	☶	☷	☷	☷	☷	☰
 //        本宫 一变 二变 三变	四  五  游魂	归魂
 
+        ArrayList<Boolean> gbBenGongList=new ArrayList<>();//本卦里变，给首宫卦用 八宫试卦变里存爻
         Boolean flag = true; //很像冒泡的排序算法里的flag
         //                gb 卦变
         //卦变这个方法里用的 yaoList

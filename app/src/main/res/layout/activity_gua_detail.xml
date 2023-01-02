@@ -14,6 +14,21 @@
         android:paddingBottom="30dp"
         tools:context=".GuaDetailActivity">
 
+        <ImageView
+            android:id="@+id/img_headLogo"
+            android:layout_width="135dp"
+            android:layout_height="40dp"
+
+            android:layout_gravity="left"
+            android:src="@drawable/head_logo"
+            />
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2022年 10月 10日"
+            android:textSize="18sp"
+            />
         <TextView
             android:id="@+id/tv_xingSha"
             android:layout_width="match_parent"
@@ -43,8 +58,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:layout_gravity="center_horizontal"
                     android:layout_marginLeft="20dp"
                     android:text="藏爻"
                     android:textSize="18sp" />
@@ -104,9 +117,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:layout_gravity="center_horizontal"
                     android:text="雷之大壮"
+                    android:layout_marginLeft="10dp"
                     android:textSize="18sp" />
                 <TextView
                     android:id="@+id/tv_yao6"
@@ -226,8 +238,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="10dp"
                     android:textSize="18sp" />
                 <TextView
                     android:id="@+id/tv_bYao6"
@@ -318,7 +329,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:textSize="16sp" />
-
+        <ImageView
+            android:id="@+id/img_bottomLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bottom_logo"
+            />
     </LinearLayout>
 
 </ScrollView>
