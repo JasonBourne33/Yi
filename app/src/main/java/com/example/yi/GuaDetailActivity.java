@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -22,6 +25,7 @@ public class GuaDetailActivity extends AppCompatActivity {
 
     private Context mContext;
 
+    private TextView tvDate; //日期
     private TextView tvHead; //头部，日月，旬空
     private TextView tvBenGuaName;
     private TextView tvbianGuaName;
@@ -63,6 +67,9 @@ public class GuaDetailActivity extends AppCompatActivity {
     private TextView tvBYao2;
     private TextView tvBYao1;
 
+    private ImageView imgHeadLogo;
+    private ImageView imgBottomLogo;
+
 
     private ArrayList<TextView> tvbenGongList = new ArrayList<>(); //本宫 的
     private ArrayList<TextView> tvList = new ArrayList<>(); //本卦 的
@@ -77,6 +84,7 @@ public class GuaDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_gua_detail);
         mContext = this;
 
+        tvDate = findViewById(R.id.tv_date);
         tvHead = findViewById(R.id.tv_head);
         tvBenGuaName = findViewById(R.id.tv_benGuaName);
         tvbianGuaName = findViewById(R.id.tv_bianGuaName);
@@ -119,6 +127,13 @@ public class GuaDetailActivity extends AppCompatActivity {
         tvBYao1 = findViewById(R.id.tv_bYao1);
 
 
+        imgHeadLogo = findViewById(R.id.img_headLogo);
+        imgBottomLogo = findViewById(R.id.img_bottomLogo);
+
+        Bundle mBundle = getIntent().getExtras().getBundle("mBundle");
+        String dateInfo=mBundle.getString("date");
+        tvDate.setText(dateInfo);
+
         BaGua benGongGua = BaGuaInit.getBenGongGua();
         BaGua benGua = BaGuaInit.getBengGua();
         BaGua bianGua = BaGuaInit.getBianGua();
@@ -138,8 +153,8 @@ public class GuaDetailActivity extends AppCompatActivity {
         tvXingSha.setText(xingSha);
 
         tvHead.setText(yueJian + "月 " + riGanzhi + "日   旬空:" + xunKong); // 我来组成头部
-        tvBenGuaName.setText(benGua.getName64());
-        tvbianGuaName.setText(bianGua.getName64());
+        tvBenGuaName.setText(benGua.getBenGong()+"-"+benGua.getName64());
+        tvbianGuaName.setText(bianGua.getBenGong()+"-"+bianGua.getName64());
 
         ArrayList<Boolean> yaoList = BaGuaInit.getBengGua().getYao();
         tvLiuyao.setText("本卦= " + BaGuaInit.getBengGua().toString());
@@ -147,6 +162,17 @@ public class GuaDetailActivity extends AppCompatActivity {
         baziInfo.setText(Bazi.getInstance().toString());
         bianGuaInfo.setText("变卦= " + BaGuaInit.getBianGua().toString()); //变卦信息
         benGongGuaInfo.setText("本宫卦= " + BaGuaInit.getBenGongGua().toString()); //本宫卦信息
+
+        //hide the info
+        tvLiuyao.setVisibility(View.GONE);//本卦
+        duanInfo.setVisibility(View.GONE);
+        baziInfo.setVisibility(View.GONE);
+        bianGuaInfo.setVisibility(View.GONE);
+        benGongGuaInfo.setVisibility(View.GONE);
+//        imgHeadLogo.setVisibility(View.GONE);
+//        imgBottomLogo.setVisibility(View.GONE);
+
+
 
         tvbenGongList.add(tvBenGongYao1);
         tvbenGongList.add(tvBenGongYao2);
@@ -215,10 +241,11 @@ public class GuaDetailActivity extends AppCompatActivity {
                     benguaYao + " " + benGua.getRelation().get(i) +
                             benGua.getGanZhi().get(i).substring(1, 2) + benGua.getYaoWuxing().get(i) +
                             ((i + 1) == shiYao ? " 世" : "") +
-                            ((i + 1) == yingYao ? " 应" : "") +
-                            dongSymbolMap.get(i)  //阳变阴为o，阴变阳为x
+                            ((i + 1) == yingYao ? " 应" : "")
+//                            dongSymbolMap.get(i)  //阳变阴为o，阴变阳为x
 //                           ">"
             );
+            tvList.get(i).setTextColor(Color.BLACK);
             tvSymbolList.get(i).setText(
                     dongSymbolMap.get(i)
             );
@@ -228,6 +255,7 @@ public class GuaDetailActivity extends AppCompatActivity {
                             ((i + 1) == shiYao ? " 世" : "") +
                             ((i + 1) == yingYao ? " 应" : "")
             );
+            tvBianList.get(i).setTextColor(Color.BLACK);
         }
 
     }
