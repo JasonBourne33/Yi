@@ -10,3 +10,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "Yi"
 include ':app'
+include ':AndroidDecrypt'
+include ':JavaEncrypt'
