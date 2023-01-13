@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,6 +37,7 @@ public class GuaDetailActivity extends AppCompatActivity {
     private TextView bianGuaInfo;
     private TextView benGongGuaInfo;
     private TextView tvXingSha; //星煞
+    private EditText etZhanWen; //占问
 
     private TextView tvBenGongYao6;
     private TextView tvBenGongYao5;
@@ -93,7 +95,9 @@ public class GuaDetailActivity extends AppCompatActivity {
         baziInfo = findViewById(R.id.tv_bazi);//断卦的信息
         bianGuaInfo = findViewById(R.id.tv_bianGuaInfo);//变卦的信息
         benGongGuaInfo = findViewById(R.id.tv_benGongGuaInfo);//本宫的信息
-        tvXingSha = findViewById(R.id.tv_xingSha);//本宫的信息
+        tvXingSha = findViewById(R.id.tv_xingSha);//星刹的信息
+
+        etZhanWen = findViewById(R.id.et_zhanWen);
 
         tvBenGongYao6 = findViewById(R.id.tv_benGongYao6); //本宫的爻
         tvBenGongYao5 = findViewById(R.id.tv_benGongYao5);
@@ -132,7 +136,9 @@ public class GuaDetailActivity extends AppCompatActivity {
 
         Bundle mBundle = getIntent().getExtras().getBundle("mBundle");
         String dateInfo=mBundle.getString("date");
+        String zhanWenInfo=mBundle.getString("zhanWen");
         tvDate.setText(dateInfo);
+        etZhanWen.setText(zhanWenInfo);
 
         BaGua benGongGua = BaGuaInit.getBenGongGua();
         BaGua benGua = BaGuaInit.getBengGua();
@@ -169,7 +175,7 @@ public class GuaDetailActivity extends AppCompatActivity {
         baziInfo.setVisibility(View.GONE);
         bianGuaInfo.setVisibility(View.GONE);
         benGongGuaInfo.setVisibility(View.GONE);
-//        imgHeadLogo.setVisibility(View.GONE);
+//        imgHeadLogo.setVisibility(View.GONE); //logo
 //        imgBottomLogo.setVisibility(View.GONE);
 
 
@@ -265,5 +271,6 @@ public class GuaDetailActivity extends AppCompatActivity {
         super.onDestroy();
         LiuYao.getInstance().clear();
         Bazi.getInstance().clear();
+
     }
 }

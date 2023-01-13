@@ -16,6 +16,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
@@ -56,6 +58,9 @@ public class ManuallyFillYaoActivity extends AppCompatActivity implements View.O
     private ArrayList<String> yongshenList = new ArrayList<>();
     private ArrayAdapter adapter; //为下拉列表定义一个适配器
     private ArrayAdapter yongshenAdapter; //为用神 下拉列表定义一个适配器
+    private LinearLayout llYongShen;
+    private LinearLayout llZhanWen;
+    private EditText etZhanWen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,10 +72,10 @@ public class ManuallyFillYaoActivity extends AppCompatActivity implements View.O
 //        tvPickDate = findViewById(R.id.tv_pickDate);
         dateTimeButton = findViewById(R.id.dtb_pickdate); //日期时间选择控件
         tv6 = findViewById(R.id.tv_yao6);
-        tv5 = findViewById(R.id.tv_yao5);
-        tv4 = findViewById(R.id.tv_yao4);
-        tv3 = findViewById(R.id.tv_yao3);
-        tv2 = findViewById(R.id.tv_yao2);
+//        tv5 = findViewById(R.id.tv_yao5);
+//        tv4 = findViewById(R.id.tv_yao4);
+//        tv3 = findViewById(R.id.tv_yao3);
+//        tv2 = findViewById(R.id.tv_yao2);
         tv1 = findViewById(R.id.tv_yao1);
         yao6 = findViewById(R.id.sp_yao6);
         yao5 = findViewById(R.id.sp_yao5);
@@ -79,6 +84,10 @@ public class ManuallyFillYaoActivity extends AppCompatActivity implements View.O
         yao2 = findViewById(R.id.sp_yao2);
         yao1 = findViewById(R.id.sp_yao1);
         spYongshen = findViewById(R.id.sp_yongShen);
+        llYongShen = findViewById(R.id.ll_yongShen);
+        llZhanWen = findViewById(R.id.ll_zhanWen); //占问
+        etZhanWen = findViewById(R.id.et_zhanWen);
+
         btnGenerate.setOnClickListener(this);
 //        tvPickDate.setOnClickListener(this);
         yao6.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -97,6 +106,10 @@ public class ManuallyFillYaoActivity extends AppCompatActivity implements View.O
 //        yao3.setOnItemSelectedListener(this);
 //        yao2.setOnItemSelectedListener(this);
 //        yao1.setOnItemSelectedListener(this);
+
+        llYongShen.setVisibility(View.GONE);
+//        llZhanWen.setVisibility(View.GONE);
+
         yaoList.add("少阴");
         yaoList.add("老阴");
         yaoList.add("少阳");
@@ -135,10 +148,12 @@ public class ManuallyFillYaoActivity extends AppCompatActivity implements View.O
                 initLiuyao();
                 Bundle bundle=new Bundle();
                 bundle.putString("date",year+"年 "+month+"月 "+day+"日 ");
+                bundle.putString("zhanWen",etZhanWen.getText().toString());
                 Intent intent=new Intent();
                 intent.putExtra("mBundle",bundle);
                 intent.setClass(mContext,GuaDetailActivity.class);
                 startActivity(intent);
+//                startActivityForResult(intent,1);
                 break;
 //            case R.id.tv_pickDate:
 //                showDatePickerDialog(this, 0, tvPickDate, calendar);
